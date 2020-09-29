@@ -4,7 +4,7 @@
   <div class="headerWrap">
     <div class="search">
       <span class="left">提问</span>
-      <input type="text" placeholder="搜索问题">
+      <input type="text" placeholder="搜索问题"/>
       <span class="iconfont icon-lingdang"></span>
     </div>
     <div class="tabTitle">
@@ -43,28 +43,28 @@ export default {
     left: 0;
     right:0;
     .search{
-      height: 44px;
-      line-height: 44px;
+      height: 88px;
+      line-height: 88px;
       text-align: center;
-      margin: 10px 20px;
+      margin: 20px 40px;
       display: flex;
       .left{
-        font-size: 16px;
+        font-size: 32px;
         color: #E98B71;
       }
       input{
         flex: 1;
-        height: 40px;
-        border-radius: 4px;
+        height: 80px;
+        border-radius: 8px;
         background-color: #F5F7F9;
-        margin: 0 20px;
-        padding: 0 10px;
+        margin: 0 40px;
+        padding: 0 20px;
         border: none;
         box-sizing: border-box;
         cursor: pointer;
       }
       .icon-lingdang{
-        font-size: 22px;
+        font-size: 44px;
       
       }
     }
@@ -72,7 +72,7 @@ export default {
       display: flex;
       justify-content: space-around;
       a{
-        font-size: 14px;
+        font-size: 28px;
         color: #999;
       }
   }
@@ -83,36 +83,36 @@ export default {
   
 /* 问答区 */
   .questionWrap{
-    margin-top: 80px;
-    padding: 15px 15px;
+    margin-top: 160px;
+    padding: 30px 30px;
     .questionItem{
 
       border-bottom: 1px #eee solid;
       .user{
         display: flex;
-        margin:10px 0;
+        margin:20px 0;
         img{
-          width: 40px;
-          height: 40px;
+          width: 80px;
+          height: 80px;
           border-radius: 50%;
         }
         .username{
-          font-size: 12px;
-          height: 40px;
-          line-height: 40px;
-          margin-left: 12px;
+          font-size: 24px;
+          height: 80px;
+          line-height: 80px;
+          margin-left: 24px;
         }
       }
       .title{
-        line-height: 25px;
-        font-size: 18px;
+        line-height: 50px;
+        font-size: 36px;
         font-weight: bold;
         color:#4A4945;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
       }
       .content{
-        height: 60px;
-        font-size: 14px;
+        height: 120px;
+        font-size: 28px;
         color:#4A4945;
         word-break: break-all;
         text-overflow: ellipsis;
@@ -122,11 +122,11 @@ export default {
         overflow: hidden;
       }
       .like{
-        height: 30px;
-        font-size: 14px;
-        line-height: 14px;
+        height: 60px;
+        font-size: 28px;
+        line-height: 28px;
         color: #999;
-        margin-top:10px;
+        margin-top:20px;
       }
     }
   }

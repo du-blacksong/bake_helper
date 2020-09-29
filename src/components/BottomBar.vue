@@ -1,7 +1,7 @@
 <template>
   <div class="bottomBar">
     <router-link to="/">
-      <i></i>
+      <i class="iconfont icon-chushimao"></i>
       学烘焙
     </router-link>
     <router-link to="show">烘焙圈</router-link>

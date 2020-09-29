@@ -1,8 +1,7 @@
-
 <template>
-<!-- 首页 -->
+  <!-- 首页 -->
   <div class="home">
-<!--    顶部搜索栏-->
+    <!--    顶部搜索栏-->
     <div class="topSearch">
       <i class="iconfont icon-jia"></i>
       <div class="text">
@@ -12,11 +11,18 @@
     </div>
     <!--  顶部导航栏-->
     <div class="homeContent">
-      <div>
-        <router-link to="baike">技巧百科</router-link>
-        <router-link to="university">视频学堂</router-link>
-        <router-link to="lessonSeries?contentId=10533">新手教程</router-link>
-        <router-link to="classify">食谱分类</router-link>
+      <div class="topNav">
+        <router-link to="baike" v-for="(item,index) in navList" :key="index">
+          <image :src="item.image"></image>
+          {{item.title}}
+        </router-link>
+
+
+
+        <!--        <router-link to="baike">技巧百科</router-link>-->
+<!--        <router-link to="university">视频学堂</router-link>-->
+<!--        <router-link to="lessonSeries?contentId=10533">新手教程</router-link>-->
+<!--        <router-link to="classify">食谱分类</router-link>-->
       </div>
     </div>
   </div>
@@ -26,21 +32,23 @@
 <script>
 export default {
   name: "index",
-  data(){
-    return{
-      navList:[]
+  data() {
+    return {
+      navList: []
     }
   },
-  mounted() {
-    this.$axios('/index/get')
+  async mounted() {
+    //获取顶部导航数据
+    const {data} = await this.$axios('/index/get')
+    const navList = data.data.category[0].item
+    this.navList = navList
   }
 }
 </script>
 
 <style scoped lang="scss">
-.home{
-
-  .topSearch{
+.home {
+  .topSearch {
     top: 0;
     position: fixed;
     height: 88px;
@@ -48,12 +56,14 @@ export default {
     display: flex;
     justify-content: space-around;
     text-align: center;
-    i{
+
+    i {
       width: 136px;
       font-size: 44px;
       color: #333333;
     }
-    .text{
+
+    .text {
       flex: 1;
       height: 70px;
       line-height: 60px;
@@ -63,21 +73,27 @@ export default {
       background-color: #f5f7f9;
       overflow: hidden;
       color: #999999;
-      overflow:hidden;
-      word-break:keep-all;
-      white-space:nowrap;
-      text-overflow:ellipsis;
-      span{
-        i{
+      overflow: hidden;
+      word-break: keep-all;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      span {
+        i {
           font-size: 36px;
           margin: 10px;
         }
+
         font-size: 24px;
       }
     }
   }
-  .homeContent{
+
+  .homeContent {
     margin-top: 88px;
+    .topNav{
+
+    }
   }
 }
 </style>

@@ -1,6 +1,17 @@
 <!--问答-->
 <template>
-<div>questionAndAnswer</div>
+<div>
+  <div class="headerWrap">
+    <div class="header">
+      <span></span>
+      <input type="text">
+      <span class="icon"></span>
+    </div>
+  </div>
+  <div class="contentWrap">
+
+  </div>
+</div>
 </template>
 
 <script>
@@ -9,6 +20,6 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  
 </style>

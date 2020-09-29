@@ -4,3 +4,8 @@
  method:GET
  参数:type  1-8
  * */
+
+
+//http://localhost:8080/api/index/get
+//method:GET
+//获得首页导航信息

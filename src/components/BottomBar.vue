@@ -1,6 +1,9 @@
 <template>
   <div class="bottomBar">
-    <router-link to="/">学烘焙</router-link>
+    <router-link to="/">
+      <i></i>
+      学烘焙
+    </router-link>
     <router-link to="show">烘焙圈</router-link>
     <router-link to="questionAndAnswer">问答</router-link>
     <router-link to="my">小窝</router-link>

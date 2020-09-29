@@ -6,6 +6,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import './static/css/minireset.min.css'
+import './static/iconfont/iconfont.css'
 //插件引入
 import "./plugins";
 

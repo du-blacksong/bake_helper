@@ -9,3 +9,10 @@
 //http://localhost:8080/api/index/get
 //method:GET
 //获得首页导航信息
+
+/* 
+  获得问答页面的精华问答信息
+  https://api.hongbeibang.com/question/getEssence?pageIndex=0&pageSize=10
+  method:GET
+  参数:pageIndex(页码)0/10/20/30...    pageSize(每页数量)10
+*/

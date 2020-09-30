@@ -4,32 +4,70 @@
   <div class="headerWrap">
     <div class="search">
       <span class="left">提问</span>
-      <input type="text" placeholder="搜索问题"/>
+      <div class="searchInput">
+        <span>搜索问题</span>
+      </div>
       <span class="iconfont icon-lingdang"></span>
     </div>
     <div class="tabTitle">
-      <a>精华问答</a>
-      <a>最新问题</a>
-      <a>最热问题</a>
+      <a class="tab" :class="{active:ShowEssence}" @click="Show('essence')">精华问答</a>
+      <a class="tab" :class="{active:ShowNews}" @click="Show('news')">最新问题</a>
+      <a class="tab" :class="{active:ShowHot}" @click="Show('hot')">最热问题</a>
     </div>
   </div>
   <div class="questionWrap">
-    <div class="questionItem">
-      <div class="user">
-        <img src="./img/avatar.png" alt="">
-        <div class="username">考拉</div>
-      </div>
-      <div class="title">马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下</div>
-      <div class="content">马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下</div>
-      <div class="like">487个赞</div>
-    </div>
+    <!-- 精华问答 -->
+    <Essence v-show="ShowEssence"/>
+    <!-- 最新问题 -->
+    <News v-show="ShowNews"/>
+    <!-- 最热问题 -->
+    <Hot v-show="ShowHot"/>
+
   </div>
+  
 </div>
 </template>
 
 <script>
+import Essence from '../questionAndAnswer/essence/essence'
+import Hot from "../questionAndAnswer/hot/hot.vue"
+import News from "../questionAndAnswer/news/news.vue"
 export default {
-  name: "questionAndAnswer"
+  name: "questionAndAnswer",
+  data(){
+    return {
+      ShowEssence:true,
+      ShowNews:false,
+      ShowHot:false
+    }
+  },
+  mounted () {
+    
+  },
+  methods: {
+    /* 点击显示对应的内容 */
+    Show(flag){
+      if(flag==='essence'){
+        this.ShowEssence=true
+        this.ShowNews=false
+        this.ShowHot=false
+      }else if(flag==='news'){
+        this.ShowEssence=false
+        this.ShowNews=true
+        this.ShowHot=false
+      }else if(flag==='hot'){
+        this.ShowEssence=false
+        this.ShowNews=false
+        this.ShowHot=true
+      }
+      
+    }
+  },
+  components: {
+    Essence,
+    Hot,
+    News
+  }
 }
 </script>
 
@@ -52,16 +90,22 @@ export default {
         font-size: 32px;
         color: #E98B71;
       }
-      input{
+      .searchInput{
         flex: 1;
         height: 80px;
+        line-height: 70px;
+        text-align: center;
         border-radius: 8px;
         background-color: #F5F7F9;
         margin: 0 40px;
         padding: 0 20px;
-        border: none;
         box-sizing: border-box;
         cursor: pointer;
+        span{
+          font-size: 28px;
+
+          color: #4A4945;
+        }
       }
       .icon-lingdang{
         font-size: 44px;
@@ -71,10 +115,17 @@ export default {
     .tabTitle{
       display: flex;
       justify-content: space-around;
-      a{
+      .tab{
         font-size: 28px;
+        padding-bottom: 8px;
         color: #999;
+       
       }
+      .tab.active{
+          color: #4A4945;
+          font-weight: bold;;
+          border-bottom: 4px solid  #E98B71;
+        }
   }
   }
 }
@@ -85,49 +136,6 @@ export default {
   .questionWrap{
     margin-top: 160px;
     padding: 30px 30px;
-    .questionItem{
 
-      border-bottom: 1px #eee solid;
-      .user{
-        display: flex;
-        margin:20px 0;
-        img{
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-        }
-        .username{
-          font-size: 24px;
-          height: 80px;
-          line-height: 80px;
-          margin-left: 24px;
-        }
-      }
-      .title{
-        line-height: 50px;
-        font-size: 36px;
-        font-weight: bold;
-        color:#4A4945;
-        margin-bottom: 10px;
-      }
-      .content{
-        height: 120px;
-        font-size: 28px;
-        color:#4A4945;
-        word-break: break-all;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
-        overflow: hidden;
-      }
-      .like{
-        height: 60px;
-        font-size: 28px;
-        line-height: 28px;
-        color: #999;
-        margin-top:20px;
-      }
-    }
   }
 </style>

@@ -11,6 +11,9 @@ import show from '../views/show/show'
 import my from '../views/my/my'
 import lessonSeries from '../views/lessonSeries/lessonSeries'
 
+
+
+
 Vue.use(VueRouter)
 
 export default [
@@ -46,7 +49,8 @@ export default [
     component: questionAndAnswer,
     meta:{
       isFooter:true
-    }
+    },
+    
   },
   {
     path: '/my',

@@ -19,16 +19,16 @@
     </div>
   </div>
   <!-- 内容部分 -->
-  <div class="questionWrap">
-    <!-- 精华问答 -->
-    <Essence v-show="ShowEssence"/>
-    <!-- 最新问题 -->
-    <News v-show="ShowNews"/>
-    <!-- 最热问题 -->
-    <Hot v-show="ShowHot"/>
-
+  <div class="scrollWrap" ref="questionWrap">
+    
+        <!-- 精华问答 -->
+        <Essence class="questionWrap" v-show="ShowEssence"/>
+        <!-- 最新问题 -->
+        <News v-show="ShowNews"/>
+        <!-- 最热问题 -->
+        <Hot v-show="ShowHot"/>
+    
   </div>
-  
 </div>
 </template>
 
@@ -36,6 +36,7 @@
 import Essence from '../questionAndAnswer/essence/essence'
 import Hot from "../questionAndAnswer/hot/hot.vue"
 import News from "../questionAndAnswer/news/news.vue"
+import BScroll from 'better-scroll'
 export default {
   name: "questionAndAnswer",
   data(){
@@ -46,7 +47,7 @@ export default {
     }
   },
   mounted () {
-    
+    new BScroll(this.$refs.questionWrap,{scrollY:true})
   },
   methods: {
     /* 点击显示对应的内容 */
@@ -137,9 +138,16 @@ export default {
 
   
 /* 问答区 */
-  .questionWrap{
+.scrollWrap{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+.questionWrap{
     margin-top: 160px;
     padding: 30px 30px;
-
+    height: 509px;
+    
   }
+}
+  
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div ref="essenceScroll">
+  <div>
     <div class="questionItem" v-for="item in essenceList">
       <div class="user">
         <img src="./img/avatar.png" alt="">
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// import BScroll from 'better-scroll'
 export default {
   name: 'essence',
   data(){
@@ -32,10 +31,6 @@ export default {
       //console.log(data.data.content.data)
       this.essenceList=data.data.content.data
     },
-    // 滑屏
-    initScorll(){
-      new BScroll(this.$refs.essenceScroll,{click:true});
-    }
   }
 }
 </script>

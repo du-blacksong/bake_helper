@@ -10,9 +10,7 @@ import questionAndAnswer from '../views/questionAndAnswer/questionAndAnswer'
 import show from '../views/show/show'
 import my from '../views/my/my'
 import lessonSeries from '../views/lessonSeries/lessonSeries'
-import essence from '../views/questionAndAnswer/essence/essence'
-import hot from "../views/questionAndAnswer/hot/hot.vue"
-import news from "../views/questionAndAnswer/news/news.vue"
+
 
 
 
@@ -49,18 +47,6 @@ export default [
   {
     path: '/questionAndAnswer',
     component: questionAndAnswer,
-    children:[
-      { path: '', component: essence , meta:{
-        isFooter:true
-      }},
-      
-      { path: 'news', component: news , meta:{
-        isFooter:true
-      }},
-      { path: 'hot', component: hot , meta:{
-        isFooter:true
-      }},
-    ],
     meta:{
       isFooter:true
     },

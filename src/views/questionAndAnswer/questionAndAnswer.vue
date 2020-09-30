@@ -10,22 +10,64 @@
       <span class="iconfont icon-lingdang"></span>
     </div>
     <div class="tabTitle">
-      <router-link class="tab" active-class="active" to="/questionAndAnswer">精华问答</router-link>
-      <router-link class="tab" active-class="active" to="/questionAndAnswer/news">最新问题</router-link>
-      <router-link class="tab" active-class="active" to="/questionAndAnswer/hot">最热问题</router-link>
+      <a class="tab" :class="{active:ShowEssence}" @click="Show('essence')">精华问答</a>
+      <a class="tab" :class="{active:ShowNews}" @click="Show('news')">最新问题</a>
+      <a class="tab" :class="{active:ShowHot}" @click="Show('hot')">最热问题</a>
     </div>
   </div>
   <div class="questionWrap">
-   <router-view></router-view>
+    <!-- 精华问答 -->
+    <Essence v-show="ShowEssence"/>
+    <!-- 最新问题 -->
+    <News v-show="ShowNews"/>
+    <!-- 最热问题 -->
+    <Hot v-show="ShowHot"/>
+
   </div>
   
 </div>
 </template>
 
 <script>
+import Essence from '../questionAndAnswer/essence/essence'
+import Hot from "../questionAndAnswer/hot/hot.vue"
+import News from "../questionAndAnswer/news/news.vue"
 export default {
   name: "questionAndAnswer",
-
+  data(){
+    return {
+      ShowEssence:true,
+      ShowNews:false,
+      ShowHot:false
+    }
+  },
+  mounted () {
+    
+  },
+  methods: {
+    /* 点击显示对应的内容 */
+    Show(flag){
+      if(flag==='essence'){
+        this.ShowEssence=true
+        this.ShowNews=false
+        this.ShowHot=false
+      }else if(flag==='news'){
+        this.ShowEssence=false
+        this.ShowNews=true
+        this.ShowHot=false
+      }else if(flag==='hot'){
+        this.ShowEssence=false
+        this.ShowNews=false
+        this.ShowHot=true
+      }
+      
+    }
+  },
+  components: {
+    Essence,
+    Hot,
+    News
+  }
 }
 </script>
 
@@ -79,7 +121,7 @@ export default {
         color: #999;
        
       }
-      .tab.exactActive{
+      .tab.active{
           color: #4A4945;
           font-weight: bold;;
           border-bottom: 4px solid  #E98B71;

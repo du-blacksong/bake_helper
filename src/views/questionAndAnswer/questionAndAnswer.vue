@@ -1,7 +1,9 @@
 <!--问答-->
 <template>
 <div class="wrap">
+  <!-- 头部 -->
   <div class="headerWrap">
+    <!-- 搜索框 -->
     <div class="search">
       <span class="left">提问</span>
       <div class="searchInput">
@@ -9,12 +11,14 @@
       </div>
       <span class="iconfont icon-lingdang"></span>
     </div>
+    <!-- 点击的标题 -->
     <div class="tabTitle">
       <a class="tab" :class="{active:ShowEssence}" @click="Show('essence')">精华问答</a>
       <a class="tab" :class="{active:ShowNews}" @click="Show('news')">最新问题</a>
       <a class="tab" :class="{active:ShowHot}" @click="Show('hot')">最热问题</a>
     </div>
   </div>
+  <!-- 内容部分 -->
   <div class="questionWrap">
     <!-- 精华问答 -->
     <Essence v-show="ShowEssence"/>
@@ -36,9 +40,9 @@ export default {
   name: "questionAndAnswer",
   data(){
     return {
-      ShowEssence:true,
-      ShowNews:false,
-      ShowHot:false
+      ShowEssence:true, //显示精华
+      ShowNews:false, //显示最新
+      ShowHot:false //显示最热
     }
   },
   mounted () {

@@ -1,7 +1,9 @@
 <!--问答-->
 <template>
 <div class="wrap">
+  <!-- 头部 -->
   <div class="headerWrap">
+    <!-- 搜索框 -->
     <div class="search">
       <span class="left">提问</span>
       <div class="searchInput">
@@ -9,22 +11,24 @@
       </div>
       <span class="iconfont icon-lingdang"></span>
     </div>
+    <!-- 点击的标题 -->
     <div class="tabTitle">
       <a class="tab" :class="{active:ShowEssence}" @click="Show('essence')">精华问答</a>
       <a class="tab" :class="{active:ShowNews}" @click="Show('news')">最新问题</a>
       <a class="tab" :class="{active:ShowHot}" @click="Show('hot')">最热问题</a>
     </div>
   </div>
-  <div class="questionWrap">
-    <!-- 精华问答 -->
-    <Essence v-show="ShowEssence"/>
-    <!-- 最新问题 -->
-    <News v-show="ShowNews"/>
-    <!-- 最热问题 -->
-    <Hot v-show="ShowHot"/>
-
+  <!-- 内容部分 -->
+  <div class="scrollWrap" ref="questionWrap">
+    
+        <!-- 精华问答 -->
+        <Essence class="questionWrap" v-show="ShowEssence"/>
+        <!-- 最新问题 -->
+        <News v-show="ShowNews"/>
+        <!-- 最热问题 -->
+        <Hot v-show="ShowHot"/>
+    
   </div>
-  
 </div>
 </template>
 
@@ -32,17 +36,18 @@
 import Essence from '../questionAndAnswer/essence/essence'
 import Hot from "../questionAndAnswer/hot/hot.vue"
 import News from "../questionAndAnswer/news/news.vue"
+import BScroll from 'better-scroll'
 export default {
   name: "questionAndAnswer",
   data(){
     return {
-      ShowEssence:true,
-      ShowNews:false,
-      ShowHot:false
+      ShowEssence:true, //显示精华
+      ShowNews:false, //显示最新
+      ShowHot:false //显示最热
     }
   },
   mounted () {
-    
+    new BScroll(this.$refs.questionWrap,{scrollY:true})
   },
   methods: {
     /* 点击显示对应的内容 */
@@ -133,9 +138,16 @@ export default {
 
   
 /* 问答区 */
-  .questionWrap{
+.scrollWrap{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+.questionWrap{
     margin-top: 160px;
     padding: 30px 30px;
-
+    height: 509px;
+    
   }
+}
+  
 </style>

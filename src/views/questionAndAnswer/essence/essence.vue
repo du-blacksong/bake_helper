@@ -1,16 +1,20 @@
 <template>
-  <div class="questionItem">
-    <div class="user">
-      <img src="./img/avatar.png" alt="">
-      <div class="username">考拉</div>
+  <div>
+    <div class="questionItem" v-for="item in essenceList">
+      <div class="user">
+        <img src="./img/avatar.png" alt="">
+        <div class="username">考拉</div>
+      </div>
+      <div class="title">马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下</div>
+      <div class="content">马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下</div>
+      <div class="like">487个赞</div>
     </div>
-    <div class="title">马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下</div>
-    <div class="content">马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下</div>
-    <div class="like">487个赞</div>
   </div>
 </template>
 
 <script>
+import BScroll from "better-scroll";
+
 export default {
   name: 'essence',
   data(){
@@ -20,13 +24,21 @@ export default {
     }
   },
   mounted () {
-    
+    this.getEssenceList()
   },
   methods: {
-    getEssenceList(){
-      // const {data}=await $axios(`question/getEssence?pageIndex=${pageIndex}&pageSize=10`)
+    /* 请求精华问答数据 */
+    async getEssenceList(){
+      const {data}=await this.$axios(`question/getEssence?pageIndex=${this.pageIndex}&pageSize=10`)
+      //console.log(data.data.content.data)
+      this.essenceList=data.data.content.data
 
-    }
+      this.$nextTick(() => {
+        let wrapper = document.querySelector('.scrollWrap')
+        this.scroll = new BScroll(wrapper,{click: true,scrollY:true})
+        console.log(this.scroll)
+      })
+    },
   }
 }
 </script>

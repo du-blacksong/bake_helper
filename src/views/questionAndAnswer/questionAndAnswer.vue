@@ -146,7 +146,6 @@ export default {
     margin-top: 160px;
     padding: 30px 30px;
     height: 509px;
-    
   }
 }
   

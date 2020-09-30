@@ -7,7 +7,7 @@
         <span class="icon iconfont">&#xe641;</span>
       </div>
       <div class="text">
-        <div>
+        <div @click="subscription">
           <span>关注</span>
         </div>
         <div>
@@ -22,9 +22,12 @@
       </div>
     </div>
     <!-- 关注详情 -->
-    <div class="subscription">
+    <div class="subscription" v-show="showSubscription">
       <div class="subscriptionDetail">暂无关注</div>
     </div>
+    <!-- 最新详情 -->
+
+
   </div>
 </template>
 
@@ -33,7 +36,16 @@
     name: "show",
     data(){
       return {
-        showSubscription:ture
+        showSubscription:false
+      }
+    },
+    async mounted(){
+      const req = await this.$axios.get("feed/getCategory")
+      console.log(req)
+    },
+    methods: {
+      subscription(){
+        this.showSubscription = true
       }
     },
   }

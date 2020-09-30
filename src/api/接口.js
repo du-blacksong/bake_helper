@@ -16,3 +16,7 @@
   method:GET
   参数:pageIndex(页码)0/10/20/30...    pageSize(每页数量)10
 */
+
+// 获得烘焙圈轮播图的请求 
+// https://api.hongbeibang.com/feed/getCategory
+// method:GET

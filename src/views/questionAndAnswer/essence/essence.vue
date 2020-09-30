@@ -2,12 +2,12 @@
   <div>
     <div class="questionItem" v-for="item in essenceList">
       <div class="user">
-        <img src="./img/avatar.png" alt="">
-        <div class="username">考拉</div>
+        <img :src="item.clientImage" alt="">
+        <div class="username">{{item.clientName}}</div>
       </div>
-      <div class="title">马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下</div>
-      <div class="content">马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下马芬，戚风，舒芙蕾，海绵蛋糕，它们的区别在哪？哪个达人能总结一下</div>
-      <div class="like">487个赞</div>
+      <div class="title">{{item.coverTitle}}</div>
+      <div class="content">{{item.coverSummary}}</div>
+      <div class="like">{{item.hotNum}}个赞</div>
     </div>
   </div>
 </template>
@@ -70,7 +70,7 @@ export default {
       margin-bottom: 10px;
     }
     .content{
-      height: 120px;
+      // height: 120px;
       font-size: 28px;
       color:#4A4945;
       word-break: break-all;

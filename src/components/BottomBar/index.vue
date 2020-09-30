@@ -31,9 +31,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .bottomBar{
+  background-color: white;
   width: 100%;
   display: flex;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   justify-content: space-around;
   height: 98px;

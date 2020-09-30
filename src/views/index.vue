@@ -9,6 +9,11 @@
       </div>
       <i class="iconfont icon-lingdang"></i>
     </div>
+
+    <div class="scrollYContainers">
+
+    </div>
+
     <!--  顶部导航栏-->
     <div class="topNavContent">
       <div class="topNav" v-if="navList.length">
@@ -48,12 +53,17 @@
       </div>
 
 <!--分类展示列表-->
-<!--      <div class="">-->
-<!--        <div></div>-->
-<!--      </div>-->
-
-
-
+      <div class="recommend" v-for="item in indexMemuList" :key="item.categoryId">
+        <div class="title">{{item.title}}</div>
+        <div class="pic-wrapper">
+          <ul class="pic-list">
+            <li class="pic-item" v-for="item in item.item" :key="item.categoryItemId">
+              <img :src="item.image">
+              <div class="itemTitle">{{item.shareTitle}}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
 
     </div>
 
@@ -69,7 +79,9 @@ export default {
   data() {
     return {
       navList: [],
-      recommendList:[]
+      recommendList:[], // 推荐
+      indexMemuList:[] //主页展示的菜单
+
     }
   },
   async mounted() {
@@ -78,16 +90,24 @@ export default {
     const navList = data.data.category[0].item
     this.navList = navList
 
-    //获取推荐列表
+    //获取推荐课程列表
     const recommendList = await this.$axios('/recommend/getRandContent?&type=3&pageSize=10')
     // console.log(recommendList.data.data.data)
     this.recommendList = recommendList.data.data.data
 
+    //获取主页菜单列表
+    const indexMemuList = await this.$axios('/education/getIndexByWeb')
+    // console.log(indexMemuList.data.data.category.slice(1,10))
+    this.indexMemuList = indexMemuList.data.data.category.slice(1,10)
 
     // // 滚动
-    let wrapper = document.querySelector('.pic-wrapper')
     this.$nextTick(() => {
-      this.scroll = new BetterScroll(wrapper, {click: true, scrollX: true});
+      let wrapper = document.querySelectorAll('.pic-wrapper')
+      console.log(wrapper[0])
+      for(let i=0;i<wrapper.length;i++){
+        new BetterScroll(wrapper[i], {click: true, scrollX: true})
+      }
+      // new BetterScroll(wrapper[1], {click: true, scrollX: true});
     })
 
   }
@@ -100,6 +120,8 @@ export default {
   overflow: hidden;
 
   .topSearch {
+    z-index: 999;
+    background-color: white;
     top: 0;
     position: fixed;
     height: 88px;
@@ -179,7 +201,7 @@ export default {
 
     .recommend {
       margin-left: 30px;
-
+      margin-bottom: 30px;
       .title {
         font-size: 34px;
         line-height: 48px;

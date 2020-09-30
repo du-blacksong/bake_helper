@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import BScroll from "better-scroll";
+
 export default {
   name: 'essence',
   data(){
@@ -30,6 +32,12 @@ export default {
       const {data}=await this.$axios(`question/getEssence?pageIndex=${this.pageIndex}&pageSize=10`)
       //console.log(data.data.content.data)
       this.essenceList=data.data.content.data
+
+      this.$nextTick(() => {
+        let wrapper = document.querySelector('.scrollWrap')
+        this.scroll = new BScroll(wrapper,{click: true,scrollY:true})
+        console.log(this.scroll)
+      })
     },
   }
 }

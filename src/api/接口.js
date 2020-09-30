@@ -9,3 +9,9 @@
 //http://localhost:8080/api/index/get
 //method:GET
 //获得首页导航信息
+
+/*
+ https://api.hongbeibang.com/education/getCourse?educationCourseId=10534
+ method:GET
+ 参数:educationCourseId(课程id)
+* */

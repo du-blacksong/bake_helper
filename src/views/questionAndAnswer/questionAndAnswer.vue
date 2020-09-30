@@ -19,15 +19,15 @@
     </div>
   </div>
   <!-- 内容部分 -->
-  <div class="scrollWrap" ref="questionWrap">
-    
+  <div class="scrollWrap" ref="scrollWrap">
+
         <!-- 精华问答 -->
         <Essence class="questionWrap" v-show="ShowEssence"/>
         <!-- 最新问题 -->
         <News v-show="ShowNews"/>
         <!-- 最热问题 -->
         <Hot v-show="ShowHot"/>
-    
+
   </div>
 </div>
 </template>
@@ -47,7 +47,11 @@ export default {
     }
   },
   mounted () {
-    new BScroll(this.$refs.questionWrap,{scrollY:true})
+    // this.$nextTick(() => {
+    //   this.scroll = new BScroll(this.$refs.scrollWrap,{click: true,scrollY:true})
+    //   console.log(this.scroll)
+    // })
+
   },
   methods: {
     /* 点击显示对应的内容 */
@@ -65,7 +69,7 @@ export default {
         this.ShowNews=false
         this.ShowHot=true
       }
-      
+
     }
   },
   components: {
@@ -114,7 +118,7 @@ export default {
       }
       .icon-lingdang{
         font-size: 44px;
-      
+
       }
     }
     .tabTitle{
@@ -124,7 +128,7 @@ export default {
         font-size: 28px;
         padding-bottom: 8px;
         color: #999;
-       
+
       }
       .tab.active{
           color: #4A4945;
@@ -136,17 +140,17 @@ export default {
 }
 
 
-  
+
 /* 问答区 */
 .scrollWrap{
-  height: 100%;
   width: 100%;
   overflow: hidden;
+  height: 509px;
 .questionWrap{
     margin-top: 160px;
     padding: 30px 30px;
     height: 509px;
   }
 }
-  
+
 </style>

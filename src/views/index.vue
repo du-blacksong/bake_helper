@@ -11,18 +11,30 @@
     </div>
     <!--  顶部导航栏-->
     <div class="homeContent">
-      <div class="topNav">
-        <router-link to="baike" v-for="(item,index) in navList" :key="index">
-          <image :src="item.image"></image>
-          {{item.title}}
+      <div class="topNav" v-if="navList.length">
+
+        <router-link to="baike"  class="navTapItem" >
+          <img :src="navList[0].image"></img>
+          <span>{{navList[0].title}}</span>
+        </router-link>
+        <router-link to="university"  class="navTapItem" >
+          <img :src="navList[1].image"></img>
+          <span>{{navList[1].title}}</span>
+        </router-link>
+        <router-link to="/lessonSeries?contentId=10533"  class="navTapItem" >
+          <img :src="navList[2].image"></img>
+          <span>{{navList[2].title}}</span>
+        </router-link>
+        <router-link to="classify"  class="navTapItem" >
+          <img :src="navList[3].image"></img>
+          <span>{{navList[3].title}}</span>
         </router-link>
 
 
-
         <!--        <router-link to="baike">技巧百科</router-link>-->
-<!--        <router-link to="university">视频学堂</router-link>-->
-<!--        <router-link to="lessonSeries?contentId=10533">新手教程</router-link>-->
-<!--        <router-link to="classify">食谱分类</router-link>-->
+        <!--        <router-link to="university">视频学堂</router-link>-->
+        <!--        <router-link to="lessonSeries?contentId=10533">新手教程</router-link>-->
+        <!--        <router-link to="classify">食谱分类</router-link>-->
       </div>
     </div>
   </div>
@@ -90,9 +102,27 @@ export default {
   }
 
   .homeContent {
-    margin-top: 88px;
-    .topNav{
+    margin-top: 108px;
 
+    .topNav {
+
+      display: flex;
+      justify-content: space-around;
+      .navTapItem{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+      }
+      img{
+        width: 90px;
+        height: 90px;
+        margin-bottom: 5px;
+      }
+      span{
+        font-size: 24px;
+        color: #4A4945;;
+      }
     }
   }
 }

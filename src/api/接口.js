@@ -49,3 +49,9 @@ method:GET
 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
 */
 
+/*
+新手教程 ==> 学院作业
+ https://api.hongbeibang.com/dish/getOutstandingCourseContent?pageIndex=30&pageSize=10&educationCourseId=10533
+ method:GET
+ 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10  educationCourseId(课程id)
+* */

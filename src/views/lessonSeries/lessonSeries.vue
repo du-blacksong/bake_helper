@@ -148,7 +148,6 @@ export default {
         this.$refs.nav.style.position='';
         this.$refs.nav.style.top='';
         this.$refs.placehold.style.height='0';
-
       }
       console.log(top)
     })
@@ -162,17 +161,16 @@ export default {
   },
   async beforeMount () {
     const {data} = await this.$axios.get(`/education/getCourse?educationCourseId=${this.$route.query.contentId}`)
+    const res = await this.$axios.get(`/education/getSeriesCourse?educationCourseId=${this.$route.query.contentId}`)
     const {image, introduces, title, buyNum, originPrice, preDiscountPrice} = data.data
     this.getCourse = {
       image, introduces, title, buyNum, originPrice, preDiscountPrice
     }
-
   }
 }
 </script>
 
 <style scoped lang="scss">
-
 
 .outer {
   background-color: #F5F7F9;

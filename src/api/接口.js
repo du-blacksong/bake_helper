@@ -11,11 +11,13 @@
 //获得首页导航信息
 
 
+
 /*
  https://api.hongbeibang.com/education/getCourse?educationCourseId=10534
  method:GET
  参数:educationCourseId(课程id)
 * */
+
 
 /* 
   获得问答页面的精华问答信息
@@ -24,9 +26,26 @@
   参数:pageIndex(页码)0/10/20/30...    pageSize(每页数量)10
 */
 
+
 /*
 * https://api.hongbeibang.com/education/getSeriesCourse?educationCourseId=10533
 * method:GET
 * 参数educationCourseId(跳转到该页面时的query参数)
 * 获取新手教程课程目录
 * */
+
+/* 
+获得 烘焙圈 ==> 最新
+https://api.hongbeibang.com/v2/feed/getNew?pageIndex=0&pageSize=10
+method:GET
+参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
+*/
+
+
+/* 
+获得 烘焙圈 ==> 达人
+https://api.hongbeibang.com/v2/feed/getMasterNew?pageIndex=0&pageSize=10
+method:GET
+参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
+*/
+

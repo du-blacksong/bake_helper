@@ -24,9 +24,9 @@
         <!-- 精华问答 -->
         <Essence class="questionWrap" v-show="ShowEssence"/>
         <!-- 最新问题 -->
-        <News v-show="ShowNews"/>
+        <News class="questionWrap" v-show="ShowNews"/>
         <!-- 最热问题 -->
-        <Hot v-show="ShowHot"/>
+        <Hot  class="questionWrap"v-show="ShowHot"/>
 
   </div>
 </div>
@@ -85,10 +85,13 @@ export default {
 .wrap{
   position: relative;
     .headerWrap {
+      z-index: 999;
+    background-color: #fff;
     position: fixed;
     top: 0;
     left: 0;
     right:0;
+    margin-bottom: 10px;
     .search{
       height: 88px;
       line-height: 88px;
@@ -143,13 +146,14 @@ export default {
 
 /* 问答区 */
 .scrollWrap{
+  margin-top: 170px;
   width: 100%;
   overflow: hidden;
-  height: 509px;
+  height:1100px;
 .questionWrap{
-    margin-top: 160px;
+   
     padding: 30px 30px;
-
+   
   }
 }
 

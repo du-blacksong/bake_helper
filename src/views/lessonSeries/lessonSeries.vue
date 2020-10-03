@@ -104,24 +104,50 @@
             </div>
           </div>
         </div>
-        <div class="footer">
-          <div class="left">
-            <img src="https://image.hongbeibang.com/FjlY1hEsTozcG0oGvSXzNqRIc8gb?imageView2/1/w/640/h/640" alt="">
-            <div>更多课程</div>
-          </div>
-          <div class="center">
-            <img src="https://image.hongbeibang.com/FoOJzEIUP4G3Ub0wp_XeNNYIHH0s?imageView2/1/w/640/h/640" alt="">
-            <div>咨询</div>
-          </div>
+
+      </div>
+      <div class="seriescourse" v-show="activeindex===1">
+        <div class="seriescourseitem" v-for="(item,index) in getSeriesCourse" :key="index">
+          <img :src="item.image" alt="">
           <div class="right">
-            <del>￥{{getCourse.originPrice}}</del>
-            <div>￥{{getCourse.preDiscountPrice}}</div>
-            <div>购买专栏</div>
+            <div class="title">{{item.title}}</div>
+            <div class="free" v-show="item.freeNumDone===0">免费试看</div>
           </div>
         </div>
+
       </div>
-      <div class="coursedesc" v-show="activeindex===1">课程目录</div>
-      <div class="coursedesc" v-show="activeindex===2">学员作业</div>
+      <div   class="OutstandingCourseContent" v-show="activeindex===2">
+        <div class="courseContentitem" v-for="(item,index) in OutstandingContent" :key="item.clientId">
+          <img :src="item.image[0]" alt="">
+          <div class="itemmain">
+            <div class="userinfo">
+              <img :src="item.clientImage" alt="">
+              <div class="name">{{item.clientName}}</div>
+            </div>
+            <div class="desc">{{item.introduce ? item.introduce : '新手烘焙专题：从入门到精通'}}</div>
+          </div>
+          <div class="evaluation">
+            <span class="iconfont icon-dianzan"></span>
+            <span class="favonum">{{item.likeNum}}</span>
+          </div>
+        </div>
+        <div id="flag"></div>
+      </div>
+      <div class="footer">
+        <div class="left">
+          <img src="https://image.hongbeibang.com/FjlY1hEsTozcG0oGvSXzNqRIc8gb?imageView2/1/w/640/h/640" alt="">
+          <div>更多课程</div>
+        </div>
+        <div class="center">
+          <img src="https://image.hongbeibang.com/FoOJzEIUP4G3Ub0wp_XeNNYIHH0s?imageView2/1/w/640/h/640" alt="">
+          <div>咨询</div>
+        </div>
+        <div class="right">
+          <del>￥{{getCourse.originPrice}}</del>
+          <div>￥{{getCourse.preDiscountPrice}}</div>
+          <div>购买专栏</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -131,48 +157,81 @@ export default {
   name: "lessonSeries",
   data () {
     return {
+      //当前课程id
+      contentId: this.$route.query.contentId,
       //导航栏选中索引
       activeindex: 0,
       //存放课程信息
       getCourse: {},
+      //  课程目录
+      getSeriesCourse: [],
+      //  学员作业
+      OutstandingContent: [],
+      //  作业数量
+      pageSize: 10,
+      //  当前页数
+      pageIndex: 0
     }
   },
   mounted () {
-    window.addEventListener("scroll",  (e) =>{
-      const top=document.body.scrollTop || document.documentElement.scrollTop
-      if (top>400){
-        this.$refs.nav.style.position='fixed';
-        this.$refs.nav.style.top='0';
-        this.$refs.placehold.style.height='44px';
-      }else {
-        this.$refs.nav.style.position='';
-        this.$refs.nav.style.top='';
-        this.$refs.placehold.style.height='0';
-
+    window.addEventListener("scroll", (e) => {
+      const top = document.body.scrollTop || document.documentElement.scrollTop
+      const flag=document.querySelector('#flag')
+      if (top > 380) {
+        this.$refs.nav.style.position = 'fixed';
+        this.$refs.nav.style.top = '0';
+        this.$refs.nav.style.left = '0';
+        this.$refs.nav.style.right = '0';
+        this.$refs.placehold.style.height = '44px';
+      } else {
+        this.$refs.nav.style.position = '';
+        this.$refs.nav.style.top = '';
+        this.$refs.nav.style.left = '';
+        this.$refs.nav.style.right = '';
+        this.$refs.placehold.style.height = '0';
       }
-      console.log(top)
+      console.log(flag.getBoundingClientRect().bottom)
+      if (~~(flag.getBoundingClientRect().bottom)<550){
+        this.getOutstandingCourseContent()
+      }
     })
 
   },
   methods: {
     active (index) {
       this.activeindex = index
-
-    }
+    },
+    //获得课程介绍相关数据
+    async getCourses () {
+      const {data} = await this.$axios.get(`/education/getCourse?educationCourseId=${this.contentId}`)
+      const {image, introduces, title, buyNum, originPrice, preDiscountPrice} = data.data
+      this.getCourse = {
+        image, introduces, title, buyNum, originPrice, preDiscountPrice
+      }
+    },
+    //获得课程目录数据
+    async getSeriesCourses () {
+      const {data} = await this.$axios.get(`/education/getSeriesCourse?educationCourseId=${this.contentId}`)
+      this.getSeriesCourse = data.data.data
+    },
+    //  获得学院作业
+    async getOutstandingCourseContent () {
+      const {data} = await this.$axios.get(`/dish/getOutstandingCourseContent?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}&educationCourseId=${this.contentId}`)
+      this.pageIndex += this.pageSize
+      this.OutstandingContent.push(...data.data.content.data)
+    },
   },
-  async beforeMount () {
-    const {data} = await this.$axios.get(`/education/getCourse?educationCourseId=${this.$route.query.contentId}`)
-    const {image, introduces, title, buyNum, originPrice, preDiscountPrice} = data.data
-    this.getCourse = {
-      image, introduces, title, buyNum, originPrice, preDiscountPrice
-    }
 
+  beforeMount () {
+
+    this.getCourses()
+    this.getSeriesCourses()
+    this.getOutstandingCourseContent()
   }
 }
 </script>
 
 <style scoped lang="scss">
-
 
 .outer {
   background-color: #F5F7F9;
@@ -198,6 +257,7 @@ export default {
         margin-top: 30px;
         position: relative;
         height: 54px;
+        line-height: 54px;
 
         img {
           vertical-align: top;
@@ -283,6 +343,7 @@ export default {
       justify-content: space-around;
       border-bottom: 1px solid #F8FAFB;
       background-color: white;
+
       .item {
         padding: 0 60px;
         height: 88px;
@@ -309,6 +370,7 @@ export default {
       }
     }
 
+    //课程介绍样式
     .coursedesc {
       color: #313131;
       text-indent: 0;
@@ -367,6 +429,116 @@ export default {
       }
 
     }
+
+    //  课程目录样式
+    .seriescourse {
+      padding: 0 38px 142px;
+
+      .seriescourseitem {
+        display: flex;
+        padding-top: 38px;
+
+        img {
+          width: 250px;
+          height: 140px;
+        }
+
+        .right {
+          display: flex;
+          margin-left: 28.8px;
+          flex: 1;
+          flex-direction: column;
+
+          .title {
+            color: #313131;
+            font-size: 28.8px;
+            line-height: 40px;
+            flex: 1
+          }
+
+          .free {
+            color: #E98B71;
+            font-size: 25px;
+            line-height: 35px;
+          }
+        }
+      }
+
+    }
+
+    //  学院作业样式
+    .OutstandingCourseContent {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 38px 20px 140px;
+
+      .courseContentitem {
+        width: 330px;
+        margin: 10px;
+
+        img {
+          width: 330px;
+          height: 330px;
+          border-radius: 8px;
+        }
+
+        .itemmain {
+          .userinfo {
+            display: flex;
+
+            img {
+              width: 40px;
+              height: 40px;
+              margin-right: 10px;
+              border-radius: 50%;
+            }
+
+            .name {
+              font-size: 24px;
+              height: 40px;
+              line-height: 40px;
+            }
+          }
+
+          .desc {
+            font-size: 24px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; //文本行数
+          }
+
+        }
+
+        .evaluation {
+          flex: 1;
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          margin-top: 14px;
+          margin-bottom: 28px;
+
+          .iconfont {
+            font-size: 50px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 9px;
+            color: rgba(153,153,153,.8);
+          }
+          .favonum {
+            font-size: 21px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: middle;
+            color: #686868;
+          }
+        }
+      }
+    }
   }
 
   .footer {
@@ -407,9 +579,14 @@ export default {
       background-color: #E98B71;
       color: #fff;
       font-size: 30px;
-      font-weight: bold
+      font-weight: bold;
+
+      del {
+        color: rgb(246, 208, 198);
+      }
     }
   }
+
 
 }
 

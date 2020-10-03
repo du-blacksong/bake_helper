@@ -117,7 +117,7 @@
 
       </div>
       <div   class="OutstandingCourseContent" v-show="activeindex===2">
-        <div class="courseContentitem" v-for="(item,index) in OutstandingContent" :key="item.clientId">
+        <div class="courseContentitem" v-for="(item,index) in OutstandingContent" :key="index">
           <img :src="item.image[0]" alt="">
           <div class="itemmain">
             <div class="userinfo">
@@ -131,7 +131,7 @@
             <span class="favonum">{{item.likeNum}}</span>
           </div>
         </div>
-        <div id="flag"></div>
+        <div id="flag"> 加载中...</div>
       </div>
       <div class="footer">
         <div class="left">
@@ -170,7 +170,9 @@ export default {
       //  作业数量
       pageSize: 10,
       //  当前页数
-      pageIndex: 0
+      pageIndex: 0,
+    //  学院作业请求开关防止重复请求
+      flag:true
     }
   },
   mounted () {
@@ -190,12 +192,8 @@ export default {
         this.$refs.nav.style.right = '';
         this.$refs.placehold.style.height = '0';
       }
-      console.log(flag.getBoundingClientRect().bottom)
-      if (~~(flag.getBoundingClientRect().bottom)<550){
-        this.getOutstandingCourseContent()
-      }
     })
-
+    window.addEventListener("scroll",this.handleScroll)
   },
   methods: {
     active (index) {
@@ -216,10 +214,25 @@ export default {
     },
     //  获得学院作业
     async getOutstandingCourseContent () {
+      if (!this.flag) return
+      this.flag=false
       const {data} = await this.$axios.get(`/dish/getOutstandingCourseContent?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}&educationCourseId=${this.contentId}`)
       this.pageIndex += this.pageSize
+      this.flag=true
       this.OutstandingContent.push(...data.data.content.data)
     },
+  //  无限滚动的回调
+    handleScroll(e) {
+      const top = document.body.scrollTop || document.documentElement.scrollTop
+  const flag=document.querySelector('#flag')
+      // console.log("top",top)
+      // console.log("bottom",flag.getBoundingClientRect().bottom)
+  //    元素底部距离视口顶部的距离
+  if (~~(flag.getBoundingClientRect().top)<1050){
+    if (!this.flag) return
+    this.getOutstandingCourseContent()
+  }
+}
   },
 
   beforeMount () {
@@ -227,6 +240,10 @@ export default {
     this.getCourses()
     this.getSeriesCourses()
     this.getOutstandingCourseContent()
+  },
+  // 离开页面销毁监听事件；
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll, false);
   }
 }
 </script>
@@ -537,6 +554,12 @@ export default {
             color: #686868;
           }
         }
+      }
+      #flag{
+        width: 100%;
+        height: 63px;
+        text-align: center;
+        font-size: 32px;
       }
     }
   }

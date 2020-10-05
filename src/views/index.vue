@@ -4,14 +4,10 @@
     <!--    顶部搜索栏-->
     <div class="topSearch">
       <i class="iconfont icon-jia"></i>
-      <div class="text">
+      <div class="text" @click="toSearch">
         <span><i class="iconfont icon-sousuo"></i>搜索食谱/食材，烘焙/家常菜一应俱全</span>
       </div>
       <i class="iconfont icon-lingdang"></i>
-    </div>
-
-    <div class="scrollYContainers">
-
     </div>
 
     <!--  顶部导航栏-->
@@ -65,6 +61,15 @@
         </div>
       </div>
 
+
+      <!--底部版权说明-->
+      <div class="footer">
+        <div>Copyright © hongbeibang.com 粤ICP备14090926号-1</div>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44060602001356">
+          <img src="../static/images/guohui.jpg">
+          <span>粤公网安备 44060602001356号</span>
+        </a>
+      </div>
     </div>
 
   </div>
@@ -73,6 +78,7 @@
 
 <script>
 import BetterScroll from 'better-scroll'
+import router from "@/router";
 
 export default {
   name: "index",
@@ -105,11 +111,17 @@ export default {
       let wrapper = document.querySelectorAll('.pic-wrapper')
       console.log(wrapper[0])
       for(let i=0;i<wrapper.length;i++){
-        new BetterScroll(wrapper[i], {click: true, scrollX: true})
+        new BetterScroll(wrapper[i], {click: true, scrollX: true ,eventPassthrough: 'vertical'})
       }
       // new BetterScroll(wrapper[1], {click: true, scrollX: true});
     })
 
+  },
+  methods:{
+    //点击搜索框跳转到搜索页面
+    toSearch(){
+      router.push('/search')
+    }
   }
 }
 </script>
@@ -192,7 +204,7 @@ export default {
 
   .main {
     margin-top: 60px;
-
+    padding-bottom: 98px;
     .clearfix::before,.clearfix::after{
       content: '';
       display: table;
@@ -251,7 +263,27 @@ export default {
         }
       }
     }
+
+    .footer{
+      height: 138px;
+      background-color: #f5f7f9;
+      font-size: 26px;
+      color: #939393;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 20px 40px;
+      div{
+        height: 40px;
+      }
+      a{
+        height: 40px;
+        color: #939393;
+      }
+    }
+
   }
+
 
 
 }

@@ -1,15 +1,27 @@
 //路由器
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import index from "../views/index";
-import baike from '../views/baike/baike'
-import classify from '../views/classify/classify'
-import university from '../views/university/university'
-import questionAndAnswer from '../views/questionAndAnswer/questionAndAnswer'
-import show from '../views/show/show'
-import my from '../views/my/my'
-import lessonSeries from '../views/lessonSeries/lessonSeries'
+//路由懒加载
+const index =()=>import( "../views/index")
+const baike =()=>import( '../views/baike/baike')
+const classify =()=>import( '../views/classify/classify')
+const university =()=>import( '../views/university/university')
+const questionAndAnswer =()=>import( '../views/questionAndAnswer/questionAndAnswer')
+const show =()=>import( '../views/show/show')
+const my =()=>import( '../views/my/my')
+const lessonSeries =()=>import( '../views/lessonSeries/lessonSeries')
+const search =()=>import( '../views/search/search')
+
+
+
+// import index from "../views/index";
+// import baike from '../views/baike/baike'
+// import classify from '../views/classify/classify'
+// import university from '../views/university/university'
+// import questionAndAnswer from '../views/questionAndAnswer/questionAndAnswer'
+// import show from '../views/show/show'
+// import my from '../views/my/my'
+// import lessonSeries from '../views/lessonSeries/lessonSeries'
 
 
 
@@ -62,6 +74,10 @@ export default [
   {
     path: '/lessonSeries',
     component: lessonSeries
+  },
+  {
+    path: '/search',
+    component: search
   }
 
 ]

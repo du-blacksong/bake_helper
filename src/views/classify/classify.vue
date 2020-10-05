@@ -2,8 +2,8 @@
 <template>
   <div class="outer">
     <div class="top">
-      <img src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
-      <div class="search">搜索食谱/食材，烘焙/家常菜一应俱全</div>
+      <img @click="backTo" src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
+      <div @click="goToSearch" class="search">搜索食谱/食材，烘焙/家常菜一应俱全</div>
     </div>
     <div class="main">
       <div class="left" ref="left">
@@ -54,19 +54,42 @@ export default {
       this.recommendlist=this.classify.filter(item=>{
         return this.classifyid===item.classifyId
       })[0].list
+    },
+    backTo(){
+      this.$router.back()
+    },
+  //  跳转到serach组件
+    goToSearch(){
+      this.$router.push('/search')
     }
   },
   async beforeMount () {
-    await this.$store.dispatch('recommend')
-    await this.$store.dispatch('all')
-    this.recommendlist=this.classify[0].list
+
     this.$nextTick(()=>{
       console.log(this)
-      const bs=new BScroll(this.$refs.left,{
+      this.bs=new BScroll(this.$refs.left,{
         click:true,
         scrollY:true,
       })
+      this.bs.on('scrollEnd', () => {
+        console.log(11)
+        this.bs.scrollTo(0,0,500)//this.$refs.left.scrollTo(0,0,700)无效
+      })
     })
+    if (this.classify.length) {
+      this.recommendlist=this.classify[0].list
+      return
+    }
+    await this.$store.dispatch('recommend')
+    await this.$store.dispatch('all')
+
+    this.recommendlist=this.classify[0].list
+
+
+  },
+  beforeDestroy () {
+    console.log('销毁')
+
   }
 }
 </script>
@@ -123,10 +146,11 @@ export default {
       width: 170px;
       position: fixed;
       left: 0;
+      top: 100px;
       background-color: rgb(245,247,249);
       height: 100%;
       .contain {
-        height: 1500px;
+        height: 1400px;
         .item {
           width: 170px;
           height: 100px;

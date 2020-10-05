@@ -11,20 +11,14 @@
 //获得首页导航信息
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> a8dbfd86471c08a85a84739addf0755ad476de1b
 /*
  https://api.hongbeibang.com/education/getCourse?educationCourseId=10534
  method:GET
  参数:educationCourseId(课程id)
 * */
 
-<<<<<<< HEAD
-=======
 
->>>>>>> a8dbfd86471c08a85a84739addf0755ad476de1b
 /* 
   获得问答页面的精华问答信息
   https://api.hongbeibang.com/question/getEssence?pageIndex=0&pageSize=10
@@ -33,11 +27,11 @@
 */
 
 
-<<<<<<< HEAD
+
 // 获得烘焙圈轮播图的请求 
 // https://api.hongbeibang.com/feed/getCategory
 // method:GET
-=======
+
 /*
 * https://api.hongbeibang.com/education/getSeriesCourse?educationCourseId=10533
 * method:GET
@@ -66,4 +60,17 @@ method:GET
  method:GET
  参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10  educationCourseId(课程id)
 * */
->>>>>>> a8dbfd86471c08a85a84739addf0755ad476de1b
+
+/*
+食谱分类(推荐)
+https://api.hongbeibang.com/classify/getRecommend
+method:GET
+参数:无
+* */
+
+/*
+ 食谱分类(总)
+ https://api.hongbeibang.com/classify/getRecommend
+ method:GET
+ 参数:无
+ * */

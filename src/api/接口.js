@@ -29,7 +29,7 @@
 /*
  https://api.hongbeibang.com/education/getCourse?educationCourseId=10534
  method:GET
- 参数:educationCourseId(课程id)
+ 参数:educationCourseId(课程courseId)
 * */
 
 
@@ -88,3 +88,17 @@ method:GET
  method:GET
  参数:无
  * */
+
+/*
+技巧百科==>video
+ https://api.hongbeibang.com/education/getStartClassByNewbie?educationCourseId=10347
+ method:GET
+ 参数:educationCourseId(地址的query参数contentId,其实是courseId)
+* */
+
+/*
+技巧百科==>video==>推荐课程
+ https://api.hongbeibang.com/recommend/getRandContent?type=3&pageSize=10
+ method:GET
+ 参数:pageSize(每页数量)10 type 1-8
+* */

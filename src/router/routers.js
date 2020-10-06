@@ -11,6 +11,8 @@ const show =()=>import( '../views/show/show')
 const my =()=>import( '../views/my/my')
 const lessonSeries =()=>import( '../views/lessonSeries/lessonSeries')
 const search =()=>import( '../views/search/search')
+const video =()=>import( '../views/video/video')
+const lesson =()=>import( '../views/lesson/lesson')
 
 
 
@@ -78,6 +80,14 @@ export default [
   {
     path: '/search',
     component: search
+  },
+  {
+    path: '/video',
+    component: video
+  },
+  {
+    path: '/lesson',
+    component: lesson
   }
 
 ]

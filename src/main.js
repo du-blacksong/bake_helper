@@ -21,6 +21,15 @@ Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false;
 
+//引入播放插件(没用)
+// import VideoPlayer from 'vue-video-player'
+// import 'vue-video-player/src/custom-theme.css'
+// import 'video.js/dist/video-js.css'
+//
+// Vue.use(VideoPlayer)
+
+
+
 new Vue({
   beforeCreate() {
     // 将当前vm作为总线对象挂到Vue原型对象上

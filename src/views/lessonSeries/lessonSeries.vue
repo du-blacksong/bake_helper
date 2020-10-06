@@ -1,48 +1,10 @@
-<!--新手教程-->
+<!--新手教程同时也适用于其他课程页面
+url:/lessonSeries?contentId=10535
+参数:contentId(其实是该课程的courseId)
+-->
 <template>
   <div class="outer">
-    <div class="top">
-      <img :src="getCourse.image" alt="">
-      <div class="title">
-        <div class="desc">{{getCourse.title}}</div>
-        <div class="buyNum">
-          <img alt="" title=""
-               src="https://image.hongbeibang.com/FgRQxfAWq4kOdLc5xd_GxWm03Vs_?54X54&amp;imageView2/1/w/54/h/54">
-          <span class="numitem"><span class="num">1000+</span><span>人在学</span></span>
-        </div>
-      </div>
-
-    </div>
-    <div class="service">
-      <div style="padding-top:1px;"></div>
-      <div class="servicemain">
-        <div>
-          <div class="serviceitem">
-            <div class="servicepoint"></div>
-            <div class="pointdesc">永久回看</div>
-            <div class="servicepoint"></div>
-            <div class="pointdesc">报名即学</div>
-            <div class="servicepoint"></div>
-            <div class="pointdesc">自营课程</div>
-            <div class="servicepoint"></div>
-            <div class="pointdesc">高效学习体验</div>
-          </div>
-          <div class="serviceitem" style="margin-top:5px;">
-            <div class="servicepoint"></div>
-            <div class="pointdesc">分步骤学</div>
-            <div class="servicepoint"></div>
-            <div class="pointdesc">唯一品类</div>
-            <div class="servicepoint"></div>
-            <div class="pointdesc">图片下载</div>
-            <div class="servicepoint"></div>
-            <div class="pointdesc">工具材料参考</div>
-          </div>
-        </div>
-        <div class="arrow">
-          <img src="https://image.hongbeibang.com/Fqee_DzmTrYWinRY2tMPfDtu1ym8">
-        </div>
-      </div>
-    </div>
+    <LessonTitle :imageUrl="getCourse.image" :title="getCourse.title"/>
     <div class="main">
       <div class="nav" ref="nav">
         <div @click="active(0)" class="item" :class="{active:activeindex===0}">
@@ -69,45 +31,11 @@
           <div class="desc" v-html="getCourse.introduces&&getCourse.introduces[1].introduce"></div>
         </div>
         <div class="item last">
-          <div class="bottom">
-            <img alt="" title=""
-                 src="https://image.hongbeibang.com/FgyNuZ8yE795vzF-O4lGF3G5Caxr?551X245&amp;imageView2/1/w/551/h/242"
-                 style="width: 130px; height: 57.2px; background: none;">
-            <div class="bottomdesc">
-              烘焙帮学堂，是由烘焙帮推出的课程品牌，通过官方自制的教学视频，用科学的烘焙配方、细致的步骤讲解、贴心的答疑服务，让烘焙更简单！
-            </div>
-            <div class="bottomicon">
-              <div class="iconitem">
-                <img alt="" title=""
-                     src="https://image.hongbeibang.com/FvihrbO1twdtKSkz2WqB9KxUjjeg?100X116&amp;imageView2/1/w/100/h/116"
-                     style="width: 50px; height: 58px; background: none;">
-                <div class="iconitemdesc">蛋糕</div>
-              </div>
-              <div class="iconitem">
-                <img alt="" title=""
-                     src="https://image.hongbeibang.com/Frs8TmZhk4PrxBY2cvA9e3jbbdrB?100X116&amp;imageView2/1/w/100/h/116"
-                     style="width: 50px; height: 58px; background: none;">
-                <div class="iconitemdesc">甜点</div>
-              </div>
-              <div class="iconitem">
-                <img alt="" title=""
-                     src="https://image.hongbeibang.com/ForyDTluoYKimnQmobG6agmowKzy?100X116&amp;imageView2/1/w/100/h/116"
-                     style="width: 50px; height: 58px; background: none;">
-                <div class="iconitemdesc">面包</div>
-              </div>
-              <div class="iconitem">
-                <img alt="" title=""
-                     src="https://image.hongbeibang.com/FuCKHBljrYAFuTjTs0B1fkNcUhWw?100X116&amp;imageView2/1/w/100/h/116"
-                     style="width: 50px; height: 58px; background: none;">
-                <div class="iconitemdesc">中式点心</div>
-              </div>
-            </div>
-          </div>
+          <hpb-desc/>
         </div>
-
       </div>
       <div class="seriescourse" v-show="activeindex===1">
-        <div class="seriescourseitem" v-for="(item,index) in getSeriesCourse" :key="index">
+        <div @click="goToLesson(item.educationCourseId)" class="seriescourseitem" v-for="(item,index) in getSeriesCourse" :key="index">
           <img :src="item.image" alt="">
           <div class="right">
             <div class="title">{{item.title}}</div>
@@ -134,7 +62,7 @@
         <div id="flag"> 加载中...</div>
       </div>
       <div class="footer">
-        <div class="left">
+        <div class="left" @click="goTouniversity">
           <img src="https://image.hongbeibang.com/FjlY1hEsTozcG0oGvSXzNqRIc8gb?imageView2/1/w/640/h/640" alt="">
           <div>更多课程</div>
         </div>
@@ -153,6 +81,8 @@
 </template>
 
 <script>
+import LessonTitle from '@/components/LessonTitle'
+import hpbDesc from '@/components/hpbDesc'
 export default {
   name: "lessonSeries",
   data () {
@@ -178,8 +108,9 @@ export default {
   mounted () {
     window.addEventListener("scroll", (e) => {
       const top = document.body.scrollTop || document.documentElement.scrollTop
-      const flag=document.querySelector('#flag')
-      if (top > 380) {
+      console.log(top)
+      //这个值好像会变
+      if (top > 396) {
         this.$refs.nav.style.position = 'fixed';
         this.$refs.nav.style.top = '0';
         this.$refs.nav.style.left = '0';
@@ -196,8 +127,17 @@ export default {
     window.addEventListener("scroll",this.handleScroll)
   },
   methods: {
+    //跳转到lesson
+    goToLesson(courseId){
+      this.$router.push('/lesson?contentId='+courseId)
+    },
+    //跳转到university
+    goTouniversity(){
+      this.$router.push('/university')
+    },
     active (index) {
       this.activeindex = index
+      document.body.scrollTop ?document.body.scrollTop=396 :document.documentElement.scrollTop=396
     },
     //获得课程介绍相关数据
     async getCourses () {
@@ -223,7 +163,6 @@ export default {
     },
   //  无限滚动的回调
     handleScroll(e) {
-      const top = document.body.scrollTop || document.documentElement.scrollTop
   const flag=document.querySelector('#flag')
       // console.log("top",top)
       // console.log("bottom",flag.getBoundingClientRect().bottom)
@@ -244,6 +183,10 @@ export default {
   // 离开页面销毁监听事件；
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll, false);
+  },
+  components:{
+    "LessonTitle":LessonTitle,
+    "hpbDesc":hpbDesc,
   }
 }
 </script>
@@ -253,101 +196,6 @@ export default {
 .outer {
   background-color: #F5F7F9;
 
-  .top {
-    img {
-      width: 750px;
-      height: 420px;
-    }
-
-    .title {
-      padding: 24px 40px 30px 40px;
-      background-color: #fff;
-
-      .desc {
-        font-weight: bold;
-        font-size: 40px;
-        line-height: 56px;
-        color: #313131;
-      }
-
-      .buyNum {
-        margin-top: 30px;
-        position: relative;
-        height: 54px;
-        line-height: 54px;
-
-        img {
-          vertical-align: top;
-          width: 54px;
-          height: 54px;
-        }
-
-        .numitem {
-          display: inline-block;
-          font-size: 26px;
-          height: 54px;
-          vertical-align: bottom;
-          color: #313131;
-
-          .num {
-            color: #E98B71;
-          }
-        }
-      }
-    }
-  }
-
-
-  .service {
-    margin-top: 20px;
-    background-color: white;
-    margin-bottom: 10px;
-    padding: 0 40px 20px 40px;
-
-    .servicemain {
-      margin-top: 20px;
-      background-color: #FFFFFF;
-      color: #676767;
-      font-size: 26px;
-      display: flex;
-
-      .serviceitem {
-        display: flex;
-        align-items: center;
-
-        .servicepoint {
-          align-items: center;
-          justify-content: center;
-          display: inline-flex;
-          height: 6px;
-          width: 6px;
-          border-radius: 3px;
-          background-color: #E98B71;
-        }
-
-        .pointdesc {
-          color: #676767;
-          font-weight: 200;
-          font-size: 26px;
-          margin-left: 10px;
-          margin-right: 30px;
-          line-height: 37px;
-        }
-      }
-
-      .arrow {
-        align-items: center;
-        display: flex;
-        justify-content: flex-end;
-        margin-left: 0px;
-
-        img {
-          width: 13.5px;
-          height: 23px;
-        }
-      }
-    }
-  }
 
   .main {
     margin-top: 20px;
@@ -413,36 +261,7 @@ export default {
           margin-bottom: 20px
         }
 
-        .bottom {
-          background-color: #fff;
 
-          .bottomdesc {
-            font-weight: 300;
-            font-size: 28px;
-            line-height: 44px;
-            color: #313131;
-          }
-
-          .bottomicon {
-            display: flex;
-            flex-direction: row;
-            margin-top: 30px;
-
-            .iconitem {
-              flex: 1;
-              justify-content: center;
-              align-items: center;
-              display: flex;
-              flex-direction: column;
-              cursor: pointer;
-
-              .iconitemdesc {
-                font-size: 24px;
-                color: #313131
-              }
-            }
-          }
-        }
       }
 
     }

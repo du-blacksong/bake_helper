@@ -42,6 +42,8 @@
           <ul class="pic-list">
             <li class="pic-item" v-for="item in recommendList" :key="item.contentId">
               <img :src="item.coverImage">
+              <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
+              <span class="buy" v-else>{{item.buyNum}}在学</span>
               <div class="itemTitle">{{item.coverTitle}}</div>
             </li>
           </ul>
@@ -59,6 +61,8 @@
           <ul class="pic-list">
             <li class="pic-item" v-for="item in item.item" :key="item.categoryItemId">
               <img :src="item.image">
+              <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
+              <span class="buy" v-else>{{item.buyNum}}在学</span>
               <div class="itemTitle">{{item.shareTitle}}</div>
             </li>
           </ul>
@@ -246,12 +250,26 @@ export default {
           display :inline-block;
           font-size: 0;
           .pic-item{
+            position: relative;
             display: inline-block;
             margin-right: 20px;
             img{
               width: 320px;
               height: 450px;
               border-radius: 8px;
+            }
+            .buy{
+              display: block;
+              background-color: white;
+              top: 400px;
+              left: 20px;
+              position: absolute;
+              font-size: 22px;
+              color: #4A4945;
+              width: 140px;
+              height: 40px;
+              line-height: 40px;
+              text-align: center;
             }
             .itemTitle{
               height: 80px;

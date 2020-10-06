@@ -11,6 +11,20 @@
 //获得首页导航信息
 
 
+// https://api.hongbeibang.com/recommend/getRandContent?&type=3&pageSize=10
+// method:GET
+//获取推荐课程列表
+
+
+// https://api.hongbeibang.com/education/getIndexByWeb
+// method:GET
+//获取主页菜单列表
+
+// https://api.hongbeibang.com/index/getByType?type=11
+// method:GET
+// 视频学堂顶部导航
+
+
 
 /*
  https://api.hongbeibang.com/education/getCourse?educationCourseId=10534
@@ -19,7 +33,7 @@
 * */
 
 
-/* 
+/*
   获得问答页面的精华问答信息
   https://api.hongbeibang.com/question/getEssence?pageIndex=0&pageSize=10
   method:GET
@@ -28,7 +42,7 @@
 
 
 
-// 获得烘焙圈轮播图的请求 
+// 获得烘焙圈轮播图的请求
 // https://api.hongbeibang.com/feed/getCategory
 // method:GET
 
@@ -39,7 +53,7 @@
 * 获取新手教程课程目录
 * */
 
-/* 
+/*
 获得 烘焙圈 ==> 最新
 https://api.hongbeibang.com/v2/feed/getNew?pageIndex=0&pageSize=10
 method:GET
@@ -47,7 +61,7 @@ method:GET
 */
 
 
-/* 
+/*
 获得 烘焙圈 ==> 达人
 https://api.hongbeibang.com/v2/feed/getMasterNew?pageIndex=0&pageSize=10
 method:GET

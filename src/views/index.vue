@@ -50,7 +50,11 @@
 
 <!--分类展示列表-->
       <div class="recommend" v-for="item in indexMemuList" :key="item.categoryId">
-        <div class="title">{{item.title}}</div>
+        <div class="title">
+          {{item.title}}
+          <span class="all">查看全部</span>
+        </div>
+
         <div class="pic-wrapper">
           <ul class="pic-list">
             <li class="pic-item" v-for="item in item.item" :key="item.categoryItemId">
@@ -221,6 +225,14 @@ export default {
         vertical-align: middle;
         display: inline-block;
         font-weight: bold;
+        position: relative;
+        .all{
+          font-size: 28px;
+          color: #999999;
+          line-height: 48px;
+          position: absolute;
+          right: -560px;
+        }
       }
 
 

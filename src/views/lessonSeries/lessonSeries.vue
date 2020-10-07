@@ -61,21 +61,8 @@ url:/lessonSeries?contentId=10535
         </div>
         <div id="flag"> 加载中...</div>
       </div>
-      <div class="footer">
-        <div class="left" @click="goTouniversity">
-          <img src="https://image.hongbeibang.com/FjlY1hEsTozcG0oGvSXzNqRIc8gb?imageView2/1/w/640/h/640" alt="">
-          <div>更多课程</div>
-        </div>
-        <div class="center">
-          <img src="https://image.hongbeibang.com/FoOJzEIUP4G3Ub0wp_XeNNYIHH0s?imageView2/1/w/640/h/640" alt="">
-          <div>咨询</div>
-        </div>
-        <div class="right">
-          <del>￥{{getCourse.originPrice}}</del>
-          <div>￥{{getCourse.preDiscountPrice}}</div>
-          <div>购买专栏</div>
-        </div>
-      </div>
+      <LessonBottom :old-price="getCourse.originPrice" :new-price="getCourse.preDiscountPrice"/>
+
     </div>
   </div>
 </template>
@@ -83,6 +70,7 @@ url:/lessonSeries?contentId=10535
 <script>
 import LessonTitle from '@/components/LessonTitle'
 import hpbDesc from '@/components/hpbDesc'
+import LessonBottom from '@/components/LessonBottom'
 export default {
   name: "lessonSeries",
   data () {
@@ -187,6 +175,7 @@ export default {
   components:{
     "LessonTitle":LessonTitle,
     "hpbDesc":hpbDesc,
+    "LessonBottom":LessonBottom,
   }
 }
 </script>

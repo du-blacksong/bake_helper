@@ -88,3 +88,10 @@ method:GET
  method:GET
  参数:pageSize(每页数量)10 type 1-8
 * */
+
+/*
+课程信息==>导师的其他课程
+ https://api.hongbeibang.com/course/getClientOtherCourse?pageIndex=0&pageSize=10&clientId=176757&educationCourseId=10179
+ method:GET
+ 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10  educationCourseId(课程CourseId) clientId(应该是导师的id)
+* */

@@ -1,12 +1,21 @@
+<!--
+横向滚动功能
+参数:title
+recommendList:{
+title,用来描述当前视频的内容
+image，封面
+courseId,课程id，对应请求数据中的courseid，也可能是其他值(educationCourseId)，通常类似10632
+}
+-->
 <template>
   <div class="recommend">
     <div class="title">{{title}}</div>
     <div class="pic-wrapper" ref="wrapper">
       <div class="pic-list">
-        <div class="pic-item" v-for="item in recommendList" :key="item.contentId">
-          <img :src="item.coverImage">
+        <div @click="goToLesson(item.courseId)" class="pic-item" v-for="item in recommendList" :key="item.courseId">
+          <img :src="item.image">
           <div class="learnNum">1000+在学</div>
-          <div class="itemTitle">{{item.coverTitle}}</div>
+          <div class="itemTitle">{{item.title}}</div>
         </div>
       </div>
     </div>
@@ -17,6 +26,11 @@
 import BScroll from "better-scroll";
 export default {
 name: "index",
+  methods:{
+    goToLesson(courseId){
+      this.$router.push(`/lesson?contentId=${courseId}`)
+    }
+  },
   props:{
   title:{
     type:String,
@@ -41,6 +55,8 @@ name: "index",
 <style scoped lang="scss">
 //  推荐课程
 .recommend {
+  background-color: white;
+  padding-bottom: 30px;
   .title {
     padding: 30px 30px 20px;
     line-height: 50px;

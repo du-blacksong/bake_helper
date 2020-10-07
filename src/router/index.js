@@ -52,7 +52,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   linkActiveClass:"active",
-  linkExactActiveClass:"exactActive"
+  linkExactActiveClass:"exactActive",
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 });
 
 export default router;

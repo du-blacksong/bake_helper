@@ -22,10 +22,11 @@
 
 // https://api.hongbeibang.com/index/getByType?type=11
 // method:GET
-// 视频学堂顶部导航
+// 视频学堂顶部导航数据
 
-
-
+// https://api.hongbeibang.com/index/getIndexItem?&categoryId=10163
+// method:GET
+// 点击视频学堂顶部导航其他
 /*
  https://api.hongbeibang.com/education/getCourse?educationCourseId=10534
  method:GET

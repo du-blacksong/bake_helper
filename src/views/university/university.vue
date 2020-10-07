@@ -3,7 +3,7 @@
   <div class="university">
 <!--    顶部导航-->
     <div class="top">
-      <i class="iconfont icon-sousuo"></i>
+      <i class="iconfont icon-sousuo" @click="toSearch"></i>
       <div class="topNav" ref="topNav">
         <ul class="scrollWrapper" >
           <li v-for="item in topNav" :key="item.categoryId"
@@ -12,7 +12,6 @@
             {{item.title}}
             <div class="border" v-show="item.categoryId===nowId"/>
           </li>
-
         </ul>
       </div>
     </div>
@@ -20,7 +19,8 @@
     <div class="main1" v-show="!showOther">
       <!--轮播图-->
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="(item,index) in swipeList" :key="index">
+        <van-swipe-item v-for="(item,index) in swipeList" :key="index"
+                        @click=swiperGoToLesson(item.link)>
           <img :src="item.image">
         </van-swipe-item>
       </van-swipe>
@@ -34,7 +34,8 @@
 
         <div class="pic-wrapper">
           <ul class="pic-list">
-            <li class="pic-item" v-for="item in item.item" :key="item.categoryItemId">
+            <li class="pic-item" v-for="item in item.item" :key="item.categoryItemId"
+                @click="goToLesson(item.educationCourseId)">
               <img :src="item.image">
               <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
               <span class="buy" v-else>{{item.buyNum}}在学</span>
@@ -48,13 +49,20 @@
     </div>
 
     <div class="main2" v-show="showOther">
-
+      <div class="item" v-for="item in otherList" :key="item.educationCourseId"
+      @click="goToLesson(item.educationCourseId)">
+        <img :src="item.verticalImages[0]">
+        <span class="buy" v-if="item.buyNum>1000">1000+人参与</span>
+        <span class="buy" v-else>{{item.buyNum}}人参与</span>
+        <span class="title">{{item.title}}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import BetterScroll from 'better-scroll'
+import router from "@/router";
 
 export default {
   name: "university",
@@ -104,15 +112,27 @@ export default {
     })
   },
   methods:{
-    clickNav(categoryId){
+    async clickNav(categoryId){
       // console.log(categoryId)
       this.nowId=categoryId
       if(categoryId===0){
         this.showOther = false
       }else {
         this.showOther = true
+        const otherList = await this.$axios(`/index/getIndexItem?&categoryId=${this.nowId}`)
+        this.otherList = otherList.data.data
       }
-    }
+    },
+    swiperGoToLesson(url){
+      this.$router.push(url)
+    },
+    goToLesson(courseId){
+      console.log(courseId)
+      this.$router.push(`/lesson?contentId=${courseId}`)
+    },
+    toSearch(){
+      router.push('/search')
+    },
   }
 }
 </script>
@@ -238,6 +258,7 @@ export default {
               height: 40px;
               line-height: 40px;
               text-align: center;
+              border-radius: 10px;
             }
             .itemTitle{
               height: 80px;
@@ -262,6 +283,57 @@ export default {
       }
     }
   }
-
+  .main2{
+    margin: 0 0 0 40px;
+    overflow: hidden;
+    position: relative;
+    padding-top: 110px;
+    .item{
+      width: 324px;
+      height: 610px;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: top;
+      padding-bottom: 48px;
+      box-sizing: border-box;
+      margin-right: 22px;
+      position: relative;
+      img{
+        width: 324px;
+        height: 450px;
+        background-position: center;
+        border-radius:8px;
+      }
+      .buy{
+        display: block;
+        background-color: white;
+        top: 400px;
+        left: 20px;
+        position: absolute;
+        font-size: 22px;
+        color: #4A4945;
+        width: 160px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 10px;
+      }
+      .title{
+        margin-top: 10px;
+        color: #4A4945;
+        font-weight: bold;
+        font-size: 30px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        white-space: normal;
+        width: 324px;
+        height: 85px;
+      }
+    }
+  }
 }
 </style>

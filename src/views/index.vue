@@ -40,7 +40,8 @@
         <div class="title">推荐课程</div>
         <div class="pic-wrapper">
           <ul class="pic-list">
-            <li class="pic-item" v-for="item in recommendList" :key="item.contentId">
+            <li class="pic-item" v-for="item in recommendList" :key="item.contentId"
+                @click="goToLesson(item.courseId)">
               <img :src="item.coverImage">
               <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
               <span class="buy" v-else>{{item.buyNum}}在学</span>
@@ -59,7 +60,9 @@
 
         <div class="pic-wrapper">
           <ul class="pic-list">
-            <li class="pic-item" v-for="item in item.item" :key="item.categoryItemId">
+            <li class="pic-item" v-for="item in item.item"
+                @click="goToLesson(item.educationCourseId)"
+                :key="item.categoryItemId" >
               <img :src="item.image">
               <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
               <span class="buy" v-else>{{item.buyNum}}在学</span>
@@ -129,6 +132,10 @@ export default {
     //点击搜索框跳转到搜索页面
     toSearch(){
       router.push('/search')
+    },
+    goToLesson(courseId){
+      console.log(courseId)
+      this.$router.push(`/lesson?contentId=${courseId}`)
     }
   }
 }
@@ -270,6 +277,8 @@ export default {
               height: 40px;
               line-height: 40px;
               text-align: center;
+              border-radius: 10px;
+
             }
             .itemTitle{
               height: 80px;

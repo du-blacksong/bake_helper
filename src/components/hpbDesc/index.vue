@@ -38,7 +38,7 @@
 
 <script>
 export default {
-name: "index"
+name: "hpbDesc"
 }
 </script>
 

@@ -8,7 +8,7 @@
       {{NewbieIntroduces.title}}
     </div>
     <div class="introduce" v-html="NewbieIntroduces.introduce"></div>
-    <video-scroll title="推荐课程1" :recommend-list="recommendList"/>
+    <video-scroll title="推荐课程" :recommend-list="recommendList"/>
   </div>
 </template>
 
@@ -37,7 +37,14 @@ export default {
     },
     async getRandContent(){
       const {data} = await this.$axios.get(`/recommend/getRandContent?type=3&pageSize=10`)
-      this.recommendList=data.data.data
+      let recommendList=data.data.data
+      this.recommendList=recommendList.map(item=>{
+        return {
+          title:item.coverTitle,
+          image:item.coverImage,
+          courseId:item.courseId
+        }
+      })
     }
   },
    beforeMount () {

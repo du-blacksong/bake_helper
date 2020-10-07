@@ -3,7 +3,7 @@
  */
 import Vue from "vue";
 // import Element from 'element-ui'  // 完整引入 ==> 打包整个element所有组件
-import { Pagination, Button, MessageBox, Message, Carousel } from "element-ui";
+import { Pagination, Button, MessageBox, Message, Carousel ,CarouselItem} from "element-ui";
 
 // Vue.use(Element)
 // 注册全局组件
@@ -11,6 +11,7 @@ import { Pagination, Button, MessageBox, Message, Carousel } from "element-ui";
 Vue.use(Pagination); // 内部会执行 Vue.component(Pagination.name, Pagination)
 Vue.use(Button);
 Vue.use(Carousel);
+Vue.use(CarouselItem);
 
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;

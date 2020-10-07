@@ -13,6 +13,8 @@ const lessonSeries =()=>import( '../views/lessonSeries/lessonSeries')
 const search =()=>import( '../views/search/search')
 const video =()=>import( '../views/video/video')
 const lesson =()=>import( '../views/lesson/lesson')
+const allLessons =()=>import( '../views/AllLessons/AllLessons')
+
 
 
 
@@ -64,7 +66,7 @@ export default [
     meta:{
       isFooter:true
     },
-    
+
   },
   {
     path: '/my',
@@ -88,6 +90,10 @@ export default [
   {
     path: '/lesson',
     component: lesson
+  },
+  {
+    path:'/allLessons',
+    component: allLessons
   }
 
 ]

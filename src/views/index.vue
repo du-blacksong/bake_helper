@@ -55,7 +55,7 @@
       <div class="recommend" v-for="item in indexMemuList" :key="item.categoryId">
         <div class="title">
           {{item.title}}
-          <span class="all">查看全部</span>
+          <span class="all" @click="goToAllLessons(item.categoryId)">查看全部</span>
         </div>
 
         <div class="pic-wrapper">
@@ -136,6 +136,9 @@ export default {
     goToLesson(courseId){
       console.log(courseId)
       this.$router.push(`/lesson?contentId=${courseId}`)
+    },
+    goToAllLessons(categoryId){
+      this.$router.push(`/allLessons?categoryId=${categoryId}`)
     }
   }
 }

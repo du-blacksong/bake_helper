@@ -8,7 +8,7 @@
         <ul class="scrollWrapper" >
           <li v-for="item in topNav" :key="item.categoryId"
               :class="item.categoryId===nowId?'scrollItem active':'scrollItem'"
-              @click="nowId=item.categoryId" >
+              @click="clickNav(item.categoryId)" >
             {{item.title}}
             <div class="border" v-show="item.categoryId===nowId"/>
           </li>
@@ -17,7 +17,7 @@
       </div>
     </div>
 <!--    视频学堂推荐页面-->
-    <div class="main">
+    <div class="main1" v-show="!showOther">
       <!--轮播图-->
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
         <van-swipe-item v-for="(item,index) in swipeList" :key="index">
@@ -46,6 +46,10 @@
 
 
     </div>
+
+    <div class="main2" v-show="showOther">
+
+    </div>
   </div>
 </template>
 
@@ -59,7 +63,9 @@ export default {
       topNav: [],//顶部导航
       nowId: 0, //当前所在的分类id
       swipeList: [], //轮播图
-      indexMemuList:[] //主页展示的菜单
+      indexMemuList:[], //推荐页展示的菜单
+      otherList:[], //其他页展示的菜单
+      showOther: false //当前显示的是否是其他页面
 
     }
   },
@@ -79,7 +85,7 @@ export default {
     //轮播图
     const swipeList = await this.$axios('/education/getIndexByWeb')
     this.swipeList = swipeList.data.data.category[0].item
-    console.log(this.swipeList)
+    // console.log(this.swipeList)
 
 
     //获取主页菜单列表
@@ -90,12 +96,23 @@ export default {
     //滚动
     this.$nextTick(() => {
       let wrapper = document.querySelectorAll('.pic-wrapper')
-      console.log(wrapper[0])
+      // console.log(wrapper[0])
       for(let i=0;i<wrapper.length;i++){
         new BetterScroll(wrapper[i], {click: true, scrollX: true ,eventPassthrough: 'vertical'})
       }
       // new BetterScroll(wrapper[1], {click: true, scrollX: true});
     })
+  },
+  methods:{
+    clickNav(categoryId){
+      // console.log(categoryId)
+      this.nowId=categoryId
+      if(categoryId===0){
+        this.showOther = false
+      }else {
+        this.showOther = true
+      }
+    }
   }
 }
 </script>
@@ -156,7 +173,7 @@ export default {
       }
     }
   }
-  .main{
+  .main1{
     width: 100%;
     padding-top: 100px;
     overflow: hidden;

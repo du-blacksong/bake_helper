@@ -1,87 +1,109 @@
 <template>
   <!-- 首页 -->
   <div class="home">
-    <!--    顶部搜索栏-->
-    <div class="topSearch">
-      <i class="iconfont icon-jia"></i>
-      <div class="text" @click="toSearch">
-        <span><i class="iconfont icon-sousuo"></i>搜索食谱/食材，烘焙/家常菜一应俱全</span>
+<!--    蒙版-->
+    <div class="masking" v-show="showMasking">
+      <div class="close">
+        <i class="iconfont icon-guanbi" @click="noShowMasking"></i>
       </div>
-      <i class="iconfont icon-lingdang"></i>
-    </div>
-
-    <!--  顶部导航栏-->
-    <div class="topNavContent">
-      <div class="topNav" v-if="navList.length">
-
-        <router-link to="baike" class="navTapItem">
-          <img :src="navList[0].image"></img>
-          <span>{{navList[0].title}}</span>
-        </router-link>
-        <router-link to="university" class="navTapItem">
-          <img :src="navList[1].image"></img>
-          <span>{{navList[1].title}}</span>
-        </router-link>
-        <router-link to="/lessonSeries?contentId=10533" class="navTapItem">
-          <img :src="navList[2].image"></img>
-          <span>{{navList[2].title}}</span>
-        </router-link>
-        <router-link to="classify" class="navTapItem">
-          <img :src="navList[3].image"></img>
-          <span>{{navList[3].title}}</span>
-        </router-link>
+      <div class="image">
+        <img src="../static/images/scsp.jpg">
+        <img src="../static/images/sczp.jpg">
+      </div>
+      <div class="name">
+        <span>上传食谱</span>
+        <span>上传作品</span>
+      </div>
+      <div class="maskingBottom">
+        <span>草稿箱</span>
       </div>
     </div>
 
-    <!--    主体内容-->
-    <div class="main">
-      <!--      推荐课程-->
-      <div class="recommend">
-        <div class="title">推荐课程</div>
-        <div class="pic-wrapper">
-          <ul class="pic-list">
-            <li class="pic-item" v-for="item in recommendList" :key="item.contentId"
-                @click="goToLesson(item.courseId)">
-              <img :src="item.coverImage">
-              <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
-              <span class="buy" v-else>{{item.buyNum}}在学</span>
-              <div class="itemTitle">{{item.coverTitle}}</div>
-            </li>
-          </ul>
+
+    <div v-show="!showMasking">
+      <!--    顶部搜索栏-->
+      <div class="topSearch">
+        <i class="iconfont icon-jia" @click="isShowMasking"></i>
+        <div class="text" @click="toSearch">
+          <span><i class="iconfont icon-sousuo"></i>搜索食谱/食材，烘焙/家常菜一应俱全</span>
+        </div>
+        <i class="iconfont icon-lingdang"></i>
+      </div>
+
+      <!--  顶部导航栏-->
+      <div class="topNavContent">
+        <div class="topNav" v-if="navList.length">
+
+          <router-link to="baike" class="navTapItem">
+            <img :src="navList[0].image"></img>
+            <span>{{navList[0].title}}</span>
+          </router-link>
+          <router-link to="university" class="navTapItem">
+            <img :src="navList[1].image"></img>
+            <span>{{navList[1].title}}</span>
+          </router-link>
+          <router-link to="/lessonSeries?contentId=10533" class="navTapItem">
+            <img :src="navList[2].image"></img>
+            <span>{{navList[2].title}}</span>
+          </router-link>
+          <router-link to="classify" class="navTapItem">
+            <img :src="navList[3].image"></img>
+            <span>{{navList[3].title}}</span>
+          </router-link>
         </div>
       </div>
 
-<!--分类展示列表-->
-      <div class="recommend" v-for="item in indexMemuList" :key="item.categoryId">
-        <div class="title">
-          {{item.title}}
-          <span class="all" @click="goToAllLessons(item.categoryId)">查看全部</span>
+      <!--    主体内容-->
+      <div class="main">
+        <!--      推荐课程-->
+        <div class="recommend">
+          <div class="title">推荐课程</div>
+          <div class="pic-wrapper">
+            <ul class="pic-list">
+              <li class="pic-item" v-for="item in recommendList" :key="item.contentId"
+                  @click="goToLesson(item.courseId)">
+                <img :src="item.coverImage">
+                <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
+                <span class="buy" v-else>{{item.buyNum}}在学</span>
+                <div class="itemTitle">{{item.coverTitle}}</div>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div class="pic-wrapper">
-          <ul class="pic-list">
-            <li class="pic-item" v-for="item in item.item"
-                @click="goToLesson(item.educationCourseId)"
-                :key="item.categoryItemId" >
-              <img :src="item.image">
-              <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
-              <span class="buy" v-else>{{item.buyNum}}在学</span>
-              <div class="itemTitle">{{item.shareTitle}}</div>
-            </li>
-          </ul>
+        <!--分类展示列表-->
+        <div class="recommend" v-for="item in indexMemuList" :key="item.categoryId">
+          <div class="title">
+            {{item.title}}
+            <span class="all" @click="goToAllLessons(item.categoryId)">查看全部</span>
+          </div>
+
+          <div class="pic-wrapper">
+            <ul class="pic-list">
+              <li class="pic-item" v-for="item in item.item"
+                  @click="goToLesson(item.educationCourseId)"
+                  :key="item.categoryItemId" >
+                <img :src="item.image">
+                <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
+                <span class="buy" v-else>{{item.buyNum}}在学</span>
+                <div class="itemTitle">{{item.shareTitle}}</div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
 
 
-      <!--底部版权说明-->
-      <div class="footer">
-        <div>Copyright © hongbeibang.com 粤ICP备14090926号-1</div>
-        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44060602001356">
-          <img src="../static/images/guohui.jpg">
-          <span>粤公网安备 44060602001356号</span>
-        </a>
+        <!--底部版权说明-->
+        <div class="footer">
+          <div>Copyright © hongbeibang.com 粤ICP备14090926号-1</div>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44060602001356">
+            <img src="../static/images/guohui.jpg">
+            <span>粤公网安备 44060602001356号</span>
+          </a>
+        </div>
       </div>
     </div>
+
 
   </div>
 
@@ -97,8 +119,8 @@ export default {
     return {
       navList: [],
       recommendList:[], // 推荐
-      indexMemuList:[] //主页展示的菜单
-
+      indexMemuList:[], //主页展示的菜单
+      showMasking:false
     }
   },
   async mounted() {
@@ -129,6 +151,14 @@ export default {
 
   },
   methods:{
+    isShowMasking(){
+      this.showMasking=true;
+      document.getElementsByClassName('bottomBar')[0].style.display='none'
+    },
+    noShowMasking(){
+      this.showMasking=false;
+      document.getElementsByClassName('bottomBar')[0].style.display='flex'
+    },
     //点击搜索框跳转到搜索页面
     toSearch(){
       router.push('/search')
@@ -148,7 +178,45 @@ export default {
 .home {
   width: 100%;
   overflow: hidden;
+  .masking{
+    .close{
+      height: 88px;
+      line-height: 88px;
+      padding-left: 45px;
+      i {
+        width: 136px;
+        font-size: 44px;
+        color: #333333;
+      }
+    }
+    .image{
+      margin-top: 740px;
+      display: flex;
+      justify-content: space-around;
+      img{
+        width: 250px;
+        height: 250px;
+      }
+    }
+    .name{
+      display: flex;
+      justify-content: space-around;
+      font-size: 28px;
+    }
+    .maskingBottom{
+      height: 110px;
+      line-height: 110px;
+      font-size: 32px;
+      margin: 0 50px;
+      color: #4A4945;;
+      position: fixed;
+      width: 650px;
+      bottom: 0;
+      text-align: center;
+      border-top: #E7E2E5 1px solid;
+    }
 
+  }
   .topSearch {
     z-index: 999;
     background-color: white;

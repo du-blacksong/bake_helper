@@ -20,6 +20,10 @@ import axios from "./api/ajax";
 Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false;
+//图片懒加载
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload)
 
 //引入播放插件(没用)
 // import VideoPlayer from 'vue-video-player'

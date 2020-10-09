@@ -72,9 +72,6 @@ export default [
   {
     path: '/my',
     component: my,
-    meta:{
-      isFooter:true
-    }
   },
   {
     path: '/lessonSeries',

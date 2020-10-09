@@ -41,6 +41,16 @@
   参数:pageIndex(页码)0/10/20/30...    pageSize(每页数量)10
 */
 
+// 获得烘焙圈轮播图的请求
+// https://api.hongbeibang.com/feed/getCategory
+// method:GET
+
+//搜索详情
+//https://api.hongbeibang.com/search/getMoreRecipe?pageIndex=0&pageSize=10&keyword=%25E9%25A4%2590%25E5%258C%2585&sort=
+// method:GET
+//参数keyword    sort('','dishNum','master')
+
+
 /*
 * https://api.hongbeibang.com/education/getSeriesCourse?educationCourseId=10533
 * method:GET
@@ -94,7 +104,7 @@ method:GET
 最新问题==>news
  https://api.hongbeibang.com/question/getNew?pageIndex=0&pageSize=10
  method:GET
- 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10 
+ 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
 * */
 /*
 最热问题==>hot
@@ -114,7 +124,7 @@ method:GET
  获得 烘焙圈 ==> 最新第二个滑屏
  https://api.hongbeibang.com/community/getByLimit?pageIndex=0&pageSize=99&all=true&isShow=4&timestamp=160222693453
  method:GET
- 参数:pageIndex=0(页码)   pageSize(每页数量)99 
+ 参数:pageIndex=0(页码)   pageSize(每页数量)99
 * */
 
 /*
@@ -137,6 +147,7 @@ https://api.hongbeibang.com/v2/feed/getNew?&pageIndex=0&pageSize=10
 method:GET
 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
 */
+<<<<<<< HEAD
 
 /*
 获得 烘焙圈 ==> 达人页详情
@@ -144,3 +155,5 @@ https://api.hongbeibang.com/v2/feed/getMasterNew?pageIndex=0&pageSize=10
 method:GET
 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
 */
+=======
+>>>>>>> 724ff2f3cc284495917424a25cf5e8807a1056f2

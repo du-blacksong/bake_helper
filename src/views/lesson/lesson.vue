@@ -1,7 +1,8 @@
+<!--从lessonSeries跳转过来要带上isHideBottom-->
 <template>
   <div class="outer">
-    <LessonTitle :title="Course.trySeeTitle?'试看步骤: '+Course.trySeeTitle:Course.title"
-                 :videoUrl="Course.trySeeUrl?Course.trySeeUrl:Course.playURL"/>
+
+    <LessonTitle :title="$route.query.isHideBottom==='1'?'试看步骤: '+Course.trySeeTitle:Course.title" :videoUrl="Course.trySeeUrl?Course.trySeeUrl:Course.playURL"/>
     <div class="stuWork">
       <div class="head">
         <div class="title">学生作业</div>
@@ -29,7 +30,7 @@
     <div class="hpbdesc">
       <hpbDesc/>
     </div>
-<LessonBottom v-if="!Course.hasTrySeeVideo" :old-price="Course.originPrice" :new-price="Course.price"/>
+<LessonBottom v-if="$route.query.isHideBottom!=='1'" :old-price="Course.originPrice" :new-price="Course.price"/>
   </div>
 </template>
 
@@ -161,7 +162,7 @@ export default {
   //导师介绍
   .teacherIntroduce {
     background-color: white;
-
+    padding-bottom: 50px;
     .title {
       font-weight: bold;
       font-size: 34px;

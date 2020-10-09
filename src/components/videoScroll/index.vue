@@ -9,7 +9,10 @@ courseId,课程id，对应请求数据中的courseid，也可能是其他值(edu
 -->
 <template>
   <div class="recommend">
-    <div class="title">{{title}}</div>
+    <div class="head">
+      <div class="title">{{title}}</div>
+      <div @click="goTouniversity" class="seeMore">查看更多</div>
+    </div>
     <div class="pic-wrapper" ref="wrapper">
       <div class="pic-list">
         <div @click="goToLesson(item.courseId)" class="pic-item" v-for="item in recommendList" :key="item.courseId">
@@ -29,6 +32,12 @@ name: "index",
   methods:{
     goToLesson(courseId){
       this.$router.push(`/lesson?contentId=${courseId}`)
+    },
+    goTouniversity(){
+      if (this.$route.path==='/video'){
+        this.$router.push('/university')
+      }
+
     }
   },
   props:{
@@ -57,13 +66,28 @@ name: "index",
 .recommend {
   background-color: white;
   padding-bottom: 30px;
-  .title {
+  margin-top: 20px;
+  .head {
+    display: flex;
+    justify-content: space-between;
     padding: 30px 30px 20px;
     line-height: 50px;
-    font-size: 32px;
-    font-weight: bold;
-  }
 
+    .title {
+      font-size: 34px;
+      line-height: 48px;
+      color: #313131;
+      vertical-align: middle;
+      font-weight: bold;
+    }
+
+    .seeMore {
+      font-size: 30px;
+      color: #999;
+      line-height: 30px;
+      font-weight: normal;
+    }
+  }
   .pic-wrapper {
     width: 100%;
     margin:0 30px;

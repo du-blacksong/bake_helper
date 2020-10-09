@@ -112,7 +112,7 @@ method:GET
 
 /*
  获得 烘焙圈 ==> 最新第二个滑屏
- https://api.hongbeibang.com/community/getByLimit?pageIndex=0&pageSize=99
+ https://api.hongbeibang.com/community/getByLimit?pageIndex=0&pageSize=99&all=true&isShow=4&timestamp=160222693453
  method:GET
  参数:pageIndex=0(页码)   pageSize(每页数量)99 
 * */
@@ -130,3 +130,7 @@ https://api.hongbeibang.com/v2/feed/getMasterNew?pageIndex=0&pageSize=10
 method:GET
 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
 */
+<<<<<<< HEAD
+
+=======
+>>>>>>> 3ebd51013deb379356a0c0c3d01a2aa14f1be3b1

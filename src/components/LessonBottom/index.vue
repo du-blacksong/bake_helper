@@ -43,20 +43,27 @@ name: "LessonBottom",
   img {
     width: 40px;
     height: 40px;
+    margin-bottom: 5px;
   }
 
   .left {
     width: 140px;
     height: 100%;
     text-align: center;
-    vertical-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
   .center {
     width: 140px;
     height: 100%;
     text-align: center;
-
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
   .right {

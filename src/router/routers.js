@@ -11,9 +11,11 @@ const show =()=>import( '../views/show/show')
 const my =()=>import( '../views/my/my')
 const lessonSeries =()=>import( '../views/lessonSeries/lessonSeries')
 const search =()=>import( '../views/search/search')
+const searchForm =()=>import( '../views/searchForm/searchForm')
 const video =()=>import( '../views/video/video')
 const lesson =()=>import( '../views/lesson/lesson')
 const allLessons =()=>import( '../views/AllLessons/AllLessons')
+const dishrank =()=>import( '../views/dishrank')
 
 
 
@@ -81,6 +83,10 @@ export default [
     component: search
   },
   {
+    path: '/searchForm',
+    component: searchForm
+  },
+  {
     path: '/video',
     component: video
   },
@@ -91,6 +97,10 @@ export default [
   {
     path:'/allLessons',
     component: allLessons
+  },
+  {
+    path:'/dishrank',
+    component: dishrank
   }
 
 ]

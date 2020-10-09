@@ -7,10 +7,10 @@
       <div class="topNav" ref="topNav">
         <ul class="scrollWrapper" >
           <li v-for="item in topNav" :key="item.categoryId"
-              :class="item.categoryId===nowId?'scrollItem active':'scrollItem'"
+              :class="item.categoryId==nowId?'scrollItem active':'scrollItem'"
               @click="clickNav(item.categoryId)" >
             {{item.title}}
-            <div class="border" v-show="item.categoryId===nowId"/>
+            <div class="border" v-show="item.categoryId==nowId"/>
           </li>
         </ul>
       </div>
@@ -75,6 +75,13 @@ export default {
       otherList:[], //其他页展示的菜单
       showOther: false //当前显示的是否是其他页面
 
+    }
+  },
+  async beforeMount() {
+    if(this.$route.query.categoryId){
+      this.nowId = this.$route.query.categoryId
+      const otherList = await this.$axios(`/index/getIndexItem?&categoryId=${this.nowId}`)
+      this.otherList = otherList.data.data
     }
   },
   async mounted() {

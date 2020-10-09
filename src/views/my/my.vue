@@ -2,7 +2,7 @@
 <template>
   <div class="login">
     <div class="top">
-      <img src="../../static/images/back.jpg">
+      <img src="../../static/images/back.jpg" @click="back">
       <span>登录</span>
     </div>
 
@@ -23,7 +23,12 @@
 
 <script>
 export default {
-  name: "my"
+  name: "my",
+  methods:{
+    back(){
+      this.$router.go(-1)
+    }
+  }
 }
 </script>
 

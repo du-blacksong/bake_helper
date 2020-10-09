@@ -24,7 +24,6 @@ export default {
     name: 'Question',
 }
 </script>
-
 <style scoped lang="scss">
 .questionsWrap{
       position: relative;

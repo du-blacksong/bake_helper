@@ -41,8 +41,6 @@
   参数:pageIndex(页码)0/10/20/30...    pageSize(每页数量)10
 */
 
-
-
 // 获得烘焙圈轮播图的请求
 // https://api.hongbeibang.com/feed/getCategory
 // method:GET
@@ -60,20 +58,6 @@
 * 获取新手教程课程目录
 * */
 
-/*
-获得 烘焙圈 ==> 最新
-https://api.hongbeibang.com/v2/feed/getNew?pageIndex=0&pageSize=10
-method:GET
-参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
-*/
-
-
-/*
-获得 烘焙圈 ==> 达人
-https://api.hongbeibang.com/v2/feed/getMasterNew?pageIndex=0&pageSize=10
-method:GET
-参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
-*/
 
 /*
 新手教程 ==> 学院作业
@@ -116,3 +100,50 @@ method:GET
  method:GET
  参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10  educationCourseId(课程CourseId) clientId(应该是导师的id)
 * */
+/*
+最新问题==>news
+ https://api.hongbeibang.com/question/getNew?pageIndex=0&pageSize=10
+ method:GET
+ 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
+* */
+/*
+最热问题==>hot
+ https://api.hongbeibang.com/question/getHot?pageIndex=0&pageSize=10
+ method:GET
+ 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
+* */
+
+
+/*
+ 获得 烘焙圈 ==> 最新第一个滑屏 获得烘焙圈轮播图的请求
+https://api.hongbeibang.com/feed/getCategory
+method:GET
+* */
+
+/*
+ 获得 烘焙圈 ==> 最新第二个滑屏
+ https://api.hongbeibang.com/community/getByLimit?pageIndex=0&pageSize=99&all=true&isShow=4&timestamp=160222693453
+ method:GET
+ 参数:pageIndex=0(页码)   pageSize(每页数量)99
+* */
+
+/*
+获得 烘焙圈 ==> 最新的详情
+https://api.hongbeibang.com/v2/feed/getNew?pageIndex=0&pageSize=10
+method:GET
+参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
+*/
+
+/*
+获得 烘焙圈 ==> 达人
+https://api.hongbeibang.com/v2/feed/getMasterNew?pageIndex=0&pageSize=10
+method:GET
+参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
+*/
+
+/*
+获得 烘焙圈 ==> 消费者作品展示
+https://api.hongbeibang.com/v2/feed/getNew?&pageIndex=0&pageSize=10
+method:GET
+参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
+*/

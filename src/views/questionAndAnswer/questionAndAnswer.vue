@@ -22,11 +22,11 @@
   <div class="scrollWrap" ref="scrollWrap">
 
         <!-- 精华问答 -->
-        <Essence class="questionWrap" v-show="ShowEssence"/>
+        <Essence class="questionWrap" v-if="ShowEssence"/>
         <!-- 最新问题 -->
-        <News class="questionWrap" v-show="ShowNews"/>
+        <News class="questionWrap" v-if="ShowNews"/>
         <!-- 最热问题 -->
-        <Hot  class="questionWrap"v-show="ShowHot"/>
+        <Hot  class="questionWrap" v-if="ShowHot"/>
 
   </div>
 </div>
@@ -149,7 +149,7 @@ export default {
   margin-top: 170px;
   width: 100%;
   overflow: hidden;
-  height:1100px;
+  // height:1100px;
 .questionWrap{
    
     padding: 30px 30px;

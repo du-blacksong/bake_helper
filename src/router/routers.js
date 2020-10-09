@@ -15,6 +15,7 @@ const searchForm =()=>import( '../views/searchForm/searchForm')
 const video =()=>import( '../views/video/video')
 const lesson =()=>import( '../views/lesson/lesson')
 const allLessons =()=>import( '../views/AllLessons/AllLessons')
+const dishrank =()=>import( '../views/dishrank')
 
 
 
@@ -96,6 +97,10 @@ export default [
   {
     path:'/allLessons',
     component: allLessons
+  },
+  {
+    path:'/dishrank',
+    component: dishrank
   }
 
 ]

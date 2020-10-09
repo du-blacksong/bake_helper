@@ -2,7 +2,7 @@
   <!-- 首页 -->
   <div class="home">
 <!--加载页面-->
-    <Loading v-show="showLoading" class="loading"/>
+    <Loading v-show="showLoading"/>
 
     <div v-show="!showLoading">
       <!--    蒙版-->
@@ -150,7 +150,7 @@ export default {
     // console.log(indexMemuList.data.data.category.slice(1,10))
     this.indexMemuList = indexMemuList.data.data.category.slice(1,10)
 
-    //数据加载完成
+    //数据加载完成（加await 放在better-scroll 出错）
     await this.$nextTick(()=>{
       this.showLoading = false
       document.getElementsByClassName('bottomBar')[0].style.display='flex'

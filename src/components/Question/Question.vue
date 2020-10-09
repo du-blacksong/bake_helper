@@ -1,14 +1,15 @@
 //最新问题和最热问题共用组件封装
 <template>
-  <div class="questionsWrap">
+<div class="outer">
+  <div class="questionsWrap" v-for="(item, index) in news" :key="index">
       <div>
-          <a class="questionTitle" href="">这个厨房用纸是什么纸啦，不懂，可以不用厨房用纸吗</a>
+          <a class="questionTitle" href="">{{item.coverTitle}}</a>
       </div>
       <div class='questionsContent'>
-          <img src="https://image.hongbeibang.com/FkpcYcxGZV8WTrOFNGiy-6_eHv5d?912X600&imageView2/1/w/70/h/70" alt="">
+          <img :src="item.recipe.image" alt="" class='imgWrap'>
           <div class="rightContent">
-              <div class='contentTitle'>鲜奶肉松包</div>
-              <div class="author">在第12个步骤提问</div>
+              <div class='contentTitle'>{{item.recipe.title}}</div>
+              <div class="author">作者：{{item.recipe.clientName}}</div>
           </div>
       </div>
       <div class='questionsBottom'>
@@ -17,14 +18,46 @@
           <div class='answerWrite'>写答案</div>
       </div>
   </div>
+  <div id="flag">加载中。。。</div>
+</div>
 </template>
 
 <script>
 export default {
     name: 'Question',
+    props:{
+        news:{
+            type:Array
+        },
+        method:{
+            type:Function
+        }
+    },
+    mounted () {
+    window.addEventListener("scroll",this.handleScroll)
+    },
+    methods: {
+          //  无限滚动的回调
+    handleScroll(e) {
+  const flag=document.querySelector('#flag')
+      // console.log("top",top)
+      // console.log("bottom",flag.getBoundingClientRect().bottom)
+  //    元素底部距离视口顶部的距离
+//   console.log(~~(flag.getBoundingClientRect().top));
+  if (~~(flag.getBoundingClientRect().top)<725){
+    this.method()
+  }
+}
+    },
+    // 离开页面销毁监听事件；
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll, false);
+  },
 }
 </script>
 <style scoped lang="scss">
+.outer{
+    padding-bottom :100px;
 .questionsWrap{
       position: relative;
       overflow: hidden;
@@ -38,6 +71,7 @@ export default {
     .questionTitle{
       font-size:36px;
       color: #4A4945;
+     font-weight: bold;
       text-decoration: none;
     }
     .questionsContent{
@@ -48,6 +82,14 @@ export default {
       box-sizing: border-box;
       border-radius: 8px;
       display: flex;
+      margin-bottom: 10px;
+      margin-top: 10px;
+
+      .imgWrap{
+          width: 140px;
+          height: 140px;
+          border-radius: 8px;
+      }
     }
     .rightContent{
       display: inline-flex;
@@ -111,5 +153,7 @@ export default {
       }
     }
 
+}
+    
 }
 </style>

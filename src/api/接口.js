@@ -47,6 +47,12 @@
 // https://api.hongbeibang.com/feed/getCategory
 // method:GET
 
+//搜索详情
+//https://api.hongbeibang.com/search/getMoreRecipe?pageIndex=0&pageSize=10&keyword=%25E9%25A4%2590%25E5%258C%2585&sort=
+// method:GET
+//参数keyword    sort('','dishNum','master')
+
+
 /*
 * https://api.hongbeibang.com/education/getSeriesCourse?educationCourseId=10533
 * method:GET

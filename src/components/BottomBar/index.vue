@@ -53,7 +53,7 @@ export default {
     }
 
   }
-  .router-link-exact-active {
+  .exactActive {
     opacity: 1;
     color: black;
   }

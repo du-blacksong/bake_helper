@@ -142,7 +142,7 @@ export default {
     // // 滚动
     this.$nextTick(() => {
       let wrapper = document.querySelectorAll('.pic-wrapper')
-      console.log(wrapper[0])
+      // console.log(wrapper[0])
       for(let i=0;i<wrapper.length;i++){
         new BetterScroll(wrapper[i], {click: true, scrollX: true ,eventPassthrough: 'vertical'})
       }
@@ -298,9 +298,9 @@ export default {
     }
 
     .recommend {
-      margin-left: 30px;
       margin-bottom: 30px;
       .title {
+        margin-left: 30px;
         font-size: 34px;
         line-height: 48px;
         color: #313131;
@@ -325,6 +325,7 @@ export default {
         height: 540px;
         white-space: nowrap;
         .pic-list{
+          padding: 0 30px;
           display :inline-block;
           font-size: 0;
           .pic-item{

@@ -16,9 +16,15 @@
 export default {
   name: "AllLessons",
   async mounted() {
-    console.log(this.$router.history.current.query.categoryId)
-    const showList = await this.$axios(`/index/getIndexItem?&categoryId=${this.$router.history.current.query.categoryId}`)
-    this.showList = showList.data.data
+    // console.log(this.$router.history.current.query.categoryId)
+    if(this.$router.history.current.query.categoryId){
+      const showList = await this.$axios(`/index/getIndexItem?&categoryId=${this.$router.history.current.query.categoryId}`)
+      this.showList = showList.data.data
+    }else if(this.$router.history.current.query.clientId){
+      const showList = await this.$axios(`course/getClientOtherCourse?pageIndex=0&pageSize=30&clientId=${this.$router.history.current.query.clientId}&educationCourseId=0`)
+      this.showList = showList.data.data.data
+    }
+
   },
   data(){
     return {

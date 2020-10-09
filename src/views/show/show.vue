@@ -25,35 +25,71 @@
     <div class="subscription" v-show="subscriptionDetail">
       <div class="subscriptionDetail">暂无关注</div>
     </div>
-    <!-- 第一个滑屏 -->
-    <div class="headerNav" v-show="latestDetail">
-      <div class="headerNavList">
-        <div class="imgbox" v-for="(detail,index) in swrapImage.item" :key="index">
-          <img :src="detail.image">
+    <!-- 最新 -->
+    <div class="latest">
+      <!-- 第一个滑屏 -->
+      <div class="headerNav" v-show="latestDetail">
+        <div class="headerNavList">
+          <div class="imgbox" v-for="(detail,index) in swrapImage.item" :key="index">
+            <img :src="detail.image">
+          </div>
+        </div>
+      </div>
+      <!-- 第二个滑屏 -->
+      <div class="labelList" v-show="latestDetail">
+        <div class="labelContent">
+          <div class="labelItem" v-for="item in swrapText" :key="item.communityId">
+            <div>{{item.name}}</div>
+          </div>
+        </div>
+      </div>
+      <!-- 消费者作品展示 -->
+      <div class="show" v-for="(item,index) in context" :key="index" v-show="latestDetail">
+        <div class="showTop">
+          <div class="headPortrait">
+            <img :src="item.clientImage" alt="">
+          </div>
+          <div class="showContent">
+            <div class="showName">{{item.clientName}}</div>
+            <span class="showTime">{{item.createTime}} {{item.coverTitle}}</span>
+          </div>
+        </div>
+        <div class="showImg">
+          <div class="describe">
+            <span class="describe1">{{item.communityName}}</span>
+            <span>{{item.introduce}}</span>
+          </div>
+          <img :src="item.image" alt="">
+        </div>
+
+        <div class="showBotton" v-if="item.recipe.clientId !== 0">
+          <div class="showBottonImg">
+            <img :src="item.recipe.image" alt="">
+          </div>
+          <div class="showBottonRight">
+            <div class="showBottonName">{{item.recipe.title}}</div>
+            <div class="showBottonAuthor">作者：{{item.recipe.clientName}}</div>
+          </div>
+        </div>
+        <!-- 评价 -->
+        <div class="evaluate">
+          <div class="evaluateItem">
+            <div><img src="https://image.hongbeibang.com/Fqv9VBHXG627znbKlZYnHQMTHVdc?200X200&imageView2/1/w/38/h/38"
+                alt=""><span>点赞</span></div>
+            <div><img src="https://image.hongbeibang.com/Fi6E0gsACPeVV5_xgH5JBn6PN45m?200X200&imageView2/1/w/38/h/38"
+                alt=""><span>打赏</span></div>
+            <div><img src="https://image.hongbeibang.com/FiZ5-B7_rmV_gnPl97P-FkpjSlij?200X200&imageView2/1/w/38/h/38"
+                alt=""><span>评论</span></div>
+          </div>
         </div>
       </div>
     </div>
-    <!-- 第二个滑屏 -->
-    <div class="labelList">
-      <div class="labelContent">
-        <div class="labelItem" v-for="item in swrapText" :key="item.communityId">
-          <div>{{item.name}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="consumerDetail">
-      我是消费者详情
-    </div>
+
     <!-- 达人详情 -->
     <div class="super" v-show="superManDetail">
       <div>达人详情</div>
     </div>
   </div>
-  
-
-
-  
-
 </template>
 
 <script>
@@ -69,6 +105,7 @@
         pageIndex: 0,
         pageSize: 99,
         swrapText: [],
+        context: [],
       }
     },
     async mounted() {
@@ -79,9 +116,12 @@
       // 获得第二个滑屏的数据
       const result = await this.$axios.get(
         `community/getByLimit?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}&all=true&isShow=4&timestamp=160222693453`
-        )
-      console.log(result.data.data.data)
+      )
       this.swrapText = result.data.data.data
+      // 消费者作品展示的数据
+      const reqs = await this.$axios.get("v2/feed/getNew?&pageIndex=0&pageSize=10")
+      this.context = reqs.data.data.content
+      console.log(reqs.data.data.content)
     },
     methods: {
       subscription() {
@@ -188,32 +228,37 @@
       text-align: center;
     }
   }
+
   //第一个滑屏
-  .headerNav{
-      margin-top:100px;
+  .headerNav {
+    margin-top: 100px;
+    background: #fff;
+    width: 100%;
+    height: 202px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: 5px 0 10px;
+    border-bottom: 1px solid #E7E2E5;
+
+    .headerNavList {
       background: #fff;
-      width: 100%;
-      height: 202px;
-      overflow-x: auto;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-      padding: 5px 0 10px;
-      border-bottom: 1px solid #E7E2E5;
-      .headerNavList{
-        background: #fff;
-        margin-left: 15px;
-        width: 1240px;
-        height: 170px;
-        display: flex;
-          .imgbox{
-            margin-right: 8px;
-            img{
-              width: 300px;
-              height: 170px;
-            }
-          }
+      margin-left: 15px;
+      width: 1240px;
+      height: 170px;
+      display: flex;
+
+      .imgbox {
+        margin-right: 8px;
+
+        img {
+          width: 300px;
+          height: 170px;
+        }
       }
     }
+  }
+
   // 第二个滑屏的样式
   .labelList {
     box-sizing: border-box;
@@ -286,4 +331,124 @@
       }
     }
   }
+
+  //消费者作品的样式
+  .show{
+      background: #fff;
+      width: 100%;
+      // height: 409px;
+      margin-top: 10px;
+      .showTop{
+        width: 690px;
+        height: 88px;
+        margin: 10px 15px;
+        display: flex;
+        .headPortrait{
+          img{
+            width: 76px;
+            height: 76px;
+            border-radius:50%;
+            margin:5px 10px 0 0;
+          }
+        }
+        .showContent{
+          display: flex;
+          flex-flow: column;
+          .showName{
+            height: 40px;
+            line-height: 40px;
+            font-size: 26px;
+            color: #4a4945;
+            margin-top: 6px;
+          }
+          .showTime{
+            height: 32px;
+            line-height: 32px;
+            font-size: 24px;
+            color: #999;
+            margin-top: 10px;
+          }
+        }
+      }
+      .showImg{
+       margin-bottom: 22px;
+        .describe{
+          margin: 20px 30px 22px;
+          span{
+            font-size: 28px;
+            color:#4a4945;
+          }
+          .describe1{
+            color:#498dd0 ;
+          }
+        }
+        img{
+          max-width: 710px;
+          max-height: 220px;
+          margin-left: 30px;
+        }
+      }
+      .showBotton{
+        background: #F5F7F9;
+        width: 690px;
+        height: 140px;
+        display:flex;
+        margin-left: 30px;
+        margin-bottom: 30px;
+        .showBottonImg{
+          img{
+            width: 140px;
+            height: 140px;
+            border-radius: 5px;
+          }
+        }
+        .showBottonRight{
+          display:flex;
+          flex-flow: column;
+          margin-left: 30px;
+          .showBottonName{
+            font-size: 28px;
+            color: #313131;
+            font-weight: bold;
+            margin-top: 30px;
+         }
+          .showBottonAuthor{
+            font-size: 26px;
+            color: #999;
+            margin-top: 10px;
+          }
+        } 
+      }
+      .evaluate{
+        width: 100%;
+        height:60px;
+        border-top: 2px solid #e7e2e5;
+        .evaluateItem{
+          margin: 0 30px;
+          display: flex;
+          div{
+            display: flex;
+            width: 246px;
+            height: 40px;
+            margin: 8px 0 0;
+            font-size: 24px;
+            color: #999;
+            justify-content: center;
+            &:nth-child(2){
+              border-left: 2px solid #e7e2e5;
+              border-right: 2px solid #e7e2e5;
+            }
+            span{
+              height: 40px;
+              line-height:40px;
+            }
+            img{
+              width: 38px;
+              height: 38px;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    } 
 </style>

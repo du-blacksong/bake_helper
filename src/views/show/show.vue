@@ -34,6 +34,14 @@
             </li>
           </ul>
         </div>
+        <!-- 参照样式 -->
+        <!-- <div class="labelList_fc">
+          <div class="labelContent_fc">
+          <div class="labelItem_fc" v-for="item in Data" :key="item.communityId" @click="hotAndNew">
+          <div>{{item.name}}</div>
+      </div>
+    </div>
+  </div> -->
         <div class="secondScroll">
           <ul class="scrollWrapper" ref="secondScroll">
             <li v-for="(item,index) in swrapText.content" :key="index">

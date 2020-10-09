@@ -90,7 +90,7 @@ method:GET
  method:GET
  参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10  educationCourseId(课程CourseId) clientId(应该是导师的id)
 * */
-<<<<<<< HEAD
+
 /*
 最新问题==>news
  https://api.hongbeibang.com/question/getNew?pageIndex=0&pageSize=10
@@ -103,7 +103,7 @@ method:GET
  method:GET
  参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
 * */
-=======
+
 
 
 /*

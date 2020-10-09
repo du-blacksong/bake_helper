@@ -45,7 +45,7 @@ url:/lessonSeries?contentId=10535
         </div>
 
       </div>
-      <home-work :OutstandingContent="OutstandingContent" v-show="activeindex===2"/>
+      <home-work :method="getOutstandingCourseContent" :OutstandingContent="OutstandingContent" v-show="activeindex===2"/>
 
       <LessonBottom :old-price="getCourse.originPrice" :new-price="getCourse.preDiscountPrice"/>
 

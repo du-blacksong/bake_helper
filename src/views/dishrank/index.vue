@@ -1,18 +1,19 @@
 <template>
   <div class="outer">
     <div class="top">
-      <div class="back">
+      <div class="back" @click="back">
         <img
             src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48|imageView2/1/w/48/h/48"
             alt="">
       </div>
       <div class="nav">
-        <div class="item" :class="{active:activeId===0}">学霸榜</div>
-        <div class="item" :class="{active:activeId===1}">最新</div>
+        <div class="item" @click="active(0)" :class="{active:activeId===0}">学霸榜</div>
+        <div class="item" @click="active(1)" :class="{active:activeId===1}">最新</div>
       </div>
     </div>
     <div class="main">
-      <home-work :OutstandingContent="activeId?CourseContent:OutstandingCourseContent"/>
+      <home-work v-if="activeId===0" :method="getOutstandingCourseContent" :OutstandingContent="OutstandingCourseContent" />
+      <home-work v-else-if="activeId===1" :method="getCourseContent" :OutstandingContent="CourseContent" />
     </div>
   </div>
 </template>
@@ -30,22 +31,46 @@ export default {
     //  学霸的作业
       OutstandingCourseContent:[],
     //  请求开关，防止重复请求
-      flag:true
+      flag:true,
+    //  学霸作业的页数
+      xbindex:0,
+    //  学员作业页数
+      stuindex:0,
+      pageSize:10
     }
   },
   methods:{
-    //  获得学员作业
+    //返回
+    back(){
+      this.$router.back()
+    },
+    //切换作业
+    active(id){
+      this.activeId=id
+    },
+    //  获得学霸作业
     async getOutstandingCourseContent () {
       if (!this.flag) return
       this.flag = false
-      const {data} = await this.$axios.get(`/dish/getOutstandingCourseContent?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}&educationCourseId=${this.contentId}`)
-      this.pageIndex += this.pageSize
+      const {data} = await this.$axios.get(`/dish/getOutstandingCourseContent?pageIndex=${this.xbindex}&pageSize=${this.pageSize}&educationCourseId=${this.$route.query.contentId}`)
+      this.xbindex += this.pageSize
       this.flag = true
-      this.OutstandingContent.push(...data.data.content.data)
+      this.OutstandingCourseContent.push(...data.data.content.data)
+    },
+    //  获得学霸作业
+    async getCourseContent () {
+      console.log(11)
+      if (!this.flag) return
+      this.flag = false
+      const {data} = await this.$axios.get(`/dish/getCourseContent?pageIndex=${this.stuindex}&pageSize=${this.pageSize}&educationCourseId=${this.$route.query.contentId}`)
+      this.stuindex += this.pageSize
+      this.flag = true
+      this.CourseContent.push(...data.data.content.data)
     },
   },
-  beforeMount () {
-    this.getOutstandingCourseContent()
+  async beforeMount () {
+    await this.getOutstandingCourseContent()
+    await this.getCourseContent()
   },
   components:{
     "homeWork":homeWork

@@ -1,7 +1,7 @@
 <template>
   <div class="OutstandingCourseContent" >
     <div class="courseContentitem" v-for="(item,index) in OutstandingContent" :key="index">
-      <img :src="item.image[0]" alt="">
+      <img v-lazy="item.image[0]" alt="">
       <div class="itemmain">
         <div class="userinfo">
           <img :src="item.clientImage" alt="">
@@ -25,7 +25,8 @@ name: "homeWork",
     OutstandingContent:{
       type:Array,
       required:true
-    }
+    },
+    method:Function
   },
   mounted () {
     window.addEventListener("scroll", this.handleScroll)
@@ -38,11 +39,14 @@ name: "homeWork",
       // console.log("bottom",flag.getBoundingClientRect().bottom)
       //    元素底部距离视口顶部的距离
       if (~~(flag.getBoundingClientRect().top) < 1050) {
-        if (!this.flag) return
-        this.getOutstandingCourseContent()
+        this.method()
       }
     },
-  }
+  },
+  // 离开页面销毁监听事件；
+  destroyed () {
+    window.removeEventListener("scroll", this.handleScroll, false);
+  },
 }
 </script>
 

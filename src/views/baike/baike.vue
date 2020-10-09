@@ -8,7 +8,7 @@
 
     </div>
     <div class="imglist">
-      <div class="item" v-for="(item,index) in baikeList" :key="item.courseId">
+      <div @click="goTovideo(item.courseId)" class="item" v-for="(item,index) in baikeList" :key="item.courseId">
         <img :src="item.image">
         <div class="desc">{{item.title}}</div>
       </div>
@@ -26,7 +26,8 @@ export default {
     }
   },
   async beforeMount () {
-    const {data}=await this.$axios.get(`/education/getNewbieGuide?type=${this.random()}`)
+    //type值改为固定值
+    const {data}=await this.$axios.get(`/education/getNewbieGuide?type=5`)
     this.baikeList=data.data.courseGuide
   },
   methods:{
@@ -35,6 +36,10 @@ export default {
     },
     backToindex(){
       this.$router.back()
+    },
+  //  跳转到video页
+    goTovideo(courseId){
+      this.$router.push(`/video?contentId=${courseId}`)
     }
   }
 }

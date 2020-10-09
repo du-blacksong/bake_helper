@@ -1,61 +1,109 @@
 <template>
   <!-- 首页 -->
   <div class="home">
-    <!--    顶部搜索栏-->
-    <div class="topSearch">
-      <i class="iconfont icon-jia"></i>
-      <div class="text">
-        <span><i class="iconfont icon-sousuo"></i>搜索食谱/食材，烘焙/家常菜一应俱全</span>
+<!--    蒙版-->
+    <div class="masking" v-show="showMasking">
+      <div class="close">
+        <i class="iconfont icon-guanbi" @click="noShowMasking"></i>
       </div>
-      <i class="iconfont icon-lingdang"></i>
-    </div>
-    <!--  顶部导航栏-->
-    <div class="topNavContent">
-      <div class="topNav" v-if="navList.length">
-
-        <router-link to="baike" class="navTapItem">
-          <img :src="navList[0].image"></img>
-          <span>{{navList[0].title}}</span>
-        </router-link>
-        <router-link to="university" class="navTapItem">
-          <img :src="navList[1].image"></img>
-          <span>{{navList[1].title}}</span>
-        </router-link>
-        <router-link to="/lessonSeries?contentId=10533" class="navTapItem">
-          <img :src="navList[2].image"></img>
-          <span>{{navList[2].title}}</span>
-        </router-link>
-        <router-link to="classify" class="navTapItem">
-          <img :src="navList[3].image"></img>
-          <span>{{navList[3].title}}</span>
-        </router-link>
+      <div class="image">
+        <img src="../static/images/scsp.jpg">
+        <img src="../static/images/sczp.jpg">
+      </div>
+      <div class="name">
+        <span>上传食谱</span>
+        <span>上传作品</span>
+      </div>
+      <div class="maskingBottom">
+        <span>草稿箱</span>
       </div>
     </div>
 
-    <!--    主体内容-->
-    <div class="main">
-      <!--      推荐课程-->
-      <div class="recommend">
-        <div class="title">推荐课程</div>
-        <div class="pic-wrapper">
-          <ul class="pic-list">
-            <li class="pic-item" v-for="item in recommendList" :key="item.contentId">
-              <img :src="item.coverImage">
-              <div class="itemTitle">{{item.coverTitle}}</div>
-            </li>
-          </ul>
+
+    <div v-show="!showMasking">
+      <!--    顶部搜索栏-->
+      <div class="topSearch">
+        <i class="iconfont icon-jia" @click="isShowMasking"></i>
+        <div class="text" @click="toSearch">
+          <span><i class="iconfont icon-sousuo"></i>搜索食谱/食材，烘焙/家常菜一应俱全</span>
+        </div>
+        <i class="iconfont icon-lingdang"></i>
+      </div>
+
+      <!--  顶部导航栏-->
+      <div class="topNavContent">
+        <div class="topNav" v-if="navList.length">
+
+          <router-link to="baike" class="navTapItem">
+            <img :src="navList[0].image"></img>
+            <span>{{navList[0].title}}</span>
+          </router-link>
+          <router-link to="university" class="navTapItem">
+            <img :src="navList[1].image"></img>
+            <span>{{navList[1].title}}</span>
+          </router-link>
+          <router-link to="/lessonSeries?contentId=10533" class="navTapItem">
+            <img :src="navList[2].image"></img>
+            <span>{{navList[2].title}}</span>
+          </router-link>
+          <router-link to="classify" class="navTapItem">
+            <img :src="navList[3].image"></img>
+            <span>{{navList[3].title}}</span>
+          </router-link>
         </div>
       </div>
 
-<!--分类展示列表-->
-<!--      <div class="">-->
-<!--        <div></div>-->
-<!--      </div>-->
+      <!--    主体内容-->
+      <div class="main">
+        <!--      推荐课程-->
+        <div class="recommend">
+          <div class="title">推荐课程</div>
+          <div class="pic-wrapper">
+            <ul class="pic-list">
+              <li class="pic-item" v-for="item in recommendList" :key="item.contentId"
+                  @click="goToLesson(item.courseId)">
+                <img :src="item.coverImage">
+                <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
+                <span class="buy" v-else>{{item.buyNum}}在学</span>
+                <div class="itemTitle">{{item.coverTitle}}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!--分类展示列表-->
+        <div class="recommend" v-for="item in indexMemuList" :key="item.categoryId">
+          <div class="title">
+            {{item.title}}
+            <span class="all" @click="goToAllLessons(item.categoryId)">查看全部</span>
+          </div>
+
+          <div class="pic-wrapper">
+            <ul class="pic-list">
+              <li class="pic-item" v-for="item in item.item"
+                  @click="goToLesson(item.educationCourseId)"
+                  :key="item.categoryItemId" >
+                <img :src="item.image">
+                <span class="buy" v-if="item.buyNum>1000">1000+在学</span>
+                <span class="buy" v-else>{{item.buyNum}}在学</span>
+                <div class="itemTitle">{{item.shareTitle}}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
 
 
-
-
+        <!--底部版权说明-->
+        <div class="footer">
+          <div>Copyright © hongbeibang.com 粤ICP备14090926号-1</div>
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44060602001356">
+            <img src="../static/images/guohui.jpg">
+            <span>粤公网安备 44060602001356号</span>
+          </a>
+        </div>
+      </div>
     </div>
+
 
   </div>
 
@@ -63,13 +111,16 @@
 
 <script>
 import BetterScroll from 'better-scroll'
+import router from "@/router";
 
 export default {
   name: "index",
   data() {
     return {
       navList: [],
-      recommendList:[]
+      recommendList:[], // 推荐
+      indexMemuList:[], //主页展示的菜单
+      showMasking:false
     }
   },
   async mounted() {
@@ -78,18 +129,47 @@ export default {
     const navList = data.data.category[0].item
     this.navList = navList
 
-    //获取推荐列表
+    //获取推荐课程列表
     const recommendList = await this.$axios('/recommend/getRandContent?&type=3&pageSize=10')
     // console.log(recommendList.data.data.data)
     this.recommendList = recommendList.data.data.data
 
+    //获取主页菜单列表
+    const indexMemuList = await this.$axios('/education/getIndexByWeb')
+    // console.log(indexMemuList.data.data.category.slice(1,10))
+    this.indexMemuList = indexMemuList.data.data.category.slice(1,10)
 
     // // 滚动
-    let wrapper = document.querySelector('.pic-wrapper')
     this.$nextTick(() => {
-      this.scroll = new BetterScroll(wrapper, {click: true, scrollX: true});
+      let wrapper = document.querySelectorAll('.pic-wrapper')
+      console.log(wrapper[0])
+      for(let i=0;i<wrapper.length;i++){
+        new BetterScroll(wrapper[i], {click: true, scrollX: true ,eventPassthrough: 'vertical'})
+      }
+      // new BetterScroll(wrapper[1], {click: true, scrollX: true});
     })
 
+  },
+  methods:{
+    isShowMasking(){
+      this.showMasking=true;
+      document.getElementsByClassName('bottomBar')[0].style.display='none'
+    },
+    noShowMasking(){
+      this.showMasking=false;
+      document.getElementsByClassName('bottomBar')[0].style.display='flex'
+    },
+    //点击搜索框跳转到搜索页面
+    toSearch(){
+      router.push('/search')
+    },
+    goToLesson(courseId){
+      console.log(courseId)
+      this.$router.push(`/lesson?contentId=${courseId}`)
+    },
+    goToAllLessons(categoryId){
+      this.$router.push(`/allLessons?categoryId=${categoryId}`)
+    }
   }
 }
 </script>
@@ -98,8 +178,48 @@ export default {
 .home {
   width: 100%;
   overflow: hidden;
+  .masking{
+    .close{
+      height: 88px;
+      line-height: 88px;
+      padding-left: 45px;
+      i {
+        width: 136px;
+        font-size: 44px;
+        color: #333333;
+      }
+    }
+    .image{
+      margin-top: 740px;
+      display: flex;
+      justify-content: space-around;
+      img{
+        width: 250px;
+        height: 250px;
+      }
+    }
+    .name{
+      display: flex;
+      justify-content: space-around;
+      font-size: 28px;
+    }
+    .maskingBottom{
+      height: 110px;
+      line-height: 110px;
+      font-size: 32px;
+      margin: 0 50px;
+      color: #4A4945;;
+      position: fixed;
+      width: 650px;
+      bottom: 0;
+      text-align: center;
+      border-top: #E7E2E5 1px solid;
+    }
 
+  }
   .topSearch {
+    z-index: 999;
+    background-color: white;
     top: 0;
     position: fixed;
     height: 88px;
@@ -170,7 +290,7 @@ export default {
 
   .main {
     margin-top: 60px;
-
+    padding-bottom: 98px;
     .clearfix::before,.clearfix::after{
       content: '';
       display: table;
@@ -179,7 +299,7 @@ export default {
 
     .recommend {
       margin-left: 30px;
-
+      margin-bottom: 30px;
       .title {
         font-size: 34px;
         line-height: 48px;
@@ -187,6 +307,14 @@ export default {
         vertical-align: middle;
         display: inline-block;
         font-weight: bold;
+        position: relative;
+        .all{
+          font-size: 28px;
+          color: #999999;
+          line-height: 48px;
+          position: absolute;
+          right: -560px;
+        }
       }
 
 
@@ -200,12 +328,28 @@ export default {
           display :inline-block;
           font-size: 0;
           .pic-item{
+            position: relative;
             display: inline-block;
             margin-right: 20px;
             img{
               width: 320px;
               height: 450px;
               border-radius: 8px;
+            }
+            .buy{
+              display: block;
+              background-color: white;
+              top: 400px;
+              left: 20px;
+              position: absolute;
+              font-size: 22px;
+              color: #4A4945;
+              width: 140px;
+              height: 40px;
+              line-height: 40px;
+              text-align: center;
+              border-radius: 10px;
+
             }
             .itemTitle{
               height: 80px;
@@ -229,7 +373,27 @@ export default {
         }
       }
     }
+
+    .footer{
+      height: 138px;
+      background-color: #f5f7f9;
+      font-size: 26px;
+      color: #939393;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 20px 40px;
+      div{
+        height: 40px;
+      }
+      a{
+        height: 40px;
+        color: #939393;
+      }
+    }
+
   }
+
 
 
 }

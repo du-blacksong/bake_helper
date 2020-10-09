@@ -1,8 +1,5 @@
-/*
-根据
-import whb from './whb'
-export default {
-  whb
-}*/
+import classify from "@/store/modules/classify";
 //把每个模块写在下面
-export default {};
+export default {
+  classify
+};

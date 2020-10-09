@@ -7,36 +7,60 @@
         <span class="icon iconfont">&#xe641;</span>
       </div>
       <div class="text">
-        <div><span>关注</span></div>
-        <div><span>最新</span></div>
-        <div><span>达人</span></div>
+        <div @click="subscription">
+          <span>关注</span>
+        </div>
+        <div>
+          <span>最新</span>
+        </div>
+        <div>
+          <span>达人</span>
+        </div>
       </div>
       <div class="lingdang">
         <span class="icon iconfont">&#xe600;</span>
       </div>
     </div>
-    <!-- 头部下方的红线 -->
-    <div class="line">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
+    <!-- 关注详情 -->
+    <div class="subscription" v-show="showSubscription">
+      <div class="subscriptionDetail">暂无关注</div>
     </div>
+    <!-- 最新详情 -->
+
+
   </div>
 </template>
 
 <script>
   export default {
-    name: "show"
+    name: "show",
+    data(){
+      return {
+        showSubscription:false
+      }
+    },
+    async mounted(){
+      const req = await this.$axios.get("feed/getCategory")
+      console.log(req)
+    },
+    methods: {
+      subscription(){
+        this.showSubscription = true
+      }
+    },
   }
 </script>
 
 <style scoped lang="scss">
+  .container {
+    position: relative;
+  }
   // 头部的样式
   .header {
     display: flex;
     background: #FFFFFF;
     height: 88px;
-    z-index: 6;
+    // z-index: 6;
     position: fixed;
     top: 0;
     left: 0;
@@ -73,48 +97,35 @@
     height: 88px;
     font-size: 32px;
     color: #999999;
-    
     }
     .text span{
       font-size:32px;
       font-weight:bold;
       text-align: center;
       cursor: pointer;
+      border-bottom:5px solid #E98B71;
+      display: inline-block;
+      margin-bottom:5px;
+      padding:0 4px;
+      border-radius:3px;
     }
   }
-  // 头部的线
-  .container .line {
-    position: relative;
+//  关注详情
+.subscription{
+  position: absolute;
+  height: 1124px;
+  width: 100%;
+  background-color:rgb(242, 245,248);
+  top:110px;
+  .subscriptionDetail{
+    font-size: 28px;
+    line-height: 40px;
+    color: #999999;
+    margin: 40px auto;
+    text-align: center;
   }
-  .container .line .line1 {
-    width: 40px;
-    height: 4px;
-    margin: 10px ;
-    background-color: #E98B71;
-    position:absolute;
-    right: 210px;
-    top:70px;
-    z-index: 99;
-  }
-  .container .line .line2 {
-    width: 40px;
-    height: 4px;
-    margin: 10px ;
-    background-color: #E98B71;
-    position:absolute;
-    left:350px;
-    top:70px;
-    z-index: 99;
-  }
-  .container .line .line3 {
-    width: 40px;
-    height: 4px;
-    margin: 10px ;
-    background-color: #E98B71;
-    position:absolute;
-    left:220px;
-    top:70px;
-    z-index: 99;
-  }
+}
+  
+  
   
 </style>

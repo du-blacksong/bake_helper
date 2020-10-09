@@ -3,7 +3,7 @@
   <div class="outer">
 
     <LessonTitle :title="$route.query.isHideBottom==='1'?'试看步骤: '+Course.trySeeTitle:Course.title" :videoUrl="Course.trySeeUrl?Course.trySeeUrl:Course.playURL"/>
-    <div class="stuWork">
+    <div class="stuWork" @click="goTodishrank">
       <div class="head">
         <div class="title">学生作业</div>
         <div class="seeMore">查看更多</div>
@@ -26,7 +26,7 @@
       </div>
       <div class="desc" v-html="Course.teacherIntroduce"></div>
     </div>
-    <videoScroll title="导师的其他课程" :recommend-list="ClientOtherCourse"/>
+    <videoScroll v-if="Course.clientId"  title="导师的其他课程" :recommend-list="ClientOtherCourse" :clientid="Course.clientId"/>
     <div class="hpbdesc">
       <hpbDesc/>
     </div>
@@ -53,6 +53,10 @@ export default {
     }
   },
   methods: {
+    //去学生作业页面
+    goTodishrank(){
+      this.$router.push('/dishrank?contentId='+this.$route.query.contentId)
+    },
     //获取课程信息
     async getCourse () {
       const {data} = await this.$axios.get(`/education/getCourse?educationCourseId=${this.$route.query.contentId}`)

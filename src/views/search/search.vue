@@ -1,10 +1,16 @@
 <template>
+<!-- 搜索组件 -->
   <div class="wrap">
     <div class="headerWrap">
     <!-- 搜索框 -->
       <div class="search">
-         <img src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
-        <div class="searchInput">
+         <img @click="toBack" src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
+        <div class="searchInput" v-if="$route.query.type==='live'">
+          <input v-model="keyword" placeholder="搜索课程">
+          <i class="iconfont icon-sousuo"></i>
+          </input>
+        </div>
+        <div class="searchInput" v-else>
           <input v-model="keyword" placeholder="搜索食谱/食材，烘焙/家常菜一应俱全"></input>
         </div>
         <span @click="toSearch" class="right">搜索</span>
@@ -36,12 +42,25 @@ export default {
     this.popularSearch=data.data.popularSearch
   },
   methods: {
-    /* 点击跳转到serch路由 */
+    /* 点击搜索跳转到serchForm */
     toSearch(){
-      router.push(`/searchForm/?keyword=${this.keyword}`)
+     this.$router.push(`/searchForm?keyword=${this.keyword}`)
     },
+    /*
+    点击下面的小标签跳转到搜索的详情页面 */
     toSearchForm(e){
-      router.push(`/searchForm/?keyword=${e}`)
+      // 在视频学堂页面点击的搜索图标
+      // 路径有type就跳转到searchLive搜索页面
+      if(this.$route.query.type==='live'){
+        this.$router.push(`/searchLive?keyword=${e}`)
+      }else{
+        this.$router.push(`/searchForm?keyword=${e}`)
+      }
+     
+    },
+    /* 回退 */
+    toBack(){
+      this.$router.back(-1)
     }
   }
 };
@@ -82,12 +101,18 @@ export default {
         overflow: hidden;
         cursor: pointer;
         input{
+          position: relative;
           width: 100%;
           height: 100%;
           font-size: 28px;
           color: #4A4945;
           border: none;
           background: none;
+          i{
+            position: absolute;
+            top:0;
+            left:100px;
+          }
         }
       }
       .right{

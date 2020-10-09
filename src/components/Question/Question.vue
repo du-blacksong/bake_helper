@@ -13,7 +13,7 @@
           </div>
       </div>
       <div class='questionsBottom'>
-          <div class='answerNumber'>暂无回答</div>
+            <div class='answerNumber'>{{item.answerNum ===0? `暂无回答 ` :item.answerNum+'个回答'}}</div>
           <img src="https://image.hongbeibang.com/FlSZI5KwZLrR9-QXD9Vu7u0lVvCE?48X48&imageView2/1/w/40/h/40" alt="">
           <div class='answerWrite'>写答案</div>
       </div>

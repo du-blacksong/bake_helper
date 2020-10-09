@@ -1,85 +1,139 @@
 <template>
-  <div>
-    <div id="body">
-      <div class="s-4b17eb37" data-reactid=".17r2pqa3ms2" data-react-checksum="606140934">
-        <noscript data-reactid=".17r2pqa3ms2.0"></noscript>
-        <div
-          style="padding:0px;max-width:600px;margin:0 auto;overflow:hidden;"
-          data-reactid=".17r2pqa3ms2.1"
-        >
-          <div data-reactid=".17r2pqa3ms2.1.0">
-            <noscript data-reactid=".17r2pqa3ms2.1.0.0"></noscript>
-            <div data-reactid=".17r2pqa3ms2.1.0.1">
-              <div class="s30153804" data-reactid=".17r2pqa3ms2.1.0.1.0">
-                <span
-                  class="s-3613cfc6"
-                  style="float:left;"
-                  data-reactid=".17r2pqa3ms2.1.0.1.0.0:$back"
-                >
-                  <img
-                    alt
-                    title
-                    src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&amp;imageView2/1/w/48/h/48"
-                    class="s-6a5cf0dc"
-                    data-reactid=".17r2pqa3ms2.1.0.1.0.0:$back.0"
-                  />
-                </span>
-                <span
-                  class="s7d4f25eb"
-                  style="float:right;"
-                  data-reactid=".17r2pqa3ms2.1.0.1.0.1:$search"
-                >搜索</span>
-                <div class="s2ca81225" data-reactid=".17r2pqa3ms2.1.0.1.0.3">
-                  <div class="s60de47cb" data-reactid=".17r2pqa3ms2.1.0.1.0.3.0">
-                    <div
-                      style="overflow:hidden;width:100%;"
-                      data-reactid=".17r2pqa3ms2.1.0.1.0.3.0.1"
-                    >
-                      <input
-                        type="text"
-                        class="s6c123eab"
-                        placeholder="搜索食谱/食材，烘焙/家常菜一应俱全"
-                        value
-                        data-reactid=".17r2pqa3ms2.1.0.1.0.3.0.1.0"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="s7e1f0f36" data-reactid=".17r2pqa3ms2.1.0.1.1"></div>
-            </div>
-            <div class="s7ec60f39" data-reactid=".17r2pqa3ms2.1.0.2">
-              <div class="s-3f5ee535" data-reactid=".17r2pqa3ms2.1.0.2.0">热门搜索</div>
-            </div>
-            <div class="s-4a3ee475" >
-              <div class="s-342c6019" >🔥老婆饼</div>
-              <div class="s-342c6019" >🔥蛋黄酥</div>
-              <div class="s-342c6019" >🔥广式月饼</div>
-              <div class="s-342c6019" >🔥奶黄月饼</div>
-              <div class="s-342c6019" >🔥苏式月饼</div>
-              <div class="s-342c6019" >冰皮月饼</div>
-              <div class="s-342c6019">雪媚娘</div>
-              <div class="s-342c6019" >凤梨酥</div>
-              <div class="s-342c6019" >卤菜</div>
-              <div class="s-342c6019" >芝士蛋糕</div>
-              <div class="s-342c6019">奶茶</div>
-              <div class="s-342c6019">台式月饼</div>
-              <div class="s-342c6019" >戚风蛋糕</div>
-            </div>
-            <div class="s65742ab0" data-reactid=".17r2pqa3ms2.1.0.6"></div>
-          </div>
-          <noscript data-reactid=".17r2pqa3ms2.1.3"></noscript>
+  <div class="wrap">
+    <div class="headerWrap">
+    <!-- 搜索框 -->
+      <div class="search">
+         <img src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
+        <div class="searchInput">
+          <input v-model="keyword" placeholder="搜索食谱/食材，烘焙/家常菜一应俱全"></input>
         </div>
+        <span @click="toSearch" class="right">搜索</span>
       </div>
     </div>
+    <!-- 搜索的标签 -->
+    <div class="hotSearch">
+      <span>热门搜索</span>
+    </div>
+    <div class="keywordWrap">
+      <span @click="toSearchForm(item.keyword)" class="keyword" v-for="item in popularSearch">{{item.keyword}}</span>
+    </div>
   </div>
+  
 </template>
 
 <script>
 export default {
-  name: ""
+  name: "search",
+  data(){
+    return {
+      popularSearch:[],//搜索的标签
+      keyword:""
+    }
+  },
+  async mounted () {
+    let {data}=await this.$axios('https://api.hongbeibang.com/keyword/detail')
+    //console.log("111",data)
+    this.popularSearch=data.data.popularSearch
+  },
+  methods: {
+    /* 点击跳转到serch路由 */
+    toSearch(){
+      router.push(`/searchForm/?keyword=${this.keyword}`)
+    },
+    toSearchForm(e){
+      router.push(`/searchForm/?keyword=${e}`)
+    }
+  }
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
+  .wrap{
+
+  /* 头部搜索 */
+    .headerWrap {
+
+    margin-bottom: 10px;
+    .search{
+      height: 88px;
+      line-height: 88px;
+      text-align: center;
+      margin: 20px 40px;
+      display: flex;
+      img{
+         width: 60px;
+        height: 60px;
+        margin: 10px 0;
+      }
+      .left{
+        font-size: 32px;
+
+      }
+      .searchInput{
+        flex: 1;
+        height: 70px;
+        line-height: 70px;
+        text-align: center;
+        border-radius: 8px;
+        background-color: #F5F7F9;
+        margin: 0 40px;
+        padding: 0 10px;
+        box-sizing: border-box;
+        overflow: hidden;
+        cursor: pointer;
+        input{
+          width: 100%;
+          height: 100%;
+          font-size: 28px;
+          color: #4A4945;
+          border: none;
+          background: none;
+        }
+      }
+      .right{
+        margin: -8px 0;
+        font-size: 32px;
+        color:#4A4945
+      }
+
+    }
+
+ 
+  }
+  /* 热门搜索标签 */
+    .hotSearch{
+      margin:30px 40px;
+      span{
+        font-size: 28px;
+        line-height: 40px;
+        color: #999;
+
+      }
+ 
+    }
+  /* 搜索的小标签 */
+    .keywordWrap{
+      padding:0 60px;
+      .keyword{
+      height:64px;
+      line-height:64px;
+      font-size:32px;
+      padding:0 20px;
+      text-align:center;
+      margin-right:20px;
+      margin-bottom:20px;
+      border-radius:20px;
+      box-sizing:border-box;
+      color: #4A4945;
+      background-color: #F5F7F9;
+      display: inline-block;
+      vertical-align: middle;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+        }
+      
+    }
+
+}
 </style>

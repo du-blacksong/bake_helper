@@ -11,10 +11,10 @@
           <span>关注</span>
         </div>
         <div>
-          <span>最新</span>
+          <span @click="attention">最新</span>
         </div>
         <div>
-          <span>达人</span>
+          <span @click="superMan">达人</span>
         </div>
       </div>
       <div class="lingdang">
@@ -22,32 +22,83 @@
       </div>
     </div>
     <!-- 关注详情 -->
-    <div class="subscription" v-show="showSubscription">
+    <div class="subscription" v-show="subscriptionDetail">
       <div class="subscriptionDetail">暂无关注</div>
     </div>
     <!-- 最新详情 -->
+    <div class="latest" v-show="latestDetail">
+        <div class="firstScroll" ref="firstScroll">
+          <ul class="scrollWrapper">
+            <li class="liWrapper" v-for="(detail,index) in swrapImage.item" :key="index">
+              <img :src="detail.image">
+            </li>
+          </ul>
+        </div>
+        <div class="secondScroll">
+          <ul class="scrollWrapper" ref="secondScroll">
+            <li v-for="(item,index) in swrapText.content" :key="index">
 
-
+            </li>
+          </ul>
+        </div>
+        <div class="consumerDetail"></div>
+    </div>
+    <!-- 达人详情 -->
+    <div class="super" v-show="superManDetail">
+      <div>达人详情</div>
+    </div>
   </div>
+    
 </template>
 
 <script>
+  import BetterScroll from 'better-scroll'
   export default {
     name: "show",
     data(){
       return {
-        showSubscription:false
+        subscriptionDetail:false,
+        latestDetail:true,
+        superManDetail:false,
+        swrapImage:[],
+        pageIndex:0,
+        pageSize:99,
+        swrapText:[],
       }
     },
     async mounted(){
+      // 获得第一个滑屏的数据
       const req = await this.$axios.get("feed/getCategory")
-      console.log(req)
+      // console.log(req.data.data.category[0])
+      this.swrapImage = req.data.data.category[0]
+      // 第一个导航滚动
+      this.$nextTick(() => {
+        new BetterScroll(this.$refs.firstScroll,{click: true, scrollX: true})
+      })
+      // 获得第二个滑屏的数据
+      const result = await this.$axios.get(`community/getByLimit?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`)
+      console.log(result)
+      // this.swrapText = result.data.data
     },
-    methods: {
+    methods:{
       subscription(){
-        this.showSubscription = true
+        this.subscriptionDetail = true
+        this.latestDetail = false
+        this.superManDetail = false
+      },
+      attention(){
+        this.subscriptionDetail = false
+        this.latestDetail = true
+        this.superManDetail = false
+      },
+      superMan(){
+        this.subscriptionDetail = false
+        this.latestDetail = false
+        this.superManDetail = true
       }
-    },
+    }
+    
+    
   }
 </script>
 
@@ -125,7 +176,35 @@
     text-align: center;
   }
 }
-  
+//最新的详情
+.latest {
+  margin-top:88px;
+  // height: 750px;
+  .firstScroll{
+    width: 750px;
+    margin-top:120px;
+    // height: 300px;
+    overflow: hidden;
+    .scrollWrapper{
+      // height: 300px;
+      width:1260px;
+      display:flex;
+      .liWrapper{
+        margin-right:20px;
+        width:300px;
+        height:171px;
+        img{
+          max-width: none;
+          width:300px;
+          height:171px;
+          border-radius: 4px;
+        }
+       
+      }
+    }
+  }
+
+}
   
   
 </style>

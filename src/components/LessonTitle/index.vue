@@ -78,6 +78,10 @@ name: "LessonTitle",
     width: 750px;
     height: 420px;
   }
+  video {
+    width: 750px;
+    height: 420px;
+  }
   .title {
     padding: 24px 40px 30px 40px;
     background-color: #fff;

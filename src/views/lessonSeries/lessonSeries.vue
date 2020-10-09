@@ -35,7 +35,8 @@ url:/lessonSeries?contentId=10535
         </div>
       </div>
       <div class="seriescourse" v-show="activeindex===1">
-        <div @click="goToLesson(item.educationCourseId)" class="seriescourseitem" v-for="(item,index) in getSeriesCourse" :key="index">
+        <div @click="goToLesson(item.educationCourseId)" class="seriescourseitem"
+             v-for="(item,index) in getSeriesCourse" :key="index">
           <img :src="item.image" alt="">
           <div class="right">
             <div class="title">{{item.title}}</div>
@@ -44,23 +45,8 @@ url:/lessonSeries?contentId=10535
         </div>
 
       </div>
-      <div   class="OutstandingCourseContent" v-show="activeindex===2">
-        <div class="courseContentitem" v-for="(item,index) in OutstandingContent" :key="index">
-          <img :src="item.image[0]" alt="">
-          <div class="itemmain">
-            <div class="userinfo">
-              <img :src="item.clientImage" alt="">
-              <div class="name">{{item.clientName}}</div>
-            </div>
-            <div class="desc">{{item.introduce ? item.introduce : '新手烘焙专题：从入门到精通'}}</div>
-          </div>
-          <div class="evaluation">
-            <span class="iconfont icon-dianzan"></span>
-            <span class="favonum">{{item.likeNum}}</span>
-          </div>
-        </div>
-        <div id="flag"> 加载中...</div>
-      </div>
+      <home-work :OutstandingContent="OutstandingContent" v-show="activeindex===2"/>
+
       <LessonBottom :old-price="getCourse.originPrice" :new-price="getCourse.preDiscountPrice"/>
 
     </div>
@@ -71,6 +57,8 @@ url:/lessonSeries?contentId=10535
 import LessonTitle from '@/components/LessonTitle'
 import hpbDesc from '@/components/hpbDesc'
 import LessonBottom from '@/components/LessonBottom'
+import homeWork from '@/components/homeWork'
+
 export default {
   name: "lessonSeries",
   data () {
@@ -89,43 +77,25 @@ export default {
       pageSize: 10,
       //  当前页数
       pageIndex: 0,
-    //  学院作业请求开关防止重复请求
-      flag:true
+      //  学院作业请求开关防止重复请求
+      flag: true
     }
   },
   mounted () {
-    window.addEventListener("scroll", (e) => {
-      const top = document.body.scrollTop || document.documentElement.scrollTop
-      console.log(top)
-      //这个值好像会变
-      if (top > 396) {
-        this.$refs.nav.style.position = 'fixed';
-        this.$refs.nav.style.top = '0';
-        this.$refs.nav.style.left = '0';
-        this.$refs.nav.style.right = '0';
-        this.$refs.placehold.style.height = '44px';
-      } else {
-        this.$refs.nav.style.position = '';
-        this.$refs.nav.style.top = '';
-        this.$refs.nav.style.left = '';
-        this.$refs.nav.style.right = '';
-        this.$refs.placehold.style.height = '0';
-      }
-    })
-    window.addEventListener("scroll",this.handleScroll)
+    window.addEventListener("scroll", this.fixedTab)
   },
   methods: {
     //跳转到lesson
-    goToLesson(courseId){
-      this.$router.push('/lesson?contentId='+courseId)
+    goToLesson (courseId) {
+      this.$router.push('/lesson?isHideBottom=1&contentId=' + courseId)
     },
     //跳转到university
-    goTouniversity(){
+    goTouniversity () {
       this.$router.push('/university')
     },
     active (index) {
       this.activeindex = index
-      document.body.scrollTop ?document.body.scrollTop=396 :document.documentElement.scrollTop=396
+      document.body.scrollTop ? document.body.scrollTop = 396 : document.documentElement.scrollTop = 396
     },
     //获得课程介绍相关数据
     async getCourses () {
@@ -140,26 +110,34 @@ export default {
       const {data} = await this.$axios.get(`/education/getSeriesCourse?educationCourseId=${this.contentId}`)
       this.getSeriesCourse = data.data.data
     },
-    //  获得学院作业
+    //  获得学员作业
     async getOutstandingCourseContent () {
       if (!this.flag) return
-      this.flag=false
+      this.flag = false
       const {data} = await this.$axios.get(`/dish/getOutstandingCourseContent?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}&educationCourseId=${this.contentId}`)
       this.pageIndex += this.pageSize
-      this.flag=true
+      this.flag = true
       this.OutstandingContent.push(...data.data.content.data)
     },
-  //  无限滚动的回调
-    handleScroll(e) {
-  const flag=document.querySelector('#flag')
-      // console.log("top",top)
-      // console.log("bottom",flag.getBoundingClientRect().bottom)
-  //    元素底部距离视口顶部的距离
-  if (~~(flag.getBoundingClientRect().top)<1050){
-    if (!this.flag) return
-    this.getOutstandingCourseContent()
-  }
-}
+    //  tab栏固定的回调
+    fixedTab (e) {
+      const top = document.body.scrollTop || document.documentElement.scrollTop
+      // console.log(top)
+      //这个值好像会变
+      if (top > 396) {
+        this.$refs.nav.style.position = 'fixed';
+        this.$refs.nav.style.top = '0';
+        this.$refs.nav.style.left = '0';
+        this.$refs.nav.style.right = '0';
+        this.$refs.placehold.style.height = '44px';
+      } else {
+        this.$refs.nav.style.position = '';
+        this.$refs.nav.style.top = '';
+        this.$refs.nav.style.left = '';
+        this.$refs.nav.style.right = '';
+        this.$refs.placehold.style.height = '0';
+      }
+    }
   },
 
   beforeMount () {
@@ -169,13 +147,14 @@ export default {
     this.getOutstandingCourseContent()
   },
   // 离开页面销毁监听事件；
-  destroyed() {
-    window.removeEventListener("scroll", this.handleScroll, false);
+  destroyed () {
+    window.removeEventListener("scroll", this.fixedTab, false);
   },
-  components:{
-    "LessonTitle":LessonTitle,
-    "hpbDesc":hpbDesc,
-    "LessonBottom":LessonBottom,
+  components: {
+    "LessonTitle": LessonTitle,
+    "hpbDesc": hpbDesc,
+    "LessonBottom": LessonBottom,
+    "homeWork": homeWork,
   }
 }
 </script>
@@ -291,85 +270,6 @@ export default {
 
     }
 
-    //  学院作业样式
-    .OutstandingCourseContent {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      padding: 38px 20px 140px;
-
-      .courseContentitem {
-        width: 330px;
-        margin: 10px;
-
-        img {
-          width: 330px;
-          height: 330px;
-          border-radius: 8px;
-        }
-
-        .itemmain {
-          .userinfo {
-            display: flex;
-
-            img {
-              width: 40px;
-              height: 40px;
-              margin-right: 10px;
-              border-radius: 50%;
-            }
-
-            .name {
-              font-size: 24px;
-              height: 40px;
-              line-height: 40px;
-            }
-          }
-
-          .desc {
-            font-size: 24px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2; //文本行数
-          }
-
-        }
-
-        .evaluation {
-          flex: 1;
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          margin-top: 14px;
-          margin-bottom: 28px;
-
-          .iconfont {
-            font-size: 50px;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 9px;
-            color: rgba(153,153,153,.8);
-          }
-          .favonum {
-            font-size: 21px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            display: inline-block;
-            vertical-align: middle;
-            color: #686868;
-          }
-        }
-      }
-      #flag{
-        width: 100%;
-        height: 63px;
-        text-align: center;
-        font-size: 32px;
-      }
-    }
   }
 
   .footer {

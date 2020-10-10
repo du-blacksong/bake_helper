@@ -104,7 +104,6 @@ export default {
     Loading
   },
   destroyed () {
-  this.stuwork=[]
 }
 }
 </script>

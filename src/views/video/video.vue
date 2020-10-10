@@ -61,7 +61,6 @@ export default {
     Loading
   },
   destroyed () {
-    this.recommendList=[]
   }
 }
 </script>

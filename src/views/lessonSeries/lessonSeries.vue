@@ -154,7 +154,6 @@ export default {
   // 离开页面销毁监听事件；
   destroyed () {
     window.removeEventListener("scroll", this.fixedTab, false);
-    this.getSeriesCourse=[]
   },
   components: {
     "LessonTitle": LessonTitle,

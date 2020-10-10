@@ -19,7 +19,7 @@
       </div>
   </div>
   <div id="flag">
-    <img src="../../static/images/loding.gif">
+    <img src="../../static/images/loading1.gif">
       加载中...
   </div>
 </div>
@@ -53,11 +53,11 @@ export default {
     this.method()
   }
 },
-toFoodDetail(contentId){
+  toFoodDetail(contentId){
     this.$router.push(`/foodDetail?contentId=${contentId}`)
     console.log(111)
-}
-    },
+    }
+  },
     // 离开页面销毁监听事件；
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll, false);
@@ -164,12 +164,12 @@ toFoodDetail(contentId){
 
   }
   #flag {
+  margin-top: 80px;
   width: 100%;
   height: 63px;
   line-height: 63px;
   text-align: center;
   font-size: 32px;
-  background: #F5F7F9;
   img{
     width: 40px;
     height: 40px;

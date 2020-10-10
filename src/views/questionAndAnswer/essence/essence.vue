@@ -4,6 +4,7 @@
       <div class="questionItem" v-for="item in essenceList">
         <div class="user">
           <img :src="item.clientImage" />
+          <img class="vip" src="../../../static/images/vip.png" v-if="item.isMaster===1">
           <div class="username">{{item.clientName}}</div>
         </div>
         <div class="title">{{item.coverTitle}}</div>
@@ -12,7 +13,7 @@
       </div>
     </div>
     <div id="flag">
-      <img src="../../../static/images/loding.gif">
+      <img src="../../../static/images/loading1.gif">
       加载中...
     </div>
   </div>
@@ -35,13 +36,13 @@ export default {
   async mounted() {
     await this.getEssenceList();
      this.$nextTick(() => {
-        let wrapper = document.querySelector(".scrollWrap");
+        let wrapper = document.querySelector(".contentWrap");
         this.scroll = new BScroll(wrapper, {
           click: true,
           scrollY: true,
           probeType: 2,
             pullUpLoad: {
-          threshold: -30 // 当上拉距离超过30px时触发 pullingUp 事件
+            threshold: -30 // 当上拉距离超过30px时触发 pullingUp 事件
             }
         });
         //console.log(this.scroll)
@@ -64,12 +65,10 @@ export default {
     async getEssenceList() {
       if (!this.flag) return;
       this.flag = false;
-      let { data } = await this.$axios(
-        `question/getEssence?pageIndex=${this.pageIndex}&pageSize=10`
-      );
+      let { data } = await this.$axios(`question/getEssence?pageIndex=${this.pageIndex}&pageSize=10`);
       this.pageIndex += this.pageSize;
       this.flag = true;
-      //console.log(data.data.content.data)
+      console.log(data.data.content.data)
       this.essenceList.push(...data.data.content.data);
       this.scroll&&this.scroll.refresh()
     }
@@ -92,6 +91,7 @@ export default {
 <style lang="scss" scoped>
 .contentWrap{
    background: #fff;
+   height: 1000px;
    .itemWrap{
      padding: 30px;
     .questionItem {
@@ -99,6 +99,9 @@ export default {
       .user {
         display: flex;
         margin: 20px 0;
+        .vip{
+          margin-left: 15px;
+        }
         img {
           width: 80px;
           height: 80px;
@@ -148,7 +151,6 @@ export default {
   line-height: 63px;
   text-align: center;
   font-size: 32px;
-  background: #F5F7F9;
   padding-top:20px;
   img{
     width: 40px;

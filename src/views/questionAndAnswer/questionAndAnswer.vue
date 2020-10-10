@@ -41,8 +41,8 @@ export default {
   name: "questionAndAnswer",
   data(){
     return {
-      ShowEssence:true, //显示精华
-      ShowNews:false, //显示最新
+      ShowEssence:false, //显示精华
+      ShowNews:true, //显示最新
       ShowHot:false //显示最热
     }
   },
@@ -87,7 +87,7 @@ export default {
 <style lang="scss" scoped>
 /* 头部 */
 .wrap{
-  background: #F5F7F9;
+ // background: #F5F7F9;
   height: 100%;
     .headerWrap {
       z-index: 999;
@@ -154,7 +154,6 @@ export default {
   margin-top: 170px;
   width: 100%;
   overflow: hidden;
-  min-height:1100px ; 
 }
 
 </style>

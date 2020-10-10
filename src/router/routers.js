@@ -15,6 +15,7 @@ const video =()=>import( '../views/video/video')
 const lesson =()=>import( '../views/lesson/lesson')
 const allLessons =()=>import( '../views/AllLessons/AllLessons')
 const dishrank =()=>import( '../views/dishrank')
+const foodDetail =()=>import( '../views/foodDetail/foodDetail')
 
 
 
@@ -96,6 +97,10 @@ export default [
   {
     path:'/dishrank',
     component: dishrank
+  },
+  {
+    path:'/foodDetail',
+    component: foodDetail
   }
 
 ]

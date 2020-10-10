@@ -130,7 +130,10 @@ https://api.hongbeibang.com/v2/feed/getMasterNew?pageIndex=0&pageSize=10
 method:GET
 参数:pageIndex=0(页码) 0/10/20/30...   pageSize(每页数量)10
 */
-<<<<<<< HEAD
 
-=======
->>>>>>> 3ebd51013deb379356a0c0c3d01a2aa14f1be3b1
+/*
+最新问题最热问题详情 ==>foodDetail
+https://api.hongbeibang.com/recipe/get?contentId=0
+method:GET
+参数:contentId=0(点的具体某个详情)
+*/

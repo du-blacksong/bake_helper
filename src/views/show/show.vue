@@ -261,7 +261,7 @@
         // console.log("top",top)
         // console.log("bottom",flag.getBoundingClientRect().bottom)
         //    元素底部距离视口顶部的距离
-        console.log(flag.getBoundingClientRect().top)
+        // console.log(flag.getBoundingClientRect().top)
         if (~~(flag.getBoundingClientRect().top) < 877) {
           if (!this.flag) return
           this.getConsumerProduct()

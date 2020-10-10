@@ -5,7 +5,7 @@
       <div>
           <a class="questionTitle" href="">{{item.coverTitle}}</a>
       </div>
-      <div class='questionsContent'>
+      <div @click="toFoodDetail(item.recipeContentId)" class='questionsContent'>
           <img :src="item.recipe.image" alt="" class='imgWrap'>
           <div class="rightContent">
               <div class='contentTitle'>{{item.recipe.title}}</div>
@@ -18,11 +18,13 @@
           <div class='answerWrite'>写答案</div>
       </div>
   </div>
-  <div id="flag">加载中。。。</div>
+  <div id="flag">加载中...</div>
 </div>
 </template>
 
 <script>
+import BetterScroll from 'better-scroll'
+import router from "../../router"
 export default {
     name: 'Question',
     props:{
@@ -47,6 +49,10 @@ export default {
   if (~~(flag.getBoundingClientRect().top)<725){
     this.method()
   }
+},
+toFoodDetail(contentId){
+    this.$router.push(`/foodDetail?contentId=${contentId}`)
+    console.log(111)
 }
     },
     // 离开页面销毁监听事件；

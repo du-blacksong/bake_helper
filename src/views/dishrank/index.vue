@@ -1,25 +1,30 @@
 <template>
   <div class="outer">
-    <div class="top">
-      <div class="back" @click="back">
-        <img
-            src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48|imageView2/1/w/48/h/48"
-            alt="">
+    <Loading v-if="OutstandingCourseContent.length===0"/>
+    <template v-else>
+      <div class="top">
+        <div class="back" @click="back">
+          <img
+              src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48|imageView2/1/w/48/h/48"
+              alt="">
+        </div>
+        <div class="nav">
+          <div class="item" @click="active(0)" :class="{active:activeId===0}">学霸榜</div>
+          <div class="item" @click="active(1)" :class="{active:activeId===1}">最新</div>
+        </div>
       </div>
-      <div class="nav">
-        <div class="item" @click="active(0)" :class="{active:activeId===0}">学霸榜</div>
-        <div class="item" @click="active(1)" :class="{active:activeId===1}">最新</div>
+      <div class="main">
+        <home-work v-if="activeId===0" :method="getOutstandingCourseContent" :OutstandingContent="OutstandingCourseContent" />
+        <home-work v-else-if="activeId===1" :method="getCourseContent" :OutstandingContent="CourseContent" />
       </div>
-    </div>
-    <div class="main">
-      <home-work v-if="activeId===0" :method="getOutstandingCourseContent" :OutstandingContent="OutstandingCourseContent" />
-      <home-work v-else-if="activeId===1" :method="getCourseContent" :OutstandingContent="CourseContent" />
-    </div>
+    </template>
+
   </div>
 </template>
 
 <script>
 import homeWork from '@/components/homeWork'
+import Loading from '@/components/Loading/Loading'
 export default {
   name: "dishrank",
 
@@ -73,7 +78,11 @@ export default {
     await this.getCourseContent()
   },
   components:{
-    "homeWork":homeWork
+    "homeWork":homeWork,
+    Loading
+  },
+  destroyed () {
+    this.OutstandingCourseContent=[]
   }
 }
 </script>

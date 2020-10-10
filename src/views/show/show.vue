@@ -151,7 +151,7 @@
       </div>
     </div>
     <div id="secondFlag">
-      <img src="../../static/images/loding.gif" alt="">
+      <img src="../../static/images/loading1.gif">
       加载中...
     </div>
   </div>

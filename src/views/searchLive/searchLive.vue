@@ -22,19 +22,19 @@
       </div>
     </div>
 
-    <div class="tj">
+    <div class="tj" v-if="recommendList.length>0">
       <img  src="https://image.hongbeibang.com/Group3%20%281%29.png?imageMogr2/strip/thumbnail/640x640" >
     </div>
 
     <!-- 帮友推荐 -->
-    <!-- <div class="content">
-      <div class="item" v-for="item in lessonList">
-        <img :src="item.verticalImages[0]">
+    <div class="content">
+      <div class="item" v-for="item in recommendList">
+        <img :src="item.coverImage">
         <span class="buy" v-if="item.buyNum>1000">1000+人参与</span>
         <span class="buy" v-else>{{item.buyNum}}人参与</span>
-        <span class="title">{{item.shareTitle}}</span>
+        <span class="title">{{item.coverTitle}}</span>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -57,7 +57,11 @@ export default {
     this.lessonList=data.data.search.list.course.data
     this.keyword=keyword
     //console.log(data.data.search.list.course.data)
- 
+
+    // 帮友推荐数据
+    let res=await this.$axios(`recommend/getRandContent?type=5&pageSize=50`)
+    console.log(res.data.data.data)
+    this.recommendList=res.data.data.data
   },
   methods: {
     /* 回退 */

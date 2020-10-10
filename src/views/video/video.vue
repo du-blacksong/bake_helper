@@ -1,5 +1,7 @@
 <template>
   <div class="outer">
+    <loading v-if="recommendList.length===0"></loading>
+    <template v-else>
     <video :poster="image"  controls v-if="videoInfo.videoUrl">
       <source :src="videoInfo.videoUrl"/>
       <source :src="videoInfo.videoUrl2"/>
@@ -9,11 +11,13 @@
     </div>
     <div class="introduce" v-html="NewbieIntroduces.introduce"></div>
     <video-scroll title="推荐课程" :recommend-list="recommendList"/>
+  </template>
   </div>
 </template>
 
 <script>
 import videoScroll from "@/components/videoScroll"
+import Loading from "@/components/Loading/Loading"
 export default {
   name: "newbievideo",
   data () {
@@ -53,7 +57,11 @@ export default {
 
   },
   components:{
-    "videoScroll":videoScroll
+    videoScroll,
+    Loading
+  },
+  destroyed () {
+    this.recommendList=[]
   }
 }
 </script>

@@ -17,15 +17,15 @@
         <img src="https://image.hongbeibang.com/FlSZI5KwZLrR9-QXD9Vu7u0lVvCE?48X48&imageView2/1/w/40/h/40" alt="">
         <div class='answerWrite'>写答案</div>
       </div>
-<<<<<<< HEAD
+
     </div>
     <div id="flag">
-      <img src="../../static/images/loding.gif">
-=======
-  </div>
-  <div id="flag">
-    <img src="../../static/images/loading1.gif">
->>>>>>> 5e96e408b568e1ab3a1c4a93e5954012c4f9222e
+      <img src="../../static/images/loading1.gif">
+
+    </div>
+    <div id="flag">
+      <img src="../../static/images/loading1.gif">
+
       加载中...
     </div>
   </div>
@@ -48,7 +48,21 @@
       window.addEventListener("scroll", this.handleScroll)
     },
     methods: {
-<<<<<<< HEAD
+      //  无限滚动的回调
+      handleScroll(e) {
+        const flag = document.querySelector('#flag')
+        // console.log("top",top)
+        // console.log("bottom",flag.getBoundingClientRect().bottom)
+        //    元素底部距离视口顶部的距离
+        //   console.log(~~(flag.getBoundingClientRect().top));
+        if (~~(flag.getBoundingClientRect().top) < 725) {
+          this.method()
+        }
+      },
+      toFoodDetail(contentId) {
+        this.$router.push(`/foodDetail?contentId=${contentId}`)
+        console.log(111)
+      },
       //  无限滚动的回调
       handleScroll(e) {
         const flag = document.querySelector('#flag')
@@ -65,30 +79,15 @@
         console.log(111)
       }
     },
-=======
-          //  无限滚动的回调
-    handleScroll(e) {
-  const flag=document.querySelector('#flag')
-      // console.log("top",top)
-      // console.log("bottom",flag.getBoundingClientRect().bottom)
-  //    元素底部距离视口顶部的距离
-//   console.log(~~(flag.getBoundingClientRect().top));
-  if (~~(flag.getBoundingClientRect().top)<725){
-    this.method()
-  }
-},
-  toFoodDetail(contentId){
-    this.$router.push(`/foodDetail?contentId=${contentId}`)
-    console.log(111)
-    }
-  },
->>>>>>> 5e96e408b568e1ab3a1c4a93e5954012c4f9222e
+ 
+
     // 离开页面销毁监听事件；
     destroyed() {
       window.removeEventListener("scroll", this.handleScroll, false);
-    },
+    }
   }
 </script>
+
 <style scoped lang="scss">
   .outer {
     padding-bottom: 100px;
@@ -203,30 +202,27 @@
   }
 
   #flag {
-<<<<<<< HEAD
     width: 100%;
     height: 63px;
     line-height: 63px;
     text-align: center;
     font-size: 32px;
     background: #F5F7F9;
-=======
-  margin-top: 80px;
-  width: 100%;
-  height: 63px;
-  line-height: 63px;
-  text-align: center;
-  font-size: 32px;
-  img{
-    width: 40px;
-    height: 40px;
-  }
-}
->>>>>>> 5e96e408b568e1ab3a1c4a93e5954012c4f9222e
+    margin-top: 80px;
+    width: 100%;
+    height: 63px;
+    line-height: 63px;
+    text-align: center;
+    font-size: 32px;
 
     img {
       width: 40px;
       height: 40px;
     }
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
   }
 </style>

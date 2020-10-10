@@ -6,7 +6,7 @@
     <!-- 搜索框 -->
     <div class="search">
       <span class="left">提问</span>
-      <div class="searchInput">
+      <div class="searchInput" @click="toSearch">
         <span>搜索问题</span>
       </div>
       <span class="iconfont icon-lingdang"></span>
@@ -70,6 +70,10 @@ export default {
         this.ShowHot=true
       }
 
+    },
+    /* 跳转到search页面 */
+    toSearch(){
+      this.$router.push('/search')
     }
   },
   components: {
@@ -83,7 +87,8 @@ export default {
 <style lang="scss" scoped>
 /* 头部 */
 .wrap{
-  position: relative;
+  background: #F5F7F9;
+  height: 100%;
     .headerWrap {
       z-index: 999;
     background-color: #fff;
@@ -155,6 +160,7 @@ export default {
     padding: 30px 30px;
 
   }
+  min-height:1100px ;
 }
 
 </style>

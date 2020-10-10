@@ -18,7 +18,10 @@
           <div class='answerWrite'>写答案</div>
       </div>
   </div>
-  <div id="flag">加载中...</div>
+  <div id="flag">
+    <img src="../../static/images/loding.gif">
+      加载中...
+  </div>
 </div>
 </template>
 
@@ -161,5 +164,19 @@ toFoodDetail(contentId){
 
 }
 
+
+  }
+  #flag {
+  width: 100%;
+  height: 63px;
+  line-height: 63px;
+  text-align: center;
+  font-size: 32px;
+  background: #F5F7F9;
+  img{
+    width: 40px;
+    height: 40px;
+  }
 }
+
 </style>

@@ -51,7 +51,7 @@ export default {
     loading
   },
   destroyed () {
-    this.baikeList=[]
+    // this.baikeList=[]
   }
 }
 </script>

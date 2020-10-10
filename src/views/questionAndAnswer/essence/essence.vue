@@ -1,17 +1,20 @@
 <template>
-  <div class="wrap">
-    <div class="questionItem" v-for="item in essenceList">
-      <div class="user">
-        <img :src="item.clientImage" />
-        <div class="username">{{item.clientName}}</div>
+  <div class="contentWrap">
+    <div class="itemWrap">
+      <div class="questionItem" v-for="item in essenceList">
+        <div class="user">
+          <img :src="item.clientImage" />
+          <div class="username">{{item.clientName}}</div>
+        </div>
+        <div class="title">{{item.coverTitle}}</div>
+        <div class="content">{{item.coverSummary}}</div>
+        <div class="like">{{item.hotNum}}个赞</div>
       </div>
-      <div class="title">{{item.coverTitle}}</div>
-      <div class="content">{{item.coverSummary}}</div>
-      <div class="like">{{item.hotNum}}个赞</div>
     </div>
     <div id="flag">
-      <img src="../../../static/images/loding.gif" alt="">
-      加载中...</div>
+      <img src="../../../static/images/loding.gif">
+      加载中...
+    </div>
   </div>
 </template>
 
@@ -87,56 +90,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.questionItem {
-  border-bottom: 1px #eee solid;
-  .user {
-    display: flex;
-    margin: 20px 0;
-    img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-    }
-    .username {
-      color: #4a4945;
-      font-size: 24px;
-      height: 80px;
-      line-height: 80px;
-      margin-left: 24px;
-    }
-  }
-  .title {
-    line-height: 50px;
-    font-size: 36px;
-    font-weight: bold;
-    color: #4a4945;
-    margin-bottom: 10px;
-  }
-  .content {
-    // height: 120px;
-    font-size: 28px;
-    color: #4a4945;
-    word-break: break-all;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-  }
-  .like {
-    height: 60px;
-    font-size: 28px;
-    line-height: 28px;
-    color: #999;
-    margin-top: 20px;
-  }
+.contentWrap{
+   background: #fff;
+   .itemWrap{
+     padding: 30px;
+    .questionItem {
+      border-bottom: 1px #eee solid;
+      .user {
+        display: flex;
+        margin: 20px 0;
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+        }
+        .username {
+          color: #4a4945;
+          font-size: 24px;
+          height: 80px;
+          line-height: 80px;
+          margin-left: 24px;
+        }
+      }
+      .title {
+        line-height: 50px;
+        font-size: 36px;
+        font-weight: bold;
+        color: #4a4945;
+        margin-bottom: 10px;
+      }
+      .content {
+        // height: 120px;
+        font-size: 28px;
+        color: #4a4945;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+      }
+      .like {
+        height: 60px;
+        font-size: 28px;
+        line-height: 28px;
+        color: #999;
+        margin-top: 20px;
+      }
 }
+   }
+
+}
+
 #flag {
   width: 100%;
   height: 63px;
   line-height: 63px;
   text-align: center;
   font-size: 32px;
+  background: #F5F7F9;
+  padding-top:20px;
   img{
     width: 40px;
     height: 40px;

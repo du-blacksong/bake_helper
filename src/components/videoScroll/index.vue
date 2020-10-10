@@ -28,7 +28,7 @@ courseId,课程id，对应请求数据中的courseid，也可能是其他值(edu
 <script>
 import BScroll from "better-scroll";
 export default {
-name: "index",
+name: "videoScroll",
   methods:{
     goToLesson(courseId){
       this.$router.push(`/lesson?contentId=${courseId}`)
@@ -36,8 +36,9 @@ name: "index",
     goTouniversity(){
       if (this.$route.path==='/video'){
         this.$router.push('/university')
+      }else if (this.$route.path==='/lesson'){
+        this.$router.push('/allLessons?clientId='+this.clientid)
       }
-
     }
   },
   props:{
@@ -48,6 +49,9 @@ name: "index",
     recommendList:{
       type:Array,
       required:true
+    },
+    clientid:{
+    type:Number,
     }
   },
   beforeMount () {

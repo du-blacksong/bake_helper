@@ -4,52 +4,56 @@ url:/lessonSeries?contentId=10535
 -->
 <template>
   <div class="outer">
-    <LessonTitle :imageUrl="getCourse.image" :title="getCourse.title"/>
-    <div class="main">
-      <div class="nav" ref="nav">
-        <div @click="active(0)" class="item" :class="{active:activeindex===0}">
-          课程介绍
-          <div v-show="activeindex===0"></div>
-        </div>
-        <div @click="active(1)" class="item" :class="{active:activeindex===1}">
-          课程目录
-          <div v-show="activeindex===1"></div>
-        </div>
-        <div @click="active(2)" class="item" :class="{active:activeindex===2}">
-          学员作业
-          <div v-show="activeindex===2"></div>
-        </div>
-      </div>
-      <div ref="placehold"></div>
-      <div class="coursedesc" v-show="activeindex===0">
-        <div class="item">
-          <div class="title">{{getCourse.introduces && getCourse.introduces[0].title}}</div>
-          <div class="desc" v-html="getCourse.introduces&&getCourse.introduces[0].introduce"></div>
-        </div>
-        <div class="item">
-          <div class="title">{{getCourse.introduces && getCourse.introduces[1].title}}</div>
-          <div class="desc" v-html="getCourse.introduces&&getCourse.introduces[1].introduce"></div>
-        </div>
-        <div class="item last">
-          <hpb-desc/>
-        </div>
-      </div>
-      <div class="seriescourse" v-show="activeindex===1">
-        <div @click="goToLesson(item.educationCourseId)" class="seriescourseitem"
-             v-for="(item,index) in getSeriesCourse" :key="index">
-          <img :src="item.image" alt="">
-          <div class="right">
-            <div class="title">{{item.title}}</div>
-            <div class="free" v-show="item.freeNumDone===0">免费试看</div>
+    <Loading v-if="getSeriesCourse.length===0"/>
+    <template v-else>
+      <LessonTitle :imageUrl="getCourse.image" :title="getCourse.title"/>
+      <div class="main">
+        <div class="nav" ref="nav">
+          <div @click="active(0)" class="item" :class="{active:activeindex===0}">
+            课程介绍
+            <div v-show="activeindex===0"></div>
+          </div>
+          <div @click="active(1)" class="item" :class="{active:activeindex===1}">
+            课程目录
+            <div v-show="activeindex===1"></div>
+          </div>
+          <div @click="active(2)" class="item" :class="{active:activeindex===2}">
+            学员作业
+            <div v-show="activeindex===2"></div>
           </div>
         </div>
+        <div ref="placehold"></div>
+        <div class="coursedesc" v-show="activeindex===0">
+          <div class="item">
+            <div class="title">{{getCourse.introduces && getCourse.introduces[0].title}}</div>
+            <div class="desc" v-html="getCourse.introduces&&getCourse.introduces[0].introduce"></div>
+          </div>
+          <div class="item">
+            <div class="title">{{getCourse.introduces && getCourse.introduces[1].title}}</div>
+            <div class="desc" v-html="getCourse.introduces&&getCourse.introduces[1].introduce"></div>
+          </div>
+          <div class="item last">
+            <hpb-desc/>
+          </div>
+        </div>
+        <div class="seriescourse" v-show="activeindex===1">
+          <div @click="goToLesson(item.educationCourseId)" class="seriescourseitem"
+               v-for="(item,index) in getSeriesCourse" :key="index">
+            <img :src="item.image" alt="">
+            <div class="right">
+              <div class="title">{{item.title}}</div>
+              <div class="free" v-show="item.freeNumDone===0">免费试看</div>
+            </div>
+          </div>
+
+        </div>
+        <home-work :method="getOutstandingCourseContent" :OutstandingContent="OutstandingContent" v-show="activeindex===2"/>
+
+        <LessonBottom :old-price="getCourse.originPrice" :new-price="getCourse.preDiscountPrice"/>
 
       </div>
-      <home-work :OutstandingContent="OutstandingContent" v-show="activeindex===2"/>
+    </template>
 
-      <LessonBottom :old-price="getCourse.originPrice" :new-price="getCourse.preDiscountPrice"/>
-
-    </div>
   </div>
 </template>
 
@@ -58,6 +62,7 @@ import LessonTitle from '@/components/LessonTitle'
 import hpbDesc from '@/components/hpbDesc'
 import LessonBottom from '@/components/LessonBottom'
 import homeWork from '@/components/homeWork'
+import Loading from '@/components/Loading/Loading'
 
 export default {
   name: "lessonSeries",
@@ -149,12 +154,14 @@ export default {
   // 离开页面销毁监听事件；
   destroyed () {
     window.removeEventListener("scroll", this.fixedTab, false);
+    this.getSeriesCourse=[]
   },
   components: {
     "LessonTitle": LessonTitle,
     "hpbDesc": hpbDesc,
     "LessonBottom": LessonBottom,
     "homeWork": homeWork,
+    Loading
   }
 }
 </script>

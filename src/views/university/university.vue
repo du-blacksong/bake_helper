@@ -138,7 +138,7 @@ export default {
       this.$router.push(`/lesson?contentId=${courseId}`)
     },
     toSearch(){
-      router.push('/search')
+      router.push('/search?type=live')
     },
     goToAllLessons(categoryId){
       this.$router.push(`/allLessons?categoryId=${categoryId}`)
@@ -207,20 +207,23 @@ export default {
     width: 100%;
     padding-top: 100px;
     overflow: hidden;
-    .my-swipe .van-swipe-item {
-      color: #fff;
-      height: 380px;
-      img{
-        width: 100%;
-        height: 100%;
+    .my-swipe{
+      margin-bottom: 40px;
+      .van-swipe-item {
+        color: #fff;
+        height: 380px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
       }
     }
 
+
     .recommend {
-      margin-top: 40px;
-      margin-left: 30px;
       margin-bottom: 30px;
       .title {
+        margin-left: 30px;
         font-size: 34px;
         line-height: 48px;
         color: #313131;
@@ -245,6 +248,7 @@ export default {
         height: 540px;
         white-space: nowrap;
         .pic-list{
+          padding: 0 30px;
           display :inline-block;
           font-size: 0;
           .pic-item{
@@ -269,6 +273,7 @@ export default {
               line-height: 40px;
               text-align: center;
               border-radius: 10px;
+
             }
             .itemTitle{
               height: 80px;

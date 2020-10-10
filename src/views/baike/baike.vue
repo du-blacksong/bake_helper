@@ -1,28 +1,33 @@
 <!--百科-->
 <template>
   <div class="outer">
-    <div class="top">
+    <loading v-if="baikeList.length===0"></loading>
+    <div v-else>
+      <div class="top">
       <span @click="backToindex">
         <img src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
       </span>
 
-    </div>
-    <div class="imglist">
-      <div @click="goTovideo(item.courseId)" class="item" v-for="(item,index) in baikeList" :key="item.courseId">
-        <img :src="item.image">
-        <div class="desc">{{item.title}}</div>
       </div>
+      <div class="imglist">
+        <div @click="goTovideo(item.courseId)" class="item" v-for="(item,index) in baikeList" :key="item.courseId">
+          <img :src="item.image">
+          <div class="desc">{{item.title}}</div>
+        </div>
 
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import loading from '@/components/Loading/Loading'
 export default {
   name: "baike",
   data(){
     return{
-      baikeList:[]
+      baikeList:[],
     }
   },
   async beforeMount () {
@@ -41,6 +46,12 @@ export default {
     goTovideo(courseId){
       this.$router.push(`/video?contentId=${courseId}`)
     }
+  },
+  components:{
+    loading
+  },
+  destroyed () {
+    this.baikeList=[]
   }
 }
 </script>

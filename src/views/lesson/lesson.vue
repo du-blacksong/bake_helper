@@ -1,36 +1,40 @@
 <!--从lessonSeries跳转过来要带上isHideBottom-->
 <template>
   <div class="outer">
+<Loading v-if="stuwork.length===0"/>
+    <template v-else>
+      <LessonTitle :title="$route.query.isHideBottom==='1'?'试看步骤: '+Course.trySeeTitle:Course.title" :videoUrl="Course.trySeeUrl?Course.trySeeUrl:Course.playURL"/>
+      <div class="stuWork" @click="goTodishrank">
+        <div class="head">
+          <div class="title">学生作业</div>
+          <div class="seeMore">查看更多</div>
+        </div>
+        <div class="imglist">
+          <img v-for="item in stuwork" :key="item.contentId" :src="item.image[0]" alt="">
+        </div>
+      </div>
+      <div class="introduce" v-if="Course.introduces">
+        <div class="title">{{Course.introduces[0].title}}</div>
+        <div class="desc" v-html="Course.introduces[0].introduce"></div>
+        <div class="title">{{Course.introduces[1].title}}</div>
+        <div class="desc" v-html="Course.introduces[1].introduce"></div>
+      </div>
+      <div class="teacherIntroduce">
+        <div class="title">导师介绍</div>
+        <div class="teacher">
+          <img :src="Course.teacherImage" alt="">
+          <div class="name">{{Course.teacherName}}</div>
+        </div>
+        <div class="desc" v-html="Course.teacherIntroduce"></div>
+      </div>
+      <videoScroll v-if="Course.clientId"  title="导师的其他课程" :recommend-list="ClientOtherCourse" :clientid="Course.clientId"/>
+      <div class="hpbdesc">
+        <hpbDesc/>
+      </div>
+      <LessonBottom v-if="$route.query.isHideBottom!=='1'" :old-price="Course.originPrice" :new-price="Course.price"/>
+    </template>
 
-    <LessonTitle :title="$route.query.isHideBottom==='1'?'试看步骤: '+Course.trySeeTitle:Course.title" :videoUrl="Course.trySeeUrl?Course.trySeeUrl:Course.playURL"/>
-    <div class="stuWork">
-      <div class="head">
-        <div class="title">学生作业</div>
-        <div class="seeMore">查看更多</div>
-      </div>
-      <div class="imglist">
-        <img v-for="item in stuwork" :key="item.contentId" :src="item.image[0]" alt="">
-      </div>
-    </div>
-    <div class="introduce" v-if="Course.introduces">
-      <div class="title">{{Course.introduces[0].title}}</div>
-      <div class="desc" v-html="Course.introduces[0].introduce"></div>
-      <div class="title">{{Course.introduces[1].title}}</div>
-      <div class="desc" v-html="Course.introduces[1].introduce"></div>
-    </div>
-    <div class="teacherIntroduce">
-      <div class="title">导师介绍</div>
-      <div class="teacher">
-        <img :src="Course.teacherImage" alt="">
-        <div class="name">{{Course.teacherName}}</div>
-      </div>
-      <div class="desc" v-html="Course.teacherIntroduce"></div>
-    </div>
-    <videoScroll title="导师的其他课程" :recommend-list="ClientOtherCourse"/>
-    <div class="hpbdesc">
-      <hpbDesc/>
-    </div>
-<LessonBottom v-if="$route.query.isHideBottom!=='1'" :old-price="Course.originPrice" :new-price="Course.price"/>
+
   </div>
 </template>
 
@@ -39,6 +43,7 @@ import LessonTitle from '@/components/LessonTitle'
 import videoScroll from "@/components/videoScroll";
 import hpbDesc from "@/components/hpbDesc";
 import LessonBottom from "@/components/LessonBottom";
+import Loading from "@/components/Loading/Loading";
 
 export default {
   name: "lesson",
@@ -53,6 +58,10 @@ export default {
     }
   },
   methods: {
+    //去学生作业页面
+    goTodishrank(){
+      this.$router.push('/dishrank?contentId='+this.$route.query.contentId)
+    },
     //获取课程信息
     async getCourse () {
       const {data} = await this.$axios.get(`/education/getCourse?educationCourseId=${this.$route.query.contentId}`)
@@ -81,7 +90,6 @@ export default {
     this.getOutstandingCourseContent()
     this.getClientOtherCourse()
   },
-
   watch: {
     '$route' (to, from) {
       // 路由发生变化页面刷新
@@ -93,7 +101,11 @@ export default {
     "videoScroll": videoScroll,
     "hpbDesc": hpbDesc,
     "LessonBottom": LessonBottom,
-  }
+    Loading
+  },
+  destroyed () {
+  this.stuwork=[]
+}
 }
 </script>
 

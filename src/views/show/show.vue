@@ -1,136 +1,156 @@
 <!--烘焙圈-->
 <template>
   <div class="container">
-    <!-- 头部导航 -->
-    <div class="headerWrapper">
-      <div class="header">
-        <div class="plus">
-          <span class="icon iconfont">&#xe641;</span>
-        </div>
-        <div class="text">
-          <div @click="subscription">
-            <span>关注</span>
+    <div v-show="!showMasking">
+      <!-- 头部导航 -->
+      <div class="headerWrapper">
+        <div class="header">
+          <div class="plus">
+            <span class="icon iconfont" @click="isShowMasking">&#xe641;</span>
           </div>
-          <div>
-            <span @click="attention">最新</span>
-          </div>
-          <div>
-            <span @click="superMan">达人</span>
-          </div>
-        </div>
-        <div class="lingdang">
-          <span class="icon iconfont">&#xe600;</span>
-        </div>
-      </div>
-    </div>
-    <!-- 关注详情 -->
-    <div class="subscription" v-show="subscriptionDetail">
-      <div class="subscriptionDetail">暂无关注</div>
-    </div>
-    <!-- 最新 -->
-    <div class="latest">
-      <!-- 第一个滑屏 -->
-      <div class="headerNav" v-show="latestDetail">
-        <div class="headerNavList">
-          <div class="imgbox" v-for="(detail,index) in swrapImage.item" :key="index">
-            <img :src="detail.image">
-          </div>
-        </div>
-      </div>
-      <!-- 第二个滑屏 -->
-      <div class="labelList" v-show="latestDetail">
-        <div class="labelContent">
-          <div class="labelItem" v-for="item in swrapText" :key="item.communityId">
-            <div>{{item.name}}</div>
-          </div>
-        </div>
-      </div>
-      <!-- 消费者作品展示 -->
-      <div class="show" v-for="(item,index) in context" :key="index" v-show="latestDetail">
-        <div class="showTop">
-          <div class="headPortrait">
-            <img :src="item.clientImage" alt="">
-          </div>
-          <div class="showContent">
-            <div class="showName">{{item.clientName}}</div>
-            <span class="showTime">{{item.createTime}} {{item.coverTitle}}</span>
-          </div>
-        </div>
-        <div class="showImg">
-          <div class="describe">
-            <span class="describe1">{{item.communityName}}</span>
-            <span>{{item.introduce}}</span>
-          </div>
-          <img :src="item.image" alt="">
-        </div>
-
-        <div class="showBotton" v-if="item.recipe.clientId !== 0">
-          <div class="showBottonImg">
-            <img :src="item.recipe.image" alt="">
-          </div>
-          <div class="showBottonRight">
-            <div class="showBottonName">{{item.recipe.title}}</div>
-            <div class="showBottonAuthor">作者：{{item.recipe.clientName}}</div>
-          </div>
-        </div>
-        <!-- 评价 -->
-        <div class="evaluate">
-          <div class="evaluateItem">
-            <div><img src="https://image.hongbeibang.com/Fqv9VBHXG627znbKlZYnHQMTHVdc?200X200&imageView2/1/w/38/h/38"
-                alt=""><span>{{item.likeNum ===0 ? `点赞` : item.likeNum}}</span></div>
-            <div><img src="https://image.hongbeibang.com/Fi6E0gsACPeVV5_xgH5JBn6PN45m?200X200&imageView2/1/w/38/h/38"
-                alt=""><span>{{item.rewardNum === 0 ? `打赏` : item.rewardNum}}</span></div>
-            <div><img src="https://image.hongbeibang.com/FiZ5-B7_rmV_gnPl97P-FkpjSlij?200X200&imageView2/1/w/38/h/38"
-                alt=""><span>评论</span></div>
-          </div>
-        </div>
-      </div>
-      <div id="flag">loading...</div>
-    </div>
-
-    <!-- 达人详情 -->
-    <div class="content" v-show="superManDetail">
-      <div class="show" v-for="(item,index) in content" :key="index">
-        <div class="showTop">
-          <div class="headPortrait">
-            <img :src="item.clientImage" alt="">
-          </div>
-          <div class="showContent">
-            <div class="showName"><img
-                src="https://image.hongbeibang.com/Fj1UT_HuSX4MkdcukYhWRpioEyWx?200X200&imageView2/1/w/80/h/80">{{item.clientName}}
+          <div class="text">
+            <div @click="subscription">
+              <span :class="{'active' : subscriptionDetail}">关注</span>
             </div>
-            <span class="showTime">{{item.createTime}} {{item.coverTitle}}</span>
+            <div @click="attention">
+              <span :class="{'active' : latestDetail}">最新</span>
+            </div>
+            <div @click="superMan">
+              <span :class="{'active' : superManDetail}">达人</span>
+            </div>
           </div>
-        </div>
-        <div class="showImg">
-          <div class="describe">
-            <span class="describe1">{{item.communityName}}</span>
-            <span>{{item.introduce}}</span>
-          </div>
-          <img :src="item.image" alt="">
-        </div>
-        <div class="showBotton" v-if="item.recipe.clientId !== 0">
-          <div class="showBottonImg">
-            <img :src="item.recipe.image" alt="">
-          </div>
-          <div class="showBottonRight">
-            <div class="showBottonName">{{item.recipe.title}}</div>
-            <div class="showBottonAuthor">作者：{{item.recipe.clientName}}</div>
-          </div>
-        </div>
-        <div class="evaluate">
-          <div class="evaluateItem">
-            <div><img src="https://image.hongbeibang.com/Fqv9VBHXG627znbKlZYnHQMTHVdc?200X200&imageView2/1/w/38/h/38"
-                alt=""><span>点赞</span></div>
-            <div><img src="https://image.hongbeibang.com/Fi6E0gsACPeVV5_xgH5JBn6PN45m?200X200&imageView2/1/w/38/h/38"
-                alt=""><span>打赏</span></div>
-            <div><img src="https://image.hongbeibang.com/FiZ5-B7_rmV_gnPl97P-FkpjSlij?200X200&imageView2/1/w/38/h/38"
-                alt=""><span>评论</span></div>
+          <div class="lingdang">
+            <span class="icon iconfont">&#xe600;</span>
           </div>
         </div>
       </div>
+      <!-- 关注详情 -->
+      <div class="subscription" v-show="subscriptionDetail">
+        <div class="subscriptionDetail">暂无关注</div>
+      </div>
+      <!-- 最新 -->
+      <div class="latest">
+        <!-- 第一个滑屏 -->
+        <div class="headerNav" v-show="latestDetail">
+          <div class="headerNavList">
+            <div class="imgbox" v-for="(detail,index) in swrapImage.item" :key="index">
+              <img :src="detail.image">
+            </div>
+          </div>
+        </div>
+        <!-- 第二个滑屏 -->
+        <div class="labelList" v-show="latestDetail">
+          <div class="labelContent">
+            <div class="labelItem" v-for="item in swrapText" :key="item.communityId">
+              <div>{{item.name}}</div>
+            </div>
+          </div>
+        </div>
+        <!-- 消费者作品展示 -->
+        <div class="show" v-for="(item,index) in context" :key="index" v-show="latestDetail">
+          <div class="showTop">
+            <div class="headPortrait">
+              <img :src="item.clientImage" alt="">
+            </div>
+            <div class="showContent">
+              <div class="showName">{{item.clientName}}</div>
+              <span class="showTime">{{item.createTime}} {{item.coverTitle}}</span>
+            </div>
+          </div>
+          <div class="showImg">
+            <div class="describe">
+              <span class="describe1">{{item.communityName}}</span>
+              <span>{{item.introduce}}</span>
+            </div>
+            <img :src="item.image" alt="">
+          </div>
+
+          <div class="showBotton" v-if="item.recipe.clientId !== 0">
+            <div class="showBottonImg">
+              <img :src="item.recipe.image" alt="">
+            </div>
+            <div class="showBottonRight">
+              <div class="showBottonName">{{item.recipe.title}}</div>
+              <div class="showBottonAuthor">作者：{{item.recipe.clientName}}</div>
+            </div>
+          </div>
+          <!-- 评价 -->
+          <div class="evaluate">
+            <div class="evaluateItem">
+              <div><img src="https://image.hongbeibang.com/Fqv9VBHXG627znbKlZYnHQMTHVdc?200X200&imageView2/1/w/38/h/38"
+                  alt=""><span>{{item.likeNum ===0 ? `点赞` : item.likeNum}}</span></div>
+              <div><img src="https://image.hongbeibang.com/Fi6E0gsACPeVV5_xgH5JBn6PN45m?200X200&imageView2/1/w/38/h/38"
+                  alt=""><span>{{item.rewardNum === 0 ? `打赏` : item.rewardNum}}</span></div>
+              <div><img src="https://image.hongbeibang.com/FiZ5-B7_rmV_gnPl97P-FkpjSlij?200X200&imageView2/1/w/38/h/38"
+                  alt=""><span>评论</span></div>
+            </div>
+          </div>
+        </div>
+        <div id="flag"></div>
+      </div>
+
+      <!-- 达人详情 -->
+      <div class="content" v-show="superManDetail">
+        <div class="show" v-for="(item,index) in content" :key="index">
+          <div class="showTop">
+            <div class="headPortrait">
+              <img :src="item.clientImage" alt="">
+            </div>
+            <div class="showContent">
+              <div class="showName"><img
+                  src="https://image.hongbeibang.com/Fj1UT_HuSX4MkdcukYhWRpioEyWx?200X200&imageView2/1/w/80/h/80">{{item.clientName}}
+              </div>
+              <span class="showTime">{{item.createTime}} {{item.coverTitle}}</span>
+            </div>
+          </div>
+          <div class="showImg">
+            <div class="describe">
+              <span class="describe1">{{item.communityName}}</span>
+              <span>{{item.introduce}}</span>
+            </div>
+            <img :src="item.image" alt="">
+          </div>
+          <div class="showBotton" v-if="item.recipe.clientId !== 0">
+            <div class="showBottonImg">
+              <img :src="item.recipe.image" alt="">
+            </div>
+            <div class="showBottonRight">
+              <div class="showBottonName">{{item.recipe.title}}</div>
+              <div class="showBottonAuthor">作者：{{item.recipe.clientName}}</div>
+            </div>
+          </div>
+          <div class="evaluate">
+            <div class="evaluateItem">
+              <div><img src="https://image.hongbeibang.com/Fqv9VBHXG627znbKlZYnHQMTHVdc?200X200&imageView2/1/w/38/h/38"
+                  alt=""><span>{{item.likeNum===0 ? `点赞` : item.likeNum}}</span></div>
+              <div><img src="https://image.hongbeibang.com/Fi6E0gsACPeVV5_xgH5JBn6PN45m?200X200&imageView2/1/w/38/h/38"
+                  alt=""><span>{{item.rewardNum === 0 ? `打赏` : item.rewardNum}}</span></div>
+              <div><img src="https://image.hongbeibang.com/FiZ5-B7_rmV_gnPl97P-FkpjSlij?200X200&imageView2/1/w/38/h/38"
+                  alt=""><span>评论</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="littleFlag">loading...</div>
     </div>
-    <div id="littleFlag">loading...</div>
+
+    <!--    蒙版-->
+    <div class="masking" v-show="showMasking">
+      <div class="close">
+        <i class="iconfont icon-guanbi" @click="noShowMasking"></i>
+      </div>
+      <div class="image">
+        <img src="../../static/images/scsp.jpg">
+        <img src="../../static/images/sczp.jpg">
+      </div>
+      <div class="name">
+        <span>上传食谱</span>
+        <span>上传作品</span>
+      </div>
+      <div class="maskingBottom">
+        <span>草稿箱</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -150,7 +170,8 @@
         context: [],
         flag: true,
         content: [],
-        littleFlag:true,
+        littleFlag: true,
+        showMasking: false,
 
 
       }
@@ -181,14 +202,25 @@
       // this.content = resultSuperMan.data.data.content
     },
     methods: {
+      //蒙版展示
+      isShowMasking() {
+        this.showMasking = true;
+        document.getElementsByClassName('bottomBar')[0].style.display='none'
+      },
+      // 蒙版隐藏
+      noShowMasking() {
+        this.showMasking = false;
+        document.getElementsByClassName('bottomBar')[0].style.display='flex'
+      },
       //获得达人页面的数据
-      async getSuperMan(){
+      async getSuperMan() {
         if (!littleFlag) return
         this.littleFlag = false
         const resultSuperMan = await this.$axios.get(`v2/feed/getMasterNew?pageIndex=0&pageSize=${this.pageSize}`)
         this.littleFlag = true
         this.content.push(...resultSuperMan.data.data.content)
         this.pageIndex += 10
+        // console.log(this.content)
       },
       //消费者作品展示的数据
       async getConsumerProduct() {
@@ -227,11 +259,11 @@
         }
       },
       // 达人页面的无限滚动的回调
-      handleLittleScroll(e){
+      handleLittleScroll(e) {
         const littleFlag = document.querySelector('#littleFlag')
-          // console.log(littleFlag.getBoundingClientRect().top)
-        if(~~(littleFlag.getBoundingClientRect().top) < 4272){
-          if(!this.littleFlag) return
+        // console.log(littleFlag.getBoundingClientRect().top)
+        if (~~(littleFlag.getBoundingClientRect().top) < 877) {
+          if (!this.littleFlag) return
           this.getSuperMan()
         }
       }
@@ -259,12 +291,6 @@
         background: #FFFFFF;
         height: 88px;
         width: 100%;
-        // z-index: 6;
-        // position: fixed;
-        // top: 0;
-        // left: 0;
-        // right: 0;
-        // padding: 0 36px;
         margin: 17px auto;
         max-width: 600px;
         box-sizing: border-box;
@@ -289,6 +315,10 @@
           line-height: 80px;
           height: 80px;
           margin: -10px 65px;
+
+          .active {
+            border-bottom: 5px solid #E98B71;
+          }
         }
 
         .text div {
@@ -300,6 +330,7 @@
           height: 88px;
           font-size: 32px;
           color: #999999;
+
         }
 
         .text span {
@@ -307,12 +338,13 @@
           font-weight: bold;
           text-align: center;
           cursor: pointer;
-          border-bottom: 5px solid #E98B71;
           display: inline-block;
           margin-bottom: 5px;
           padding: 0 4px;
           border-radius: 3px;
+
         }
+
       }
     }
 
@@ -582,7 +614,7 @@
   // 达人页面的样式
   .content {
     background: #F5F7F9;
-    margin-top: 40px;
+    margin-top: 120px;
 
     .show {
       background: #fff;
@@ -728,5 +760,52 @@
         }
       }
     }
+  }
+
+  // 蒙版的样式
+  .masking {
+    .close {
+      height: 88px;
+      line-height: 88px;
+      padding-left: 45px;
+
+      i {
+        width: 136px;
+        font-size: 44px;
+        color: #333333;
+      }
+    }
+
+    .image {
+      margin-top: 740px;
+      display: flex;
+      justify-content: space-around;
+
+      img {
+        width: 250px;
+        height: 250px;
+      }
+    }
+
+    .name {
+      display: flex;
+      justify-content: space-around;
+      font-size: 28px;
+    }
+
+    .maskingBottom {
+      height: 110px;
+      line-height: 110px;
+      font-size: 32px;
+      margin: 0 50px;
+      color: #4A4945;
+      ;
+      position: fixed;
+      width: 650px;
+      bottom: 0;
+      text-align: center;
+      border-top: #E7E2E5 1px solid;
+    }
+
   }
 </style>

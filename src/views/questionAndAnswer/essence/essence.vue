@@ -9,7 +9,9 @@
       <div class="content">{{item.coverSummary}}</div>
       <div class="like">{{item.hotNum}}个赞</div>
     </div>
-    <div id="flag">加载中...</div>
+    <div id="flag">
+      <img src="../../../static/images/loding.gif" alt="">
+      加载中...</div>
   </div>
 </template>
 
@@ -132,8 +134,13 @@ export default {
 #flag {
   width: 100%;
   height: 63px;
+  line-height: 63px;
   text-align: center;
   font-size: 32px;
+  img{
+    width: 40px;
+    height: 40px;
+  }
 }
 </style>
 

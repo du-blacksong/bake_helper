@@ -1,36 +1,40 @@
 <!--食谱分类-->
 <template>
   <div class="outer">
-    <div class="top">
-      <img @click="backTo" src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
-      <div @click="goToSearch" class="search">搜索食谱/食材，烘焙/家常菜一应俱全</div>
-    </div>
-    <div class="main">
-      <div class="left" ref="left">
-        <div class="contain">
-          <div @click="active(item.classifyId)" class="item" v-for="(item,index) in recommendnav" :key="item.classifyId" :class="{active:classifyid===item.classifyId}">
-            {{item.name}}</div>
-        </div>
+    <template>
+      <div class="top">
+        <img @click="backTo" src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
+        <div @click="goToSearch" class="search">搜索食谱/食材，烘焙/家常菜一应俱全</div>
       </div>
-      <div class="right">
-        <div class="item" v-for="(item,index) in recommendlist" :key="item.classifyId">
-          <div class="title">{{item.name}}</div>
-          <div class="imglist">
-            <div class="imgitem" v-for="img in item.list" :key="img.classifyId">
-              <img :src="img.image"
-                   alt="">
-              <div class="name">{{img.name}}</div>
+      <div class="main">
+        <div class="left" ref="left">
+          <div class="contain">
+            <div @click="active(item.classifyId)" class="item" v-for="(item,index) in recommendnav" :key="item.classifyId" :class="{active:classifyid===item.classifyId}">
+              {{item.name}}</div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="item" v-for="(item,index) in recommendlist" :key="item.classifyId">
+            <div class="title">{{item.name}}</div>
+            <div class="imglist">
+              <div @click="goTosearchForm(img.name)" class="imgitem" v-for="img in item.list" :key="img.classifyId">
+                <img :src="img.image"
+                     alt="">
+                <div class="name">{{img.name}}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </template>
+
   </div>
 </template>
 
 <script>
 import {mapState,mapGetters} from 'vuex'
 import BScroll from 'better-scroll'
+import Loading from "@/components/Loading/Loading";
 export default {
   name: "classify",
   data(){
@@ -38,7 +42,7 @@ export default {
       //  选中的classifyid
       classifyid:0,
       //  右侧要展示的列表
-      recommendlist:{}
+      recommendlist:null
     }
 
   },
@@ -49,6 +53,10 @@ export default {
     ...mapGetters(['recommendnav'])
   },
   methods:{
+    //跳到搜索页面
+    goTosearchForm(keyword){
+      this.$router.push('/searchForm?keyword='+keyword)
+    },
     active(id){
       this.classifyid=id
       this.recommendlist=this.classify.filter(item=>{
@@ -87,9 +95,8 @@ export default {
 
 
   },
-  beforeDestroy () {
-    console.log('销毁')
-
+  components:{
+    Loading
   }
 }
 </script>

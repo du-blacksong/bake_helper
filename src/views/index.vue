@@ -317,6 +317,7 @@ export default {
     }
 
     .recommend {
+      position: relative;
       margin-bottom: 30px;
       .title {
         margin-left: 30px;
@@ -326,13 +327,12 @@ export default {
         vertical-align: middle;
         display: inline-block;
         font-weight: bold;
-        position: relative;
         .all{
           font-size: 28px;
           color: #999999;
           line-height: 48px;
           position: absolute;
-          right: -560px;
+          right: 30px;
         }
       }
 

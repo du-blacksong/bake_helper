@@ -5,7 +5,8 @@
       <div class="search">
          <img @click="toBack" src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
         <div class="searchInput">
-          <input v-model="keyword" :placeholder="keyword"></input>
+          <input v-model="keyword" :placeholder="keyword">
+          <img class="close" src="https://image.hongbeibang.com/Fj4TZXGr-U6xOlfHBu-CvJ3hQwhD?imageView2/1/w/640/h/640"></input>
         </div>
       </div>
     </div>
@@ -108,6 +109,11 @@ export default {
         color: #4A4945;
         border: none;
         background: none;
+        .close{
+          width: 28px;
+          height: 28px;
+          z-index: 999;
+        }
       }
     }
     .right{

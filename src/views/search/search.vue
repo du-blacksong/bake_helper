@@ -44,7 +44,11 @@ export default {
   methods: {
     /* 点击搜索跳转到serchForm */
     toSearch(){
-     this.$router.push(`/searchForm?keyword=${this.keyword}`)
+      if(this.$route.query.type==='live'){
+        this.$router.push(`/searchLive?keyword=${this.keyword}`)
+      }else{
+        this.$router.push(`/searchLive?keyword=${this.keyword}`)
+      }
     },
     /*
     点击下面的小标签跳转到搜索的详情页面 */

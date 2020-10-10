@@ -1,4 +1,4 @@
-//最新问题和最热问题共用组件封装
+<!--最新问题和最热问题共用组件封装-->
 <template>
 <div class="outer">
   <div class="questionsWrap" v-for="(item, index) in news" :key="index">
@@ -160,6 +160,6 @@ toFoodDetail(contentId){
     }
 
 }
-    
+
 }
 </style>

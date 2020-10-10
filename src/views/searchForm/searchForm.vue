@@ -27,7 +27,6 @@
 
 
     <div class="mainContainer">
-
       <van-list
           v-model="loading"
           :finished="finished"
@@ -53,6 +52,11 @@
 <!--        </div>-->
 <!--      </div>-->
     </div>
+
+<!--    <div class="noList" v-show="1">-->
+<!--      <img src="../../static/images/chushi.jpg">-->
+<!--      <div></div>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -92,6 +96,7 @@ export default {
     },
     delkey(){
       this.keyword = ''
+      this.showList=[]
     },
     changekey(){
       this.$router.push(`/searchForm?keyword=${this.keyword}`)

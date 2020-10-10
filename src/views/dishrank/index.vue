@@ -82,7 +82,6 @@ export default {
     Loading
   },
   destroyed () {
-    this.OutstandingCourseContent=[]
   }
 }
 </script>

@@ -51,7 +51,7 @@
     <div class="main2" v-show="showOther">
       <div class="item" v-for="item in otherList" :key="item.educationCourseId"
       @click="goToLesson(item.educationCourseId)">
-        <img :src="item.verticalImages[0]">
+        <img v-lazy="item.verticalImages[0]">
         <span class="buy" v-if="item.buyNum>1000">1000+人参与</span>
         <span class="buy" v-else>{{item.buyNum}}人参与</span>
         <span class="title">{{item.title}}</span>

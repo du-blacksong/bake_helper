@@ -1,4 +1,4 @@
-//最新问题和最热问题共用组件封装
+<!--最新问题和最热问题共用组件封装-->
 <template>
 <div class="outer">
   <div class="questionsWrap" v-for="(item, index) in news" :key="index">
@@ -18,7 +18,10 @@
           <div class='answerWrite'>写答案</div>
       </div>
   </div>
-  <div id="flag">加载中...</div>
+  <div id="flag">
+    <img src="../../static/images/loding.gif">
+      加载中...
+  </div>
 </div>
 </template>
 
@@ -160,6 +163,20 @@ toFoodDetail(contentId){
     }
 
 }
-    
+
+
+  }
+  #flag {
+  width: 100%;
+  height: 63px;
+  line-height: 63px;
+  text-align: center;
+  font-size: 32px;
+  background: #F5F7F9;
+  img{
+    width: 40px;
+    height: 40px;
+  }
 }
+
 </style>

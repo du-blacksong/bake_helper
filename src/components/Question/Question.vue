@@ -19,10 +19,7 @@
       </div>
 
     </div>
-    <div id="flag">
-      <img src="../../static/images/loading1.gif">
 
-    </div>
     <div id="flag">
       <img src="../../static/images/loading1.gif">
 
@@ -62,24 +59,9 @@
       toFoodDetail(contentId) {
         this.$router.push(`/foodDetail?contentId=${contentId}`)
         console.log(111)
-      },
-      //  无限滚动的回调
-      handleScroll(e) {
-        const flag = document.querySelector('#flag')
-        // console.log("top",top)
-        // console.log("bottom",flag.getBoundingClientRect().bottom)
-        //    元素底部距离视口顶部的距离
-        //   console.log(~~(flag.getBoundingClientRect().top));
-        if (~~(flag.getBoundingClientRect().top) < 725) {
-          this.method()
-        }
-      },
-      toFoodDetail(contentId) {
-        this.$router.push(`/foodDetail?contentId=${contentId}`)
-        console.log(111)
       }
     },
- 
+
 
     // 离开页面销毁监听事件；
     destroyed() {
@@ -207,7 +189,6 @@
     line-height: 63px;
     text-align: center;
     font-size: 32px;
-    background: #F5F7F9;
     margin-top: 80px;
     width: 100%;
     height: 63px;

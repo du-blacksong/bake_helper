@@ -9,13 +9,13 @@
         </div>
         <div class="text">
           <div @click="subscription">
-            <span>关注</span>
+            <span :class="{'active' : subscriptionDetail}">关注</span>
           </div>
-          <div>
-            <span @click="attention">最新</span>
+          <div @click="attention">
+            <span :class="{'active' : latestDetail}">最新</span>
           </div>
-          <div>
-            <span @click="superMan">达人</span>
+          <div @click="superMan">
+            <span :class="{'active' : superManDetail}">达人</span>
           </div>
         </div>
         <div class="lingdang">
@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-      <div id="flag">loading...</div>
+      <div id="flag"></div>
     </div>
 
     <!-- 达人详情 -->
@@ -121,9 +121,9 @@
         <div class="evaluate">
           <div class="evaluateItem">
             <div><img src="https://image.hongbeibang.com/Fqv9VBHXG627znbKlZYnHQMTHVdc?200X200&imageView2/1/w/38/h/38"
-                alt=""><span>点赞</span></div>
+                alt=""><span>{{item.likeNum===0 ? `点赞` : item.likeNum}}</span></div>
             <div><img src="https://image.hongbeibang.com/Fi6E0gsACPeVV5_xgH5JBn6PN45m?200X200&imageView2/1/w/38/h/38"
-                alt=""><span>打赏</span></div>
+                alt=""><span>{{item.rewardNum === 0 ? `打赏` : item.rewardNum}}</span></div>
             <div><img src="https://image.hongbeibang.com/FiZ5-B7_rmV_gnPl97P-FkpjSlij?200X200&imageView2/1/w/38/h/38"
                 alt=""><span>评论</span></div>
           </div>
@@ -189,6 +189,7 @@
         this.littleFlag = true
         this.content.push(...resultSuperMan.data.data.content)
         this.pageIndex += 10
+        // console.log(this.content)
       },
       //消费者作品展示的数据
       async getConsumerProduct() {
@@ -230,7 +231,7 @@
       handleLittleScroll(e){
         const littleFlag = document.querySelector('#littleFlag')
           // console.log(littleFlag.getBoundingClientRect().top)
-        if(~~(littleFlag.getBoundingClientRect().top) < 4272){
+        if(~~(littleFlag.getBoundingClientRect().top) < 877){
           if(!this.littleFlag) return
           this.getSuperMan()
         }
@@ -245,7 +246,6 @@
 <style scoped lang="scss">
   .container {
     position: relative;
-
     .headerWrapper {
       width: 100%;
       background-color: #fff;
@@ -259,12 +259,6 @@
         background: #FFFFFF;
         height: 88px;
         width: 100%;
-        // z-index: 6;
-        // position: fixed;
-        // top: 0;
-        // left: 0;
-        // right: 0;
-        // padding: 0 36px;
         margin: 17px auto;
         max-width: 600px;
         box-sizing: border-box;
@@ -289,6 +283,9 @@
           line-height: 80px;
           height: 80px;
           margin: -10px 65px;
+          .active {
+            border-bottom: 5px solid #E98B71;
+          }
         }
 
         .text div {
@@ -300,6 +297,7 @@
           height: 88px;
           font-size: 32px;
           color: #999999;
+          
         }
 
         .text span {
@@ -307,12 +305,13 @@
           font-weight: bold;
           text-align: center;
           cursor: pointer;
-          border-bottom: 5px solid #E98B71;
           display: inline-block;
           margin-bottom: 5px;
           padding: 0 4px;
           border-radius: 3px;
+          
         }
+        
       }
     }
 
@@ -582,12 +581,10 @@
   // 达人页面的样式
   .content {
     background: #F5F7F9;
-    margin-top: 40px;
-
+    margin-top: 120px;
     .show {
       background: #fff;
       width: 100%;
-
       // height: 409px;
       .showTop {
         width: 690px;

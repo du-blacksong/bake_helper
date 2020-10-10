@@ -45,5 +45,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+   .outer{
+    padding: 0 15px 15px 15px;
+    background: #fff;
+  }
 </style>

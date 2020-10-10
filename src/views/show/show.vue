@@ -65,7 +65,7 @@
             <img :src="item.image" alt="">
           </div>
 
-          <div class="showBotton" v-if="item.recipe.clientId !== 0" @click="toFoodDetail(item.contentId)">
+          <div class="showBotton" v-if="item.recipe.clientId !== 0" @click="toFoodDetail(item.recipe.contentId)">
             <div class="showBottonImg">
               <img :src="item.recipe.image" alt="">
             </div>
@@ -207,7 +207,7 @@
     methods: {
       //跳转到食物的详情页面
       toFoodDetail(contentId){
-        this.$router.push(`/toFoodDetail?contentId=${contentId}`)
+        this.$router.push(`/foodDetail?contentId=${contentId}`)
         console.log(111111111111111111111111111111)
       },
       //蒙版展示
@@ -261,7 +261,7 @@
         // console.log("top",top)
         // console.log("bottom",flag.getBoundingClientRect().bottom)
         //    元素底部距离视口顶部的距离
-        // console.log(flag.getBoundingClientRect().top)
+        console.log(flag.getBoundingClientRect().top)
         if (~~(flag.getBoundingClientRect().top) < 877) {
           if (!this.flag) return
           this.getConsumerProduct()
@@ -277,7 +277,11 @@
         }
       }
     },
-
+// 离开页面销毁监听事件；
+  destroyed () {
+    window.removeEventListener("scroll", this.handleLittleScroll, false);
+    window.removeEventListener("scroll", this.handleScroll, false);
+  },
 
 
   }

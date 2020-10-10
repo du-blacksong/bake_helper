@@ -1,4 +1,4 @@
-//最新问题和最热问题共用组件封装
+<!--最新问题和最热问题共用组件封装-->
 <template>
 <div class="outer">
   <div class="questionsWrap" v-for="(item, index) in news" :key="index">
@@ -162,6 +162,9 @@ export default {
       }
     }
 
+}
+
+
   }
   #flag {
   margin-top: 80px;
@@ -174,6 +177,6 @@ export default {
     width: 40px;
     height: 40px;
   }
-} 
 }
+
 </style>

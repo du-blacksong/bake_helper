@@ -31,7 +31,7 @@
           <div class="text" @click="toSearch">
             <span><i class="iconfont icon-sousuo"></i>搜索食谱/食材，烘焙/家常菜一应俱全</span>
           </div>
-          <i class="iconfont icon-lingdang"></i>
+          <i class="iconfont icon-lingdang" @change="$router.push('/my')"></i>
         </div>
 
         <!--  顶部导航栏-->

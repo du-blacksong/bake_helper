@@ -65,7 +65,7 @@
             <img :src="item.image" alt="">
           </div>
 
-          <div class="showBotton" v-if="item.recipe.clientId !== 0">
+          <div class="showBotton" v-if="item.recipe.clientId !== 0" @click="toFoodDetail(item.recipe.contentId)">
             <div class="showBottonImg">
               <img :src="item.recipe.image" alt="">
             </div>
@@ -131,9 +131,8 @@
           </div>
         </div>
       </div>
-      <div id="littleFlag">loading...</div>
+      <div id="littleFlag"></div>
     </div>
-
     <!--    蒙版-->
     <div class="masking" v-show="showMasking">
       <div class="close">
@@ -150,6 +149,10 @@
       <div class="maskingBottom">
         <span>草稿箱</span>
       </div>
+    </div>
+    <div id="secondFlag">
+      <img src="../../static/images/loading1.gif">
+      加载中...
     </div>
   </div>
 </template>
@@ -178,6 +181,7 @@
     },
     async mounted() {
       // 获得第一个滑屏的数据
+
       const req = await this.$axios.get("feed/getCategory")
       // console.log(req.data.data.category[0])
       this.swrapImage = req.data.data.category[0]
@@ -190,7 +194,6 @@
       this.getConsumerProduct()
       // const reqs = await this.$axios.get("v2/feed/getNew?&pageIndex=0&pageSize=10")
       // this.context = reqs.data.data.content
-      console.log(this.context)
       //
       window.addEventListener("scroll", this.handleScroll)
 
@@ -202,6 +205,11 @@
       // this.content = resultSuperMan.data.data.content
     },
     methods: {
+      //跳转到食物的详情页面
+      toFoodDetail(contentId){
+        this.$router.push(`/foodDetail?contentId=${contentId}`)
+        console.log(111111111111111111111111111111)
+      },
       //蒙版展示
       isShowMasking() {
         this.showMasking = true;
@@ -229,6 +237,7 @@
         const reqs = await this.$axios.get(`v2/feed/getNew?pageIndex=${this.pageIndex}&pageSize=10`)
         this.flag = true
         this.context.push(...reqs.data.data.content)
+        console.log(this.context)
         this.pageIndex = this.pageIndex + 10
       },
       subscription() {
@@ -252,7 +261,7 @@
         // console.log("top",top)
         // console.log("bottom",flag.getBoundingClientRect().bottom)
         //    元素底部距离视口顶部的距离
-        // console.log(flag.getBoundingClientRect().top)
+        console.log(flag.getBoundingClientRect().top)
         if (~~(flag.getBoundingClientRect().top) < 877) {
           if (!this.flag) return
           this.getConsumerProduct()
@@ -268,7 +277,11 @@
         }
       }
     },
-
+// 离开页面销毁监听事件；
+  destroyed () {
+    window.removeEventListener("scroll", this.handleLittleScroll, false);
+    window.removeEventListener("scroll", this.handleScroll, false);
+  },
 
 
   }
@@ -806,6 +819,18 @@
       text-align: center;
       border-top: #E7E2E5 1px solid;
     }
-
   }
+
+  // loading的图片样式
+  #secondFlag {
+  width: 100%;
+  height: 63px;
+  line-height: 63px;
+  text-align: center;
+  font-size: 32px;
+  img{
+    width: 40px;
+    height: 40px;
+  }
+}
 </style>

@@ -154,6 +154,12 @@ export default {
   margin-top: 170px;
   width: 100%;
   overflow: hidden;
+
+  // height:1100px;
+.questionWrap{
+    padding: 30px 30px;
+
+  }
 }
 
 </style>

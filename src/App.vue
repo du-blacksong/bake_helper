@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view :key="$route.path"/>
+    <keep-alive>
+      <router-view :key="$route.path"/>
+    </keep-alive>
     <BottomBar v-if="$route.meta.isFooter"></BottomBar>
   </div>
 </template>

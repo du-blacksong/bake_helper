@@ -77,10 +77,10 @@ export default {
     /*  handleScroll(e){
       const flag=document.querySelector('#flag')
       console.log(11);
-      
+
       console.log(flag.getBoundingClientRect().top)
       if ((flag.getBoundingClientRect().top)<1100){
-      
+
         this.getEssenceList()
       }
     } */

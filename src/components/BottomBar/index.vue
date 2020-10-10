@@ -45,11 +45,12 @@ export default {
     display: flex;
     flex-direction: column;
     .iconfont{
+      margin-top:6px;
       font-size: 50px;
     }
     span{
       font-size: 22px;
-      margin-top:5px;
+      margin-top:3px;
     }
 
   }

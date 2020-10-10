@@ -138,7 +138,7 @@ export default {
       this.$router.push(`/lesson?contentId=${courseId}`)
     },
     toSearch(){
-      router.push('/search')
+      router.push('/search?type=live')
     },
     goToAllLessons(categoryId){
       this.$router.push(`/allLessons?categoryId=${categoryId}`)

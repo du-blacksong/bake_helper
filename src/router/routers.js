@@ -12,6 +12,7 @@ const my =()=>import( '../views/my/my')
 const lessonSeries =()=>import( '../views/lessonSeries/lessonSeries')
 const search =()=>import( '../views/search/search')
 const searchForm =()=>import( '../views/searchForm/searchForm')
+const searchLive =()=>import( '../views/searchLive/searchLive')
 const video =()=>import( '../views/video/video')
 const lesson =()=>import( '../views/lesson/lesson')
 const allLessons =()=>import( '../views/AllLessons/AllLessons')
@@ -85,6 +86,10 @@ export default [
   {
     path: '/searchForm',
     component: searchForm
+  },
+  {
+    path: '/searchLive',
+    component: searchLive
   },
   {
     path: '/video',

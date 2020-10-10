@@ -2,9 +2,9 @@
   <div>
     <div class="top">
       <div class="topsearch">
-        <img src="../../static/images/back.jpg" @click="$router.push('/search')" class="back">
+        <img src="../../static/images/back.jpg" @click="$router.back()" class="back">
         <img src="../../static/images/del.jpg" class="del" v-show="keyword" @click="delkey">
-        <input class="input" v-model="keyword" @change="changekey"/>
+        <input class="input" v-model="keyword" @change="changekey" placeholder="搜索食谱"/>
         <span class="shipu">食谱</span>
         <img src="../../static/images/more.jpg" class="more">
       </div>

@@ -5,11 +5,13 @@
     <!-- 搜索框 -->
       <div class="search">
          <img @click="toBack" src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
+        <!-- 从视频学堂点击就显示搜索课程 -->
         <div class="searchInput" v-if="$route.query.type==='live'">
           <input v-model="keyword" placeholder="搜索课程">
           <i class="iconfont icon-sousuo"></i>
           </input>
         </div>
+        <!--从其他点击 -->
         <div class="searchInput" v-else>
           <input v-model="keyword" placeholder="搜索食谱/食材，烘焙/家常菜一应俱全"></input>
         </div>
@@ -112,11 +114,6 @@ export default {
           color: #4A4945;
           border: none;
           background: none;
-          i{
-            position: absolute;
-            top:0;
-            left:100px;
-          }
         }
       }
       .right{

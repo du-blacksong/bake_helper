@@ -7,13 +7,14 @@
          <img @click="toBack" src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
         <!-- 从视频学堂点击就显示搜索课程 -->
         <div class="searchInput" v-if="$route.query.type==='live'">
-          <input v-model="keyword" placeholder="搜索课程">
+          <input  class="live" v-model="keyword" placeholder="搜索课程"/>
           <i class="iconfont icon-sousuo"></i>
-          </input>
+          <img src="../../static/images/del.jpg" class="del" v-show="keyword" @click="delkey">
         </div>
         <!--从其他点击 -->
         <div class="searchInput" v-else>
-          <input v-model="keyword" placeholder="搜索食谱/食材，烘焙/家常菜一应俱全"></input>
+          <img src="../../static/images/del.jpg" class="close" v-show="keyword" @click="delkey">
+          <input class="other" v-model="keyword" placeholder="搜索食谱/食材，烘焙/家常菜一应俱全"></input>
         </div>
         <span @click="toSearch" class="right">搜索</span>
       </div>
@@ -67,7 +68,11 @@ export default {
     /* 回退 */
     toBack(){
       this.$router.back(-1)
-    }
+    },
+    /* 点击×清空搜索框 */
+    delkey(){
+      this.keyword = ''
+    },
   }
 };
 </script>
@@ -95,6 +100,7 @@ export default {
 
       }
       .searchInput{
+        position: relative;
         flex: 1;
         height: 70px;
         line-height: 70px;
@@ -106,15 +112,46 @@ export default {
         box-sizing: border-box;
         overflow: hidden;
         cursor: pointer;
-        input{
-          position: relative;
+        .live{
           width: 100%;
           height: 100%;
-          font-size: 28px;
+          font-size: 32px;
           color: #4A4945;
           border: none;
+          padding-left: 40px;
           background: none;
         }
+        .del{
+          position: absolute;
+          width: 66px;
+          height: 66px;
+          right: 20px;
+          top: -5px;
+        }
+        .other{
+          width: 100%;
+          height: 100%;
+          font-size: 32px;
+          color: #4A4945;
+          border: none;
+          padding-left: 30px;
+          background: none;
+        }
+        .close{
+          position: absolute;
+          width: 66px;
+          height: 66px;
+          left: -10px;
+          top: -5px;
+          margin-right: 0px;
+        }
+        i{
+          position: absolute;
+          font-size: 40px;
+          top:4px;
+          left:10px;
+        }
+
       }
       .right{
         margin: -8px 0;

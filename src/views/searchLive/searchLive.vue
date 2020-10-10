@@ -5,8 +5,9 @@
       <div class="search">
          <img @click="toBack" src="https://image.hongbeibang.com/FoTuxKG5pqYKuAsT8BjrflkAxEpj?48X48&imageView2/1/w/48/h/48" alt="">
         <div class="searchInput">
-          <input v-model="keyword" :placeholder="keyword">
-          <img class="close" src="https://image.hongbeibang.com/Fj4TZXGr-U6xOlfHBu-CvJ3hQwhD?imageView2/1/w/640/h/640"></input>
+          <input v-model="keyword" :placeholder="keyword"/>
+          <i class="iconfont icon-sousuo fangda"></i>
+          <img src="../../static/images/del.jpg" class="del" v-show="keyword" @click="delkey">
         </div>
       </div>
     </div>
@@ -62,7 +63,11 @@ export default {
     /* 回退 */
     toBack(){
       this.$router.back(-1)
-    }
+    },
+    /* 点击×删除搜索框内容 */
+    delkey(){
+      this.keyword = ''
+    },
     
   }
 }
@@ -91,6 +96,7 @@ export default {
       margin: 10px 0;
     }
     .searchInput{
+      position: relative;
       flex: 1;
       height: 70px;
       line-height: 70px;
@@ -108,13 +114,24 @@ export default {
         font-size: 28px;
         color: #4A4945;
         border: none;
+        padding-left:60px;
         background: none;
-        .close{
-          width: 28px;
-          height: 28px;
-          z-index: 999;
-        }
       }
+      .del{
+        position: absolute;
+        right: 50px;
+        top:-5px;
+        width: 70px;
+        height: 70px;
+        }
+      i{
+        position: absolute;
+        left: 20px;
+        top: 5px;
+        font-size: 32px;
+       
+        }
+
     }
     .right{
       margin: -8px 0;

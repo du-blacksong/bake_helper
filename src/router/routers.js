@@ -17,6 +17,7 @@ const video =()=>import( '../views/video/video')
 const lesson =()=>import( '../views/lesson/lesson')
 const allLessons =()=>import( '../views/AllLessons/AllLessons')
 const dishrank =()=>import( '../views/dishrank')
+const foodDetail =()=>import( '../views/foodDetail/foodDetail')
 
 
 
@@ -201,6 +202,17 @@ export default [
     meta:{
       metaInfo: {
         title: "学生作业",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
+  },
+  {
+    path:'/foodDetail',
+    component: foodDetail,
+    meta:{
+      metaInfo: {
+        title: "食谱展示",
         keywords: "面包，甜点，饼干，零食，西餐，面食",
         description: "该网站有sh0318一组合作完成"
       }

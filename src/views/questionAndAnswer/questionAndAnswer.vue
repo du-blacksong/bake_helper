@@ -151,9 +151,9 @@ export default {
   overflow: hidden;
   // height:1100px;
 .questionWrap{
-   
+
     padding: 30px 30px;
-   
+
   }
 }
 

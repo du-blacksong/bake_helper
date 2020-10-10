@@ -42,75 +42,181 @@ export default [
     name: 'index',
     component: index,
     meta:{
-      isFooter:true
+      isFooter:true,
+      metaInfo: {
+        title: "烘焙帮",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
     }
   },
   {
     path: '/baike',
-    component: baike
+    component: baike,
+    meta:{
+      metaInfo: {
+        title: "食品百科",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/classify',
-    component: classify
+    component: classify,
+    meta:{
+      metaInfo: {
+        title: "分类",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/university',
-    component: university
+    component: university,
+    meta:{
+      metaInfo: {
+        title: "视频学堂",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/show',
     component: show,
     meta:{
-      isFooter:true
+      isFooter:true,
+      metaInfo: {
+        title: "烘焙圈",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
     }
   },
   {
     path: '/questionAndAnswer',
     component: questionAndAnswer,
     meta:{
-      isFooter:true
+      isFooter:true,
+      metaInfo: {
+        title: "烘焙问答",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
     },
 
   },
   {
     path: '/my',
     component: my,
+    meta:{
+      metaInfo: {
+        title: "个人中心",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/lessonSeries',
-    component: lessonSeries
+    component: lessonSeries,
+    meta:{
+      metaInfo: {
+        title: "新手教程",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/search',
-    component: search
+    component: search,
+    meta:{
+      metaInfo: {
+        title: "搜索",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/searchForm',
-    component: searchForm
+    component: searchForm,
+    meta:{
+      metaInfo: {
+        title: "搜索",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/searchLive',
-    component: searchLive
+    component: searchLive,
+    meta:{
+      metaInfo: {
+        title: "搜索",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/video',
-    component: video
+    component: video,
+    meta:{
+      metaInfo: {
+        title: "视频",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path: '/lesson',
-    component: lesson
+    component: lesson,
+    meta:{
+      metaInfo: {
+        title: "课程介绍",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path:'/allLessons',
-    component: allLessons
+    component: allLessons,
+    meta:{
+      metaInfo: {
+        title: "所有课程",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path:'/dishrank',
-    component: dishrank
+    component: dishrank,
+    meta:{
+      metaInfo: {
+        title: "学生作业",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   },
   {
     path:'/foodDetail',
-    component: foodDetail
+    component: foodDetail,
+    meta:{
+      metaInfo: {
+        title: "食谱展示",
+        keywords: "面包，甜点，饼干，零食，西餐，面食",
+        description: "该网站有sh0318一组合作完成"
+      }
+    }
   }
 
 ]

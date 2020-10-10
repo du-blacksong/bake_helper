@@ -14,7 +14,7 @@
         <span class="favonum">{{item.likeNum}}</span>
       </div>
     </div>
-    <div id="flag"> 加载中...</div>
+    <div id="flag"></div>
   </div>
 </template>
 

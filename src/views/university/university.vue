@@ -98,15 +98,17 @@ export default {
 
 
     //轮播图
-    const swipeList = await this.$axios('/education/getIndexByWeb')
-    this.swipeList = swipeList.data.data.category[0].item
+    const List = await this.$axios('/education/getIndexByWeb')
+
+    // const swipeList = await this.$axios('/education/getIndexByWeb')
+    this.swipeList = List.data.data.category[0].item
     // console.log(this.swipeList)
 
 
     //获取主页菜单列表
-    const indexMemuList = await this.$axios('/education/getIndexByWeb')
+    // const indexMemuList = await this.$axios('/education/getIndexByWeb')
     // console.log(indexMemuList.data.data.category.slice(1,10))
-    this.indexMemuList = indexMemuList.data.data.category.slice(1,10)
+    this.indexMemuList = List.data.data.category.slice(1,10)
 
     //滚动
     this.$nextTick(() => {
@@ -221,6 +223,7 @@ export default {
 
 
     .recommend {
+      position: relative;
       margin-bottom: 30px;
       .title {
         margin-left: 30px;
@@ -230,13 +233,12 @@ export default {
         vertical-align: middle;
         display: inline-block;
         font-weight: bold;
-        position: relative;
         .all{
           font-size: 28px;
           color: #999999;
           line-height: 48px;
           position: absolute;
-          right: -560px;
+          right: 30px;
         }
       }
 

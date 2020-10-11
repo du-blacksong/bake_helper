@@ -27,7 +27,7 @@
       <span @click="toSearchForm(item.keyword)" class="keyword" v-for="item in popularSearch">{{item.keyword}}</span>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -50,7 +50,7 @@ export default {
       if(this.$route.query.type==='live'){
         this.$router.push(`/searchLive?keyword=${this.keyword}`)
       }else{
-        this.$router.push(`/searchLive?keyword=${this.keyword}`)
+        this.$router.push(`/searchForm?keyword=${this.keyword}`)
       }
     },
     /*
@@ -63,7 +63,7 @@ export default {
       }else{
         this.$router.push(`/searchForm?keyword=${e}`)
       }
-     
+
     },
     /* 回退 */
     toBack(){
@@ -161,7 +161,7 @@ export default {
 
     }
 
- 
+
   }
   /* 热门搜索标签 */
     .hotSearch{
@@ -172,7 +172,7 @@ export default {
         color: #999;
 
       }
- 
+
     }
   /* 搜索的小标签 */
     .keywordWrap{
@@ -195,7 +195,7 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
         }
-      
+
     }
 
 }
